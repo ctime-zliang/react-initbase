@@ -15,7 +15,7 @@ import { IGProfile, SERVER_RENDER } from '@/store/gProfile/config'
 
 const { Content } = Layout
 
-function RecordList(props: IRecordListProps) {
+function RecordList(props: TIRecordListProps) {
 	console.log(`RecordList.props ❤❤❤`, props)
 	const {
 		g_RENDER_WAY,
@@ -122,7 +122,7 @@ function RecordList(props: IRecordListProps) {
 		const keywords = decodeURI(getQueryValueOfUrl('keywords') || '')
 		setPageConfig({ ...pageConfig, pageSize, pageIndex, countTotal })
 		setFormConfig({ ...formConfig, keywords })
-		fetchTableData({ pageIndex, pageSize, keywords })
+		fetchTableData({ pageIndex, pageSize, keywords })		
 	}, [location])
 
 	useEffect(() => {
@@ -196,6 +196,8 @@ interface IRecordListProps extends RouteComponentProps, IGProfile {
 	addItemRequestAction: Function
 	[key: string]: any
 }
+type TExpand<T> = T extends infer O ? {[K in keyof O] : O[K]} : never
+type TIRecordListProps = TExpand<IRecordListProps>
 
 export default connect(
 	(state: { [key: string]: any } = {}, ownProps) => {

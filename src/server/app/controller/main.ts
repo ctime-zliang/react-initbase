@@ -16,6 +16,13 @@ class RtestController extends Controller {
 			controllerKey: 'Key inserted by Controller',
 		})
 	}
+
+	async imglist(ctx: IExtendKoaContext, res: TResponse) {
+		const query = ctx.query
+		res.setData({
+			...query,
+		})
+	}
 }
 
 export default new RtestController()

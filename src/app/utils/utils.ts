@@ -1,5 +1,4 @@
 import { ICommonResponse } from '@/model/config'
-import { IRouteItem } from 'router/config'
 
 export function createDefaultErrorResponse(ret: number = -1, msg: string = '', data: any = null, __remote: any = null): ICommonResponse {
 	return {
@@ -70,15 +69,4 @@ export function findResults(list: any, key: string, value: any): IFindResults {
 		}
 	}
 	return res
-}
-
-export function depth(list: IRouteItem[] = [], callback = new Function()) {
-	list.forEach((row) => {
-		if (row.children || row.routes) {
-			depth(row.children || row.routes, callback)
-		} else {
-			callback(row)
-		}
-	})
-	return list
 }

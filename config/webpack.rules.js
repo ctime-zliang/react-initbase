@@ -29,7 +29,12 @@ const tsxLoader = {
 const cssLoaderClient = {
 	test: /\.css$/,
 	exclude: /\.module\.css$/,
-	use: ['css-hot-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+	use: [
+		'css-hot-loader', 
+		MiniCssExtractPlugin.loader, 
+		'css-loader', 
+		'postcss-loader'
+	],
 	sideEffects: true,
 }
 const cssModulesLoaderClient = {
