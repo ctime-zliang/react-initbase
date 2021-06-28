@@ -1,0 +1,10 @@
+.search-btn-container {
+	display: flex;
+	justify-content: flex-start;
+}
+.search-btn-item {
+	margin: 0 0 0 8px;
+}
+.search-btn-item:first-child {
+	margin-left: 0;
+}
