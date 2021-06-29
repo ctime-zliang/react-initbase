@@ -1,3 +1,7 @@
+/*
+	使用 esbuild(-loader) 时将不再需要 babel
+ */
+
 module.exports = config => {
 	const isTargetWeb = config.caller(caller => caller && caller.target === 'web')
 	const isDev = ['test', 'production'].includes(process.env.NODE_ENV) === false

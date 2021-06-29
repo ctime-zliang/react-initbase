@@ -5,6 +5,7 @@ module.exports = {
 	disableHostCheck: true,
 	host: '127.0.0.1',
 	compress: true,
+	progress: true,
 	hot: true,
 	open: true,
 	inline: true,

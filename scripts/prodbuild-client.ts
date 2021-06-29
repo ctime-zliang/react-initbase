@@ -6,10 +6,17 @@ import paths from '../config/webpack.paths'
 
 const clientPaths = paths.client
 
-rimraf.sync(clientPaths.proBuild.path())
+const rimrafPaths = () => {
+	try {
+		rimraf.sync(clientPaths.prodBuild.path())
+	} catch (e) {
+		logger.error(`[Error] Init Directory Fail.`)
+	}
+}
 
 const handler = async () => {
 	logger.info(`[Info] Starting build...`)
+	const startStamp = Date.now()
 
 	const clientCompiler: any = webpack(prodClientWebpackConfig as any)
 	const clientPromise = compilerPromise('client', clientCompiler)
@@ -35,9 +42,13 @@ const handler = async () => {
 		await clientPromise
 	} catch (error) {
 		logger.error(`[Error] Build failed...`)
+		logger.info(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
 		console.error(error)
+		return
 	}
 	logger.success(`[Success] Build successed.`)
+	logger.info(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
 }
 
+rimrafPaths()
 handler()

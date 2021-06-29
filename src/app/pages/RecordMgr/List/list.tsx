@@ -122,7 +122,7 @@ function RecordList(props: TIRecordListProps) {
 		const keywords = decodeURI(getQueryValueOfUrl('keywords') || '')
 		setPageConfig({ ...pageConfig, pageSize, pageIndex, countTotal })
 		setFormConfig({ ...formConfig, keywords })
-		fetchTableData({ pageIndex, pageSize, keywords })		
+		fetchTableData({ pageIndex, pageSize, keywords })
 	}, [location])
 
 	useEffect(() => {
@@ -196,7 +196,7 @@ interface IRecordListProps extends RouteComponentProps, IGProfile {
 	addItemRequestAction: Function
 	[key: string]: any
 }
-type TExpand<T> = T extends infer O ? {[K in keyof O] : O[K]} : never
+type TExpand<T> = T extends infer O ? { [K in keyof O]: O[K] } : never
 type TIRecordListProps = TExpand<IRecordListProps>
 
 export default connect(

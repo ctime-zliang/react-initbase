@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react'
 
 export interface IRouteItem {
-    path: string    
-    component: React.ReactElement | React.FC | any
-    requiresAuth?: boolean
-    routes?: IRouteItem[]
-    children?: IRouteItem[]
-    exact?: boolean
-    noMatch?: boolean
-    strict?: boolean
-    getInitialProps?: Function
-    [key: string]: any
+	path: string
+	component: React.ReactElement | React.FC | any
+	requiresAuth?: boolean
+	routes?: IRouteItem[]
+	children?: IRouteItem[]
+	exact?: boolean
+	noMatch?: boolean
+	strict?: boolean
+	getInitialProps?: Function
+	[key: string]: any
 }

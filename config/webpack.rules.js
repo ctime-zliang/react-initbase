@@ -18,23 +18,40 @@ const modulesCssOptions = {
 const jsxLoader = {
 	test: /\.js[x]?$/,
 	exclude: /node_modules/,
-	use: 'happypack/loader?id=happyBabel',
+	use: 'happypack/loader?id=happyBabelForJSX',
 }
 const tsxLoader = {
 	test: /\.ts[x]?$/,
 	exclude: /node_modules/,
-	loader: 'happypack/loader?id=happyBabel',
+	use: 'happypack/loader?id=happyBabelForTSX',
+}
+const jsxEsbuildLoader = {
+	test: /\.(js|jsx)$/,
+	exclude: /node_modules/,
+	loader: 'esbuild-loader',
+	options: {
+		loader: 'jsx',
+		target: 'es2015',
+		jsxFactory: 'React.createElement',
+		jsxFragment: 'React.Fragment',
+	},
+}
+const tsxEsbuildLoader = {
+	test: /\.(ts|tsx)$/,
+	exclude: /node_modules/,
+	loader: 'esbuild-loader',
+	options: {
+		loader: 'tsx',
+		target: 'es2015',
+		jsxFactory: 'React.createElement',
+		jsxFragment: 'React.Fragment',
+	},
 }
 
 const cssLoaderClient = {
 	test: /\.css$/,
 	exclude: /\.module\.css$/,
-	use: [
-		'css-hot-loader', 
-		MiniCssExtractPlugin.loader, 
-		'css-loader', 
-		'postcss-loader'
-	],
+	use: ['css-hot-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
 	sideEffects: true,
 }
 const cssModulesLoaderClient = {
@@ -185,8 +202,10 @@ module.exports = type => {
 		client: [
 			{
 				oneOf: [
-					jsxLoader,
-					tsxLoader,
+					// jsxLoader,
+					// tsxLoader,
+					jsxEsbuildLoader,
+					tsxEsbuildLoader,
 					cssLoaderClient,
 					cssModulesLoaderClient,
 					lessLoaderClient,
@@ -199,8 +218,10 @@ module.exports = type => {
 		server: [
 			{
 				oneOf: [
-					jsxLoader,
-					tsxLoader,
+					// jsxLoader,
+					// tsxLoader,
+					jsxEsbuildLoader,
+					tsxEsbuildLoader,
 					cssLoaderServer,
 					cssModulesLoaderServer,
 					lessLoaderServer,

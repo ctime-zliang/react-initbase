@@ -1,4 +1,5 @@
 const TerserPlugin = require('terser-webpack-plugin')
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 const paths = require('./webpack.paths')
 
 const clientPaths = paths.client
@@ -53,6 +54,10 @@ module.exports = {
 					cache: true,
 					sourceMap: true,
 				}),
+				// new ESBuildMinifyPlugin({
+				// 	target: 'es2015',
+				// 	minifyWhitespace: true,
+				// }),
 			],
 		},
 	},

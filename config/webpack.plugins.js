@@ -5,37 +5,50 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 const HappyPack = require('happypack')
 const OS = require('os')
-const HappyThreadPoolCase = HappyPack.ThreadPool({ size: OS.cpus().length })
 const { TypedCssModulesPlugin } = require('typed-css-modules-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const { ESBuildPlugin } = require('esbuild-loader')
 const paths = require('./webpack.paths')
 const utils = require('./utils')
 
 const clientPaths = paths.client
 const serverPaths = paths.server
+const HappyThreadPoolCase = HappyPack.ThreadPool({ size: OS.cpus().length })
 
 module.exports = {
 	common: [
+		new ESBuildPlugin(),
 		new MiniCssExtractPlugin({
 			filename: clientPaths.base.stylesSheetFilename,
 			chunkFilename: clientPaths.base.stylesSheetChunkFilename,
 		}),
 		new CaseSensitivePathsPlugin(),
-		new HappyPack({
-			id: 'happyBabel',
-			loaders: [
-				{
-					loader: 'babel-loader?cacheDirectory=false',
-				},
-			],
-			threadPool: HappyThreadPoolCase,
-			verbose: true,
-		}),
+		// new HappyPack({
+		// 	id: 'happyBabelForJSX',
+		// 	loaders: [
+		// 		{
+		// 			loader: 'babel-loader?cacheDirectory=true',
+		// 		},
+		// 	],
+		// 	threadPool: HappyThreadPoolCase,
+		// 	verbose: true,
+		// }),
+		// new HappyPack({
+		// 	id: 'happyBabelForTSX',
+		// 	loaders: [
+		// 		{
+		// 			loader: 'babel-loader?cacheDirectory=true',
+		// 		},
+		// 	],
+		// 	threadPool: HappyThreadPoolCase,
+		// 	verbose: true,
+		// }),
 		new TypedCssModulesPlugin({
 			globPattern: 'src/**/*.(css|less|sass)',
 		}),
 		new WebpackManifestPlugin({ fileName: 'manifest.json' }),
+		new webpack.ProgressPlugin(),
 	],
 	client: {
 		base: [
@@ -68,7 +81,7 @@ module.exports = {
 				inject: true,
 			}),
 			new BundleAnalyzerPlugin({
-				analyzerPort: 3011,
+				analyzerPort: 0,
 			}),
 		],
 	},

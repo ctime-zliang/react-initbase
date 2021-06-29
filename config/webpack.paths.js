@@ -23,7 +23,7 @@ module.exports = {
 		},
 		devBuild: {
 			publicPath: '/',
-			pathTag: 'client-dev',			
+			pathTag: 'client-dev',
 			path() {
 				return utils.resolveDirectory(`./dist/${this.pathTag}`)
 			},
@@ -37,7 +37,7 @@ module.exports = {
 		},
 		prodBuild: {
 			publicPath: '/',
-			pathTag: 'client-prod',			
+			pathTag: 'client-prod',
 			path() {
 				return utils.resolveDirectory(`./dist/${this.pathTag}`)
 			},
@@ -47,7 +47,7 @@ module.exports = {
 			pathTagForSSR: 'ssr-client-prod',
 			pathForSSR() {
 				return utils.resolveDirectory(`./dist/${this.pathTagForSSR}`)
-			},			
+			},
 		},
 		resolve: {
 			extensions: ['.js', '.ts', '.jsx', '.tsx', '.json'],

@@ -18,7 +18,7 @@ function RecordDetailRoot(props: IRecordDetailRootProps) {
 	return (
 		<>
 			<Helmet>
-				<title>{ params.id || '' } - Record Detail</title>
+				<title>{params.id || ''} - Record Detail</title>
 			</Helmet>
 			<PageHeader />
 			<PageContent>

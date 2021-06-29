@@ -12,7 +12,7 @@ const webpackConfigBase = {
 	target: 'node',
 	entry: {
 		server: serverPaths.entry.main,
-	},	
+	},
 	module: {
 		rules: rules('server'),
 	},
