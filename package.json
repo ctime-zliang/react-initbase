@@ -6,10 +6,10 @@
 		"prettier-all": "prettier --write .",
 		"prettier-src": "prettier --write ./src",
 		"server:dev": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.json ts-node scripts/devbuild-ssr",
-		"server:build": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.json ts-node scripts/prodbuild-ssr",
+		"server:prod": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.json ts-node scripts/prodbuild-ssr",
 		"client:dev": "cross-env NODE_ENV=development webpack-dev-server --config ./config/webpack-client.dev.config.js --env.client-only",
-		"client:build": "cross-env NODE_ENV=development webpack --config ./config/webpack-client.prod.config.js --env.client-only",
-		"client:buildscript": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.json ts-node scripts/prodbuild-client --env.client-only"
+		"client:prod": "cross-env NODE_ENV=development webpack --config ./config/webpack-client.prod.config.js --env.client-only",
+		"client:prodscript": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.json ts-node scripts/prodbuild-client --env.client-only"
 	},
 	"author": "",
 	"license": "ISC",
