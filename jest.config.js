@@ -1,25 +1,21 @@
+const paths = require('./config/paths')
+
 module.exports = {
-	/* 代码编译转换 */
+	verbose: true,
+	testEnvironment: 'jsdom',
+	testURL: 'http://localhost',
 	transform: {
-		'^.+\\.[t|j]sx?$': 'babel-jest',
+		'^.+\\.(js|jsx|mjs|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
+		'^.+\\.css$': '<rootDir>/config/jest/cssTransform.js',
+		'^(?!.*\\.(js|jsx|mjs|ts|tsx|css|json)$)': '<rootDir>/config/jest/fileTransform.js',
 	},
-	/* 预执行 */
-	setupFiles: ['./config/test.setup.js'],
-	/* 测试覆盖率 */
+	transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx|mjs)$'],
+	setupFiles: ['./config/jest/setup.js'],
 	collectCoverage: false,
 	coverageDirectory: './coverage',
 	collectCoverageFrom: ['src/**/*.ts?(x)', '!**/node_modules/**'],
-	/* 快照 */
 	snapshotSerializers: ['enzyme-to-json/serializer'],
-	/* 测试对象匹配 */
-	testRegex: '(.(test|spec))\\.js?(x)',
-	/* 模块文件扩展名匹配 */
 	moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-	/* 模块名称配置 */
-	moduleNameMapper: {
-		'\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': './__test_mocks__/fileMock.js',
-		'\\.(css|less|scss)$': 'identity-obj-proxy',
-	},
-	/* 全局变量 */
+	moduleDirectories: [paths.srcClient, paths.srcServer, paths.srcApp, 'node_modules'],
 	globals: {},
 }
