@@ -1,0 +1,208 @@
+.app-page-header {
+  width: 100%;
+  height: 50px;
+  flex: 0 0 50px;
+  overflow: hidden;
+  border-bottom: 1px solid #ececec;
+}
+.app-page-header .ant-layout {
+  height: inherit;
+}
+.app-page-header .ant-layout-header {
+  height: inherit;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  flex-wrap: nowrap;
+  background-color: #ffffff;
+  line-height: 1;
+}
+.app-page-header a.log-link {
+  color: #444444;
+}
+.app-page-header a.log-link:hover {
+  color: #666666;
+}
+.app-page-header .protail-wrapper {
+  padding-right: 15px;
+}
+.app-page-header .protail-wrapper img {
+  width: 50px;
+  height: 50px;
+}
+.app-page-header .protail-wrapper-bgimg {
+  background-image: url(/images/log.3712be9d.jpg);
+  background-repeat: no-repeat;
+}
+
+.app-page-footer {
+  width: 100%;
+  height: 45px;
+  flex: 0 0 45px;
+  overflow: hidden;
+  border-top: 1px solid #ececec;
+}
+.app-page-footer .ant-layout {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.app-page-footer .ant-layout-footer {
+  padding: 0;
+  text-align: center;
+  font-size: 12px;
+}
+
+@keyframes loadingHidden {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.loading-hidden-animate {
+  animation-delay: 0;
+  animation-direction: 'alternate';
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-name: loadingHidden;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.app-page-content {
+  width: 100%;
+}
+
+.index-module_search-btn-container-302ML {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: start;
+	-webkit-justify-content: flex-start;
+	    -ms-flex-pack: start;
+	        justify-content: flex-start;
+}
+.index-module_search-btn-item-2bwOs {
+	margin: 0 0 0 8px;
+}
+.index-module_search-btn-item-2bwOs:first-child {
+	margin-left: 0;
+}
+
+.search-btn-item-extra {
+	color: red;
+	-webkit-filter: hue-rotate(60deg);
+	        filter: hue-rotate(60deg);
+}
+
+.list-container {
+  height: 100%;
+  padding: 25px 65px;
+}
+.list-container .list-wrapper {
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  padding: 20px 20px;
+  box-shadow: rgba(200, 200, 200, 0.35) 0 0 15px;
+}
+.list-container .list-header {
+  margin: 0 0 10px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+.list-container .pagination-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: center;
+  padding: 15px 0;
+}
+.list-container .total-count-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 12px;
+}
+
+.detail-container {
+  position: relative;
+  display: block;
+  height: inherit;
+  padding: 30px 0 0 0;
+}
+.detail-container .detail-spin {
+  position: absolute;
+  display: none;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.detail-container .detail-spin-show {
+  display: flex;
+}
+.detail-container .submit-wrapper {
+  padding: 20px 0 0 100px;
+}
+.detail-container .error-wrapper {
+  width: 100%;
+  display: none;
+  padding: 0 0 20px 0;
+  width: 350px;
+  margin: 0 auto;
+  text-align: center;
+}
+.detail-container .error-wrapper-show {
+  display: block;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  width: 100%;
+  min-height: 100vh;
+}
+body {
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  font-family: 'Helvetica Neue', 'Luxi Sans', 'DejaVu Sans', 'Tahoma', 'Hiragino Sans GB', 'STHeiti', 'Microsoft YaHei';
+  font-size: 16px;
+  background: #ffffff;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  -o-text-size-adjust: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+}
+.app {
+  width: 100%;
+}
+
+
+/*# sourceMappingURL=style.5a79879d.css.map*/

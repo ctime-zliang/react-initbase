@@ -8,6 +8,7 @@ import EditForm from '@/pages/RecordMgr/EditForm'
 import { baseEditFormDataConfig, BaseEditFormDataConfigType, IBaseEditFormDataConfig } from '../EditForm/config'
 import './index.less'
 import { RouteComponentProps } from 'react-router'
+import { getQueryValueOfUrl } from '@/utils/utils'
 
 const filterFormData = (paramsFormData: IBaseEditFormDataConfig): IBaseEditFormDataConfig => {
 	const copyFormData = JSON.parse(JSON.stringify(paramsFormData))
@@ -56,7 +57,28 @@ function RecordDetailRoot(props: IRecordDetailRootProps) {
 			setIsSubmitBtnLoading(false)
 			messageTips.success(`Updated Success`)
 			window.setTimeout(() => {
-				history.push({ pathname: '/record' })
+				const pageIndex = +getQueryValueOfUrl('pi')
+				const pageSize = +getQueryValueOfUrl('ps')
+				const keywords = decodeURI(getQueryValueOfUrl('wd') || '')
+				let str = ``
+				let hasFlag = false
+				if (pageIndex) {	
+					str += `?pageIndex=${pageIndex}`
+					hasFlag = true
+				}
+				if (pageSize) {
+					str += `${hasFlag ? '&' : '?'}pageSize=${pageSize}`
+					hasFlag = true
+				}
+				if (keywords) {					
+					str += `${hasFlag ? '&' : '?'}keywords=${keywords}`
+					hasFlag = true
+				}
+				const pm = {
+					pathname: '/record',
+					search: str
+				}
+				history.push(pm)
 			})
 		} catch (error) {
 			messageTips.error(error.msg)
