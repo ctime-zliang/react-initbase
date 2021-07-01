@@ -1,0 +1,15 @@
+{
+  "bundle.css": "/styles/style.48a90be0.css",
+  "bundle.js": "/srcipts/srcipt.48a90be0.js",
+  "bundle.css.map": "/styles/style.48a90be0.css.map",
+  "bundle.js.map": "/srcipts/srcipt.48a90be0.js.map",
+  "client.css": "/styles/style.48a90be0.css",
+  "client.js": "/srcipts/srcipt.48a90be0.js",
+  "client.css.map": "/styles/style.48a90be0.css.map",
+  "client.js.map": "/srcipts/srcipt.48a90be0.js.map",
+  "vendor.css": "/styles/chunk.48a90be0.css",
+  "vendor.js": "/srcipts/chunk.8b3fc23e.js",
+  "vendor.css.map": "/styles/chunk.48a90be0.css.map",
+  "vendor.js.map": "/srcipts/chunk.8b3fc23e.js.map",
+  "images/log.jpg": "/images/log.3712be9d.jpg"
+}

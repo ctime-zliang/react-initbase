@@ -2,7 +2,7 @@ import webpack from 'webpack'
 import nodemon from 'nodemon'
 import Koa from 'koa'
 import rimraf from 'rimraf'
-const koaCors = require('koa-cors')
+import koaCors from 'koa-cors'
 import devClientWebpackConfig from '../config/webpack-client.dev.config'
 import devServerWebpackConfig from '../config/webpack-server.dev.config'
 import paths from '../config/webpack.paths'
@@ -18,6 +18,7 @@ const app = new Koa()
 
 app.use(
 	koaCors({
+		// @ts-ignore
 		origin(ctx: Koa.Context) {
 			return ctx.header.origin
 		},
