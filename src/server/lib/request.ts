@@ -13,6 +13,7 @@ export interface IRquestResponse {
 	ret: number
 	data: any
 	response?: any
+	error?: any
 }
 export const getRequest = async (url: string, data: { [key: string]: any } = {}, extra: { [key: string]: any } = {}): Promise<IRquestResponse> => {
 	const defaultHeaders = {
@@ -35,10 +36,10 @@ export const getRequest = async (url: string, data: { [key: string]: any } = {},
 		request(option, (error: any, response: any, body: any) => {
 			logger.trace(`Request Response ${toString(body)}`)
 			if (!error && response && response.statusCode == 200) {
-				resolve({ ret: 0, response, data: body })
+				resolve({ ret: 0, response, data: body, error: null })
 				return
 			}
-			reject({ ret: response ? response.statusCode : -1, response, data: body })
+			resolve({ ret: response ? response.statusCode : -1, response, data: body, error })
 		})
 	})
 }
@@ -63,10 +64,10 @@ export const postRequest = async (url: string, data: { [key: string]: any } = {}
 		request(option, (error: any, response: any, body: any) => {
 			logger.trace(`Request Response ${toString(body)}`)
 			if (!error && response && response.statusCode == 200) {
-				resolve({ ret: 0, response, data: body })
+				resolve({ ret: 0, response, data: body, error: null })
 				return
 			}
-			reject({ ret: response ? response.statusCode : -1, response, data: body })
+			resolve({ ret: response ? response.statusCode : -1, response, data: body, error })
 		})
 	})
 }

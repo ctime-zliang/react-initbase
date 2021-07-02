@@ -62,7 +62,7 @@ function RecordDetailRoot(props: IRecordDetailRootProps) {
 				const keywords = decodeURI(getQueryValueOfUrl('wd') || '')
 				let str = ``
 				let hasFlag = false
-				if (pageIndex) {	
+				if (pageIndex) {
 					str += `?pageIndex=${pageIndex}`
 					hasFlag = true
 				}
@@ -70,13 +70,13 @@ function RecordDetailRoot(props: IRecordDetailRootProps) {
 					str += `${hasFlag ? '&' : '?'}pageSize=${pageSize}`
 					hasFlag = true
 				}
-				if (keywords) {					
+				if (keywords) {
 					str += `${hasFlag ? '&' : '?'}keywords=${keywords}`
 					hasFlag = true
 				}
 				const pm = {
 					pathname: '/record',
-					search: str
+					search: str,
 				}
 				history.push(pm)
 			})

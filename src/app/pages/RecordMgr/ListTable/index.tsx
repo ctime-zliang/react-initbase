@@ -13,13 +13,13 @@ function ListTableRoot(props: IListTableRootProps) {
 	const [selectedRowKeysList, setSelectedRowKeysList] = useState<string[]>([])
 
 	const linkDetail = useCallback((e, itemData: IRecordMgrItem) => {
-		e.preventDefault()		
+		e.preventDefault()
 		const pageIndex = +getQueryValueOfUrl('pageIndex')
 		const pageSize = +getQueryValueOfUrl('pageSize')
 		const keywords = decodeURI(getQueryValueOfUrl('keywords') || '')
 		let str = ``
 		let hasFlag = false
-		if (pageIndex) {					
+		if (pageIndex) {
 			str += `?pi=${pageIndex}`
 			hasFlag = true
 		}
@@ -27,7 +27,7 @@ function ListTableRoot(props: IListTableRootProps) {
 			str += `${hasFlag ? '&' : '?'}ps=${pageSize}`
 			hasFlag = true
 		}
-		if (keywords) {					
+		if (keywords) {
 			str += `${hasFlag ? '&' : '?'}wd=${keywords}`
 			hasFlag = true
 		}

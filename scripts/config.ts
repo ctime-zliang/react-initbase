@@ -4,7 +4,7 @@ export const buildConfig = {
 		defaultHost: `127.0.0.1`,
 		nodemon: {
 			ignore: ['src', 'scripts', 'config', './*.*', 'build/client', '**/locales', '**/tmp'],
-			delay: 200,
+			delay: 100,
 		},
 	},
 }

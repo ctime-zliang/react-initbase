@@ -10,32 +10,28 @@ const remoteCookie = `LOGIN_AUTH_TAG=${String(Date.now())}`
 
 const commonPenetratRequest = async (ctx: IExtendKoaContext, res: TResponse, url: string, methods: string = 'get') => {
 	const fn = methods.toLocaleLowerCase() == 'get' ? getRequest : postRequest
-	try {
-		// await sleep(2000)
-		const remoteRes: IRquestResponse = await fn(
-			url,
-			{ ...ctx.requestParams },
-			{
-				headers: { Cookie: remoteCookie },
-			}
-		)
-		if (!remoteRes.data || typeof remoteRes.data != 'object') {
-			res.setStatus(httpStatus.ServerError.status).setMessage(String(remoteRes.data) || 'Remote Request Error')
-			return
+	// await sleep(2000)
+	const remoteRes: IRquestResponse = await fn(
+		url,
+		{ ...ctx.requestParams },
+		{
+			headers: { Cookie: remoteCookie },
 		}
-		const remoteData = remoteRes.data
-		const { data, ret, msg } = remoteData
-		if (ret === 0) {
-			res.setData({
-				...ctx.requestParams,
-				...data,
-			})
-			return
-		}
-		res.setStatus(httpStatus.Ok.status).setRetCode(ret).setData(null).setMessage(msg)
-	} catch (e) {
-		throw e
+	)
+	if (remoteRes.error || !remoteRes.data || typeof remoteRes.data != 'object') {
+		res.setStatus(httpStatus.ServerError.status).setMessage(String(remoteRes.data || 'Remote Request Error'))
+		return
 	}
+	const remoteData = remoteRes.data
+	const { data, ret, msg } = remoteData
+	if (ret === 0) {
+		res.setData({
+			...ctx.requestParams,
+			...data,
+		})
+		return
+	}
+	res.setStatus(httpStatus.Ok.status).setRetCode(ret).setData(null).setMessage(msg)
 }
 
 class RecordController extends Controller {
