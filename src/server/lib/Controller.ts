@@ -3,12 +3,14 @@ import Response from './Response'
 import httpStatus from './httpStatus'
 import { IExtendKoaContext } from '../types/koa-context'
 
+type TController = Controller
+
 const defaultOptions = {
 	controllerName: 'controller',
 }
 class Controller extends EventEmitter {
 	options: any
-	constructor(options) {
+	constructor(options: {[key: string]: any}) {
 		super()
 		this.options = {
 			...defaultOptions,
@@ -31,16 +33,17 @@ class Controller extends EventEmitter {
 	 * @param {string} actionName action 的名字
 	 * @return {function} (ctx, next) => {}
 	 */
-	invokeAction(actionName) {
-		if (typeof this[actionName] !== 'function') {
+	invokeAction(actionName: string) {
+		const func: any = (this as any)[actionName]
+		if (typeof func !== 'function') {
 			throw new ReferenceError(`${this.options.controllerName} ${actionName} action non-existent`)
 		}
-		return async ctx => {
+		return async (ctx: IExtendKoaContext) => {
 			ctx.controller = {
 				...this.options,
 				actionName,
 			}
-			const func = this[actionName]
+			
 			try {
 				const res = await this._decorator(func).call(this, ctx)
 				res.flush(ctx)
@@ -57,16 +60,16 @@ class Controller extends EventEmitter {
 	 * @param {string} actionName action 的名字
 	 * @return {function} (ctx, next) => {}
 	 */
-	invokeView(actionName) {
-		if (typeof this[actionName] !== 'function') {
+	invokeView(actionName: string) {
+		const func: any = (this as any)[actionName]
+		if (typeof func !== 'function') {
 			throw new ReferenceError(`${this.options.controllerName} ${actionName} action non-existent`)
 		}
-		return async ctx => {
+		return async (ctx: IExtendKoaContext) => {
 			ctx.controller = {
 				...this.options,
 				actionName,
 			}
-			const func = this[actionName]
 			try {
 				await func.call(this, ctx)
 			} catch (e) {

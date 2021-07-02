@@ -20,7 +20,7 @@ const error = (action: any, message: string = '') => {
 const trace = (action: any, message: string = '') => {
 	write(TYPE.TRACE, `[${action}][${typeof message == 'object' ? JSON.stringify(message) : message}]`)
 }
-const log = (...args) => {
+const log = (...args: any[]) => {
 	console.log(args)
 }
 
