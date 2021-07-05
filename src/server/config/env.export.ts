@@ -6,6 +6,7 @@ const NODE_ENV = process.env.NODE_ENV || 'development'
 
 export default {
 	development: devCfg,
+	test: null,
 	prerelease: preCfg,
 	production: proCfg,
 }[NODE_ENV]

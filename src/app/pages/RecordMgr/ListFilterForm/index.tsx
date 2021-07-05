@@ -89,7 +89,7 @@ function ListFilterFormRoot(props: IListFilterFormRootProps) {
 					/>
 				</Col>
 				<Col span={12} className={formStyles['search-btn-container']}>
-					<Button onClick={handleSearch} className={[formStyles['search-btn-item']].join(' ')}>
+					<Button onClick={handleSearch} className={formStyles['search-btn-item']}>
 						Search
 					</Button>
 					<Button onClick={handleRefreshAction} className={formStyles['search-btn-item']}>

@@ -9,6 +9,7 @@ export interface IRouteItem {
 	exact?: boolean
 	noMatch?: boolean
 	strict?: boolean
+	sensitive?: boolean
 	getInitialProps?: Function
 	[key: string]: any
 }
