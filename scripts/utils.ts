@@ -21,14 +21,15 @@ export const logger = {
 export const compilerPromise = (name: string, compiler: any) => {
 	return new Promise((resolve, reject) => {
 		compiler.hooks.compile.tap(name, () => {
-			logger.info(`[Info]: [${name}] Compiling `)
+			logger.info(`[Info]: [${name}] Compiling...`)
 		})
 		compiler.hooks.done.tap(name, (stats: any) => {
 			if (!stats.hasErrors()) {
+				logger.info(`[Info]: [${name}] Compiled Success.`)
 				resolve({ msg: null })
 				return
 			}
-			reject({ msg: `Failed to Compile ${name}` })
+			reject({ msg: `Failed to Compile ${name}.` })
 		})
 	})
 }
