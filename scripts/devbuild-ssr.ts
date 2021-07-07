@@ -6,7 +6,7 @@ import koaCors from 'koa-cors'
 import devClientWebpackConfig from '../config/webpack-client.dev.config'
 import devServerWebpackConfig from '../config/webpack-server.dev.config'
 import paths from '../config/webpack.paths'
-import { logger, compilerPromise } from './utils'
+import { logger, compilerPromise } from './utils/utils'
 import { buildConfig } from './config'
 // @ts-ignore
 import { devMiddleware as webpackDevMiddleware, hotMiddleware as webpackHotMiddleware } from 'koa-webpack-middleware'

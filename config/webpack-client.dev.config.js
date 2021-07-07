@@ -1,7 +1,7 @@
 const WebpackMerge = require('webpack-merge')
 const webpackBaseConfig = require('./webpack-client.base.config')
 const paths = require('./webpack.paths')
-const devServerConfig = require('./dev-server.config')
+const devServerConfig = require('./webpack.dev-server.config')
 const plugins = require('./webpack.plugins')
 const optimization = require('./webpack.optimization')
 

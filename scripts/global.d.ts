@@ -1,0 +1,6 @@
+declare module 'fs'
+declare module 'process'
+declare module 'readline'
+declare module 'child_process'
+declare module 'write-file-webpack-plugin'
+declare module 'koa-webpack-middleware'

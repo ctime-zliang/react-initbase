@@ -1,7 +1,7 @@
 import webpack from 'webpack'
 import rimraf from 'rimraf'
 import prodClientWebpackConfig from '../config/webpack-client.prod.config'
-import { logger, compilerPromise } from './utils'
+import { logger, compilerPromise } from './utils/utils'
 import paths from '../config/webpack.paths'
 
 const clientPaths = paths.client

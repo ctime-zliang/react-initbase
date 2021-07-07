@@ -10,7 +10,7 @@ const defaultOptions = {
 }
 class Controller extends EventEmitter {
 	options: any
-	constructor(options: {[key: string]: any}) {
+	constructor(options: { [key: string]: any }) {
 		super()
 		this.options = {
 			...defaultOptions,
@@ -43,7 +43,7 @@ class Controller extends EventEmitter {
 				...this.options,
 				actionName,
 			}
-			
+
 			try {
 				const res = await this._decorator(func).call(this, ctx)
 				res.flush(ctx)

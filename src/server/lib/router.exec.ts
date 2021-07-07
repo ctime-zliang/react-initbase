@@ -2,7 +2,7 @@ import koa from 'koa'
 import koaRouter from 'koa-router'
 import { IRoute } from '../types/route'
 
-type TMethods = "get" | "post"
+type TMethods = 'get' | 'post'
 
 export default function routerExec(routes: Array<IRoute>) {
 	const kRouter = new koaRouter()

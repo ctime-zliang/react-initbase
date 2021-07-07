@@ -3,7 +3,7 @@ import rimraf from 'rimraf'
 import prodClientWebpackConfig from '../config/webpack-client.prod.config'
 import prodServerWebpackConfig from '../config/webpack-server.prod.config'
 import paths from '../config/webpack.paths'
-import { logger, compilerPromise } from './utils'
+import { logger, compilerPromise } from './utils/utils'
 
 const clientPaths = paths.client
 const serverPaths = paths.server
