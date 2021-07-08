@@ -8,8 +8,8 @@ interface IConfigureStoreParams {
 }
 
 export interface IStore extends StoreCreator {
-    asyncReducers?: any
-    replaceReducer?: Function
+	asyncReducers?: any
+	replaceReducer?: Function
 }
 
 export function configureStore(params: IConfigureStoreParams = {}) {
@@ -25,7 +25,7 @@ export function configureStore(params: IConfigureStoreParams = {}) {
 	} else {
 		store = createStore(createCombineReducers(), initialState, composeEnhancers(applyMiddleware(...[thunk].concat(...(middleware || [])))))
 	}
-    store.asyncReducers = {}
+	store.asyncReducers = {}
 	// store.subscribe(() => {
 	// 	console.log(`==> store.subscribe: `, store.getState())
 	// })

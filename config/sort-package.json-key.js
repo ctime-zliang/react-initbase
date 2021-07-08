@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const sortKeys = async function(key) {
+const sortKeys = async function (key) {
 	return new Promise((_, reject) => {
 		fs.readFile(path.join(__dirname, '../package.json'), function (err, data) {
 			if (err) {
@@ -26,4 +26,3 @@ const sortKeys = async function(key) {
 
 sortKeys('devDependencies')
 sortKeys('dependencies')
-

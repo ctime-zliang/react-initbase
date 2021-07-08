@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Form, Input } from 'antd'
-import { baseConfig, IBaseConfig, IBaseEditFormDataConfig } from './config'
+import { baseConfig, IBaseEditFormDataConfig } from './config'
 
 function EditFormRoot(props: IEditFormRootProps) {
 	const { formData, updateFormData, handleSubmitRequest } = props

@@ -3,6 +3,7 @@ import React from 'react'
 export interface IRouteItem {
 	path: string
 	component: React.ReactElement | React.FC | any
+	render?: Function
 	requiresAuth?: boolean
 	routes?: IRouteItem[]
 	children?: IRouteItem[]

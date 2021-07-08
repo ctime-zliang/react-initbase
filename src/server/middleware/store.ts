@@ -2,7 +2,7 @@ import Koa from 'koa'
 import { configureStore } from '../../app/store/store'
 import { REDUCER_G_PROFILE, SERVER_RENDER } from '../../app/store/gProfile/config'
 import { createInitialState as createGProfileInitialState } from '../../app/store/gProfile/store'
-import { routes } from '../../app/router'
+import { createRoutes, filterRoutes } from '../../app/router'
 import { matchRoutes } from 'react-router-config'
 import { IExtendKoaContext } from '../types/koa-context'
 
@@ -17,6 +17,7 @@ export default (params: { [key: string]: any } = {}) => {
 				[REDUCER_G_PROFILE]: { ...createGProfileInitialState(SERVER_RENDER) },
 			},
 		})
+		const routes = filterRoutes(createRoutes(store))
 		const branch = matchRoutes(routes, ctx.request.path)
 		const matchItems = branch && branch.length >= 2 ? [branch[branch.length - 1]] : branch
 		const promises = matchItems.map((item: any) => {

@@ -4,8 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from 'react-redux'
 import { configureStore } from '../app/store/store'
-import AppServer from '../app/App.Server'
-import AppClient from '../app/App.Client'
+import App from '../app/App'
 
 let store: any = null
 if (process.env.__CLIENT_ONLY__) {
@@ -14,7 +13,7 @@ if (process.env.__CLIENT_ONLY__) {
 		<Provider store={store}>
 			<BrowserRouter>
 				<HelmetProvider>
-					<AppClient />
+					<App store={store} />
 				</HelmetProvider>
 			</BrowserRouter>
 		</Provider>,
@@ -26,7 +25,7 @@ if (process.env.__CLIENT_ONLY__) {
 		<Provider store={store}>
 			<BrowserRouter>
 				<HelmetProvider>
-					<AppServer />
+					<App store={store} />
 				</HelmetProvider>
 			</BrowserRouter>
 		</Provider>,
@@ -34,9 +33,9 @@ if (process.env.__CLIENT_ONLY__) {
 	)
 }
 
-Object.defineProperty(window, 'store', {
-	value: store,
-})
-Object.defineProperty(window, 'env', {
-	value: process.env.NODE_ENV,
-})
+// Object.defineProperty(window, 'store', {
+// 	value: store,
+// })
+// Object.defineProperty(window, 'env', {
+// 	value: process.env.NODE_ENV,
+// })

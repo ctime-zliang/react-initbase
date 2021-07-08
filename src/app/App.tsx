@@ -5,7 +5,7 @@ import favicon from './asserts/images/log.jpg'
 import './asserts/style/reset.less'
 /* fix: 
 	esbuild-loader 
-	must import antd.css
+	maybe import antd.css in this
 */
 import '../../node_modules/antd/dist/antd.css'
 
@@ -14,7 +14,7 @@ const App = (props: any) => {
 	return (
 		<>
 			<Helmet link={[{ rel: 'icon', type: 'image/jpg', href: favicon }]}>
-				<title>React SSR Application</title>
+				<title>React Application</title>
 			</Helmet>
 			<Root __RootProps__={{ __root_id__ }} {...props} />
 		</>

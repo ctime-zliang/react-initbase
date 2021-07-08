@@ -11,7 +11,7 @@ import { getAssetsPathsList } from '../utils/utils'
 import layout from '../utils/layout'
 import { IExtendKoaContext } from '../types/koa-context'
 /* ... */
-import AppServer from '../../app/App.Server'
+import App from '../../app/App'
 
 const helmetContext: any = {}
 const serverRenderer = (params: { [key: string]: any } = {}) => {
@@ -29,7 +29,7 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 					<Provider store={store}>
 						<StaticRouter location={ctx.request.url} context={{}}>
 							<HelmetProvider context={helmetContext}>
-								<AppServer />
+								<App store={store} />
 							</HelmetProvider>
 						</StaticRouter>
 					</Provider>

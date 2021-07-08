@@ -1,9 +1,11 @@
 import React from 'react'
 import { renderRoutes } from '../utils/hoc/render-routes'
-import { routes, noMatchComponent } from '../router'
+import { createRoutes, filterRoutes, noMatchComponent } from '../router'
 
 function Root(props: any) {
+	console.log(`Root ☆☆☆`, props)
 	const authPath = '/'
+	const routes = filterRoutes(createRoutes(null))
 	return (
 		<>
 			{renderRoutes(
