@@ -1,4 +1,4 @@
-import Detail from './View'
+import Detail from './'
 
 export default () => {
 	return {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from 'antd'
 import styled from 'styled-components'
-import { IRecordMgrItem } from '@/store/record/config'
+import { IRecordMgrItem } from '../../$Store/config'
 import { Link } from 'react-router-dom'
 
 const Container = styled.div`

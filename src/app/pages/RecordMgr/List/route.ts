@@ -1,7 +1,7 @@
 import { injectReducer } from '@/store/reducer'
-import List from './View'
-import reducer from './Store/reducer'
-import { REDUCER_RECORD_REDUCER } from './Store/config'
+import List from './'
+import reducer from '../$Store/reducer'
+import { REDUCER_RECORD_REDUCER } from '../$Store/config'
 import { IStore } from 'store/store'
 
 export default (store: IStore) => {

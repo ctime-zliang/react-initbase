@@ -4,7 +4,7 @@ import EditForm from '../EditForm'
 import { message as messageTips } from 'antd'
 import { withDialog } from '@/utils/hoc/with-dialog'
 import { baseEditFormDataConfig, BaseEditFormDataConfigType, IBaseEditFormDataConfig } from '../EditForm/config'
-import { baseFormConfig } from '../../List/View/config'
+import { baseFormConfig } from '../../List/config'
 import formStyles from './index.module.css'
 import './index.css'
 

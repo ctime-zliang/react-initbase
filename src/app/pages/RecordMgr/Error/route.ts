@@ -1,4 +1,4 @@
-import Error from './View'
+import Error from './'
 
 export default () => {
 	return {
