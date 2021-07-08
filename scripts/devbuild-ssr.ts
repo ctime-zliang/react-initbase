@@ -47,6 +47,7 @@ const rimrafPaths = () => {
 	}
 }
 
+let script: any = null
 const handler = async (app: Koa) => {
 	logger.info(`[Info] Starting build...`)
 	const startStamp = Date.now()
@@ -111,10 +112,12 @@ const handler = async (app: Koa) => {
 
 	logger.info(`[Info] Remote service will be start.`)
 	const serverPath = paths.server.devBuild.path() + '/' + paths.server.output.filename
-	const script = nodemon({
-		script: serverPath,
-		...buildConfig.ssr.nodemon,
-	})
+	if (!script) {
+		script = nodemon({
+			script: serverPath,
+			...buildConfig.ssr.nodemon,
+		})
+	}
 	script.on('start', () => {
 		logger.info(`[Info] Remote service has been started.`)
 	})

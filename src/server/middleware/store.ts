@@ -1,5 +1,5 @@
 import Koa from 'koa'
-import { configureStore } from '../../app/store'
+import { configureStore } from '../../app/store/store'
 import { REDUCER_G_PROFILE, SERVER_RENDER } from '../../app/store/gProfile/config'
 import { createInitialState as createGProfileInitialState } from '../../app/store/gProfile/store'
 import { routes } from '../../app/router'

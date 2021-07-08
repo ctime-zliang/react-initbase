@@ -1,21 +1,17 @@
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
+import { createStore, StoreCreator, applyMiddleware, compose, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
-import gProfileReducer from './gProfile/reducer'
-import recordReducer from './record/reducer'
-import { REDUCER_G_PROFILE } from './gProfile/config'
-import { REDUCER_RECORD_REDUCER } from './record/config'
+import { createCombineReducers } from './reducer'
 
 interface IConfigureStoreParams {
 	initialState?: any
 	middleware?: any[]
 }
 
-function createCombineReducers() {
-	return combineReducers({
-		[REDUCER_G_PROFILE]: gProfileReducer,
-		[REDUCER_RECORD_REDUCER]: recordReducer,
-	})
+export interface IStore extends StoreCreator {
+    asyncReducers?: any
+    replaceReducer?: Function
 }
+
 export function configureStore(params: IConfigureStoreParams = {}) {
 	const { initialState, middleware } = params
 	const devtools =
@@ -23,12 +19,13 @@ export function configureStore(params: IConfigureStoreParams = {}) {
 		typeof (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function' &&
 		(window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ actionsBlacklist: [] })
 	const composeEnhancers = devtools || compose
-	let store: any = null
+	let store: IStore = () => {}
 	if (typeof initialState == 'undefined') {
 		store = createStore(createCombineReducers(), composeEnhancers(applyMiddleware(...[thunk].concat(...(middleware || [])))))
 	} else {
 		store = createStore(createCombineReducers(), initialState, composeEnhancers(applyMiddleware(...[thunk].concat(...(middleware || [])))))
 	}
+    store.asyncReducers = {}
 	// store.subscribe(() => {
 	// 	console.log(`==> store.subscribe: `, store.getState())
 	// })

@@ -3,7 +3,7 @@ import ReactDOM, { hydrate } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from 'react-redux'
-import { configureStore } from '../app/store'
+import { configureStore } from '../app/store/store'
 import AppServer from '../app/App.Server'
 import AppClient from '../app/App.Client'
 

@@ -9,14 +9,14 @@ import './asserts/style/reset.less'
 */
 import '../../node_modules/antd/dist/antd.css'
 
-const App = () => {
+const App = (props: any) => {
 	const __root_id__ = Math.random()
 	return (
 		<>
 			<Helmet link={[{ rel: 'icon', type: 'image/jpg', href: favicon }]}>
 				<title>React Application</title>
 			</Helmet>
-			<Root __RootProps__={{ __root_id__ }} />
+			<Root __RootProps__={{ __root_id__ }} {...props} />
 		</>
 	)
 }
