@@ -5,12 +5,15 @@ import RecordMgrList from '@/pages/RecordMgr/List/route'
 import RecordMgrDetail from '@/pages/RecordMgr/Detail/route'
 import RecordMgrError from '@/pages/RecordMgr/Error/route'
 import { IRouteItem } from './config'
+import { IStore } from 'store/store'
 
-export const createRoutes = (store: any): IRouteItem[] => {
+type TStore = IStore | any
+
+export const createRoutes = (store: TStore): IRouteItem[] => {
 	return [
 		HomeRoute(),
 		{
-			...RecordMgrList(),
+			...RecordMgrList(store),
 			routes: [RecordMgrDetail(), RecordMgrError()],
 		},
 		{

@@ -5,7 +5,7 @@ import { createRoutes, filterRoutes, noMatchComponent } from '../router'
 function Root(props: any) {
 	console.log(`Root ☆☆☆`, props)
 	const authPath = '/'
-	const routes = filterRoutes(createRoutes(null))
+	const routes = filterRoutes(createRoutes(props.store))
 	return (
 		<>
 			{renderRoutes(

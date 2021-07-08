@@ -1,5 +1,5 @@
 import { ACTION_TYPE, IRecordMgr, IRecordMgrItem } from './config'
-import { findResults, IFindResults } from '../../utils/utils'
+import { findResults, IFindResults } from '@/utils/utils'
 import { IAction } from './config'
 import { createDefaultState } from './store'
 

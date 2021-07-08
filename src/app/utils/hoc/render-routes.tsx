@@ -30,7 +30,7 @@ function createRouteComponentList(routes: IRouteItem[], profile: any, outerProps
 				path={route.path}
 				exact={route.exact}
 				strict={route.strict}
-				render={props => {
+				render={(routerProps: any) => {
 					if (!route.requiresAuth || route.path === profile.authPath) {
 						return (
 							<>
@@ -39,8 +39,8 @@ function createRouteComponentList(routes: IRouteItem[], profile: any, outerProps
 									<Route
 										exact={true}
 										path={route.path}
-										render={props => {
-											return <route.component exact={true} path={route.path} {...props} {...outerProps}></route.component>
+										render={(routerProps: any) => {
+											return <route.component exact={true} path={route.path} {...routerProps} {...outerProps}></route.component>
 										}}
 									/>
 									{createSpecRoute(route, profile, outerProps)}
@@ -48,7 +48,7 @@ function createRouteComponentList(routes: IRouteItem[], profile: any, outerProps
 							</>
 						)
 					}
-					return <Redirect to={{ pathname: profile.authPath }} {...props} />
+					return <Redirect to={{ pathname: profile.authPath }} {...routerProps} />
 				}}
 			/>
 		)

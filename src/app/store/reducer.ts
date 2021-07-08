@@ -1,21 +1,12 @@
 import { combineReducers } from 'redux'
 import { IStore } from './store'
 /* ... */
-import gProfileReducer from './gProfile/reducer'
-import recordReducer from './record/reducer'
-import { REDUCER_G_PROFILE } from './gProfile/config'
-import { REDUCER_RECORD_REDUCER } from './record/config'
+import profileReducer from './profile/reducer'
+import { REDUCER_G_PROFILE } from './profile/config'
 
-// export function createCombineReducers(asyncReducers: {[key: string]: any} = {}) {
-//     return combineReducers({
-//         [REDUCER_G_PROFILE]: gProfileReducer,
-//         ...asyncReducers
-//     })
-// }
 export function createCombineReducers(asyncReducers: { [key: string]: any } = {}) {
 	return combineReducers({
-		[REDUCER_G_PROFILE]: gProfileReducer,
-		[REDUCER_RECORD_REDUCER]: recordReducer,
+		[REDUCER_G_PROFILE]: profileReducer,
 		...asyncReducers,
 	})
 }

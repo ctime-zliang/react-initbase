@@ -9,7 +9,7 @@ const Container = styled.section`
 function AbstractRoot() {
 	return (
 		<Container>
-			<div style={{ fontSize: '12px', paddingTop: '5px' }}>
+			<div style={{ fontSize: '12px', paddingTop: '5px', display: 'none' }}>
 				<span>
 					<Link to="/record">[点击此处进入 Record List 页面]</Link>
 				</span>

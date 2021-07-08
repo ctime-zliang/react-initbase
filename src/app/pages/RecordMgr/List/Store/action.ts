@@ -1,5 +1,5 @@
-import { ICommonResponse } from '../../model/config'
-import { addItem, fetchItem, delItems, fetchList, IAddRecordItemRequestBody, updateItem, IFetchRecordListRequestBody } from '../../model/record'
+import { ICommonResponse } from '@/model/config'
+import { addItem, fetchItem, delItems, fetchList, IAddRecordItemRequestBody, updateItem, IFetchRecordListRequestBody } from '@/model/record'
 import { ACTION_TYPE } from './config'
 
 export const testAsyncTask = () => {

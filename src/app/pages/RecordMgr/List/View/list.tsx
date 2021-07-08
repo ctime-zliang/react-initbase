@@ -6,12 +6,12 @@ import { message as messageTips } from 'antd'
 import ListTable from '../../Component/ListTable'
 import ListFilterForm from '../../Component/ListFilterForm'
 import { basePageConfig, IBasePageConfig, baseFormConfig, IBaseFormConfig } from './config'
-import * as actions from '@/store/record/action'
+import * as actions from '../Store/action'
 import { createSearchString } from './utils'
 import './index.less'
 import { getQueryValueOfUrl } from '@/utils/utils'
-import { REDUCER_RECORD_REDUCER, IRecordMgrItem } from '@/store/record/config'
-import { IGProfile, SERVER_RENDER } from '@/store/gProfile/config'
+import { REDUCER_RECORD_REDUCER, IRecordMgrItem } from '../Store/config'
+import { IGProfile, SERVER_RENDER } from 'store/profile/config'
 
 const { Content } = Layout
 
