@@ -1,4 +1,4 @@
-import Home from './View'
+import Home from './'
 
 export default () => {
 	return {

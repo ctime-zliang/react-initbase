@@ -1,6 +1,5 @@
-import Error404View from '@/pages/ErrorPage/404'
-/* ... */
 import HomeRoute from '@/pages/Home/route'
+import Error404View from '@/pages/ErrorPage/route'
 import RecordMgrList from '@/pages/RecordMgr/List/route'
 import RecordMgrDetail from '@/pages/RecordMgr/Detail/route'
 import RecordMgrError from '@/pages/RecordMgr/Error/route'
@@ -16,10 +15,7 @@ export const createRoutes = (store: TStore): IRouteItem[] => {
 			...RecordMgrList(store),
 			routes: [RecordMgrDetail(), RecordMgrError()],
 		},
-		{
-			path: '*',
-			component: Error404View,
-		},
+		Error404View(),
 	]
 }
 
