@@ -8,14 +8,14 @@ module.exports = {
 	client: {
 		base: {
 			stylesSheetFilename: `styles/style.[hash:8].css`,
-			stylesSheetChunkFilename: `styles/chunk.[hash:8].css`,
+			stylesSheetChunkFilename: `styles/chunk.[name].[chunkhash:8].css`,
 		},
 		entry: {
 			main: utils.resolveDirectory(`./src/client/index.tsx`),
 		},
 		output: {
 			filename: `srcipts/srcipt.[hash:8].js`,
-			chunkFilename: `srcipts/chunk.[chunkhash:8].js`,
+			chunkFilename: `srcipts/chunk.[name].[chunkhash:8].js`,
 		},
 		loader: {
 			imagesFilename: `images/[name].[hash:8].[ext]`,

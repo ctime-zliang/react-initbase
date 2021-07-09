@@ -12,13 +12,16 @@ export const asyncComponent = function (importComponent: any) {
 		const [component, setComponent] = useState(null)
 		useEffect(() => {
 			importComponent().then((compt: any) => {
-				setComponent(compt.default)
+				// setComponent(compt.default)
+				window.setTimeout(() => {
+					setComponent(compt.default)
+				}, 1250)
 			})
 		})
 		const IComponent: any = component
 		if (IComponent) {
 			return <IComponent {...props} />
 		}
-		return <div style={styleObj}>Loading...</div>
+		return <div style={styleObj}>Loading Async Component...</div>
 	}
 }
