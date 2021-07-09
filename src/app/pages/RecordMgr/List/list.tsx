@@ -10,7 +10,7 @@ import * as actions from '../$Store/action'
 import { createSearchString } from './utils'
 import './index.less'
 import { getQueryValueOfUrl } from '@/utils/utils'
-import { REDUCER_RECORD_REDUCER, IRecordMgrItem } from '../$Store/config'
+import { KEY_RECORD_REDUCER, IRecordMgrItem } from '../$Store/config'
 import { IGProfile, SERVER_RENDER } from 'store/profile/config'
 
 const { Content } = Layout
@@ -203,7 +203,7 @@ export default connect(
 	(state: { [key: string]: any } = {}, ownProps) => {
 		return {
 			...ownProps,
-			...state[REDUCER_RECORD_REDUCER],
+			...state[KEY_RECORD_REDUCER],
 		}
 	},
 	{

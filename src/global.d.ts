@@ -55,6 +55,11 @@ declare module '*.module.css' {
 	export = content
 }
 
+declare module '*.module.less' {
+	const content: { [className: string]: string }
+	export = content
+}
+
 declare const __BROWSER__: boolean
 declare const __SERVER__: boolean
 

@@ -72,6 +72,7 @@ const cssModulesLoaderClient = {
 
 const lessLoaderClient = {
 	test: /\.less$/,
+	exclude: /\.module\.less$/,
 	use: [
 		'style-loader',
 		MiniCssExtractPlugin.loader,
@@ -86,7 +87,7 @@ const lessLoaderClient = {
 	sideEffects: true,
 }
 const lessModulesLoaderClient = {
-	test: /\.less$/,
+	test: /\.module\.less$/,
 	use: [
 		'css-hot-loader',
 		MiniCssExtractPlugin.loader,

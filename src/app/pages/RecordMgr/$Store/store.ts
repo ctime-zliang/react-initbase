@@ -1,6 +1,6 @@
-import { IRecordMgr, REDUCER_RECORD_REDUCER } from './config'
+import { IRecordMgr, KEY_RECORD_REDUCER } from './config'
 
-export function createInitialState() {
+export function createInitialState(): IRecordMgr {
 	return {
 		list: [],
 		countTotal: 0,
@@ -10,7 +10,7 @@ export function createInitialState() {
 export function createDefaultState(): IRecordMgr {
 	if (typeof window !== 'undefined' && window.__PRELOADED_STATE__) {
 		return {
-			...window.__PRELOADED_STATE__[REDUCER_RECORD_REDUCER],
+			...window.__PRELOADED_STATE__[KEY_RECORD_REDUCER],
 		}
 	}
 	return createInitialState()

@@ -1,6 +1,6 @@
 import Koa from 'koa'
 import { configureStore } from '../../app/store/store'
-import { REDUCER_G_PROFILE, SERVER_RENDER } from '../../app/store/profile/config'
+import { KEY_G_PROFILE_REDUCER, SERVER_RENDER } from '../../app/store/profile/config'
 import { createInitialState as createGProfileInitialState } from '../../app/store/profile/store'
 import { createRoutes, filterRoutes } from '../../app/router'
 import { matchRoutes } from 'react-router-config'
@@ -14,7 +14,7 @@ export default (params: { [key: string]: any } = {}) => {
 		}
 		const store = configureStore({
 			initialState: {
-				[REDUCER_G_PROFILE]: { ...createGProfileInitialState(SERVER_RENDER) },
+				[KEY_G_PROFILE_REDUCER]: { ...createGProfileInitialState(SERVER_RENDER) },
 			},
 		})
 		const routes = filterRoutes(createRoutes(store))

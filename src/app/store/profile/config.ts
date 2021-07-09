@@ -7,7 +7,7 @@ export interface IAction {
 	data: any
 }
 
-export const REDUCER_G_PROFILE = 'G_PROFILE_REDUCER'
+export const KEY_G_PROFILE_REDUCER = 'G_PROFILE_REDUCER'
 
 /********************************* *********************************/
 /********************************* *********************************/

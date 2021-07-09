@@ -2,8 +2,8 @@ import React, { FC, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { message as messageTips } from 'antd'
 import { Spin, Button, Alert } from 'antd'
-import { REDUCER_RECORD_REDUCER } from '../$Store/config'
-import * as action from '../$Store/action'
+import { KEY_RECORD_REDUCER } from '../$Store/config'
+import * as actions from '../$Store/action'
 import EditForm from '../Component/EditForm'
 import { baseEditFormDataConfig, BaseEditFormDataConfigType, IBaseEditFormDataConfig } from '../Component/EditForm/config'
 import './index.less'
@@ -123,10 +123,10 @@ export default connect(
 	(state: { [key: string]: any } = {}, ownProps) => {
 		return {
 			...ownProps,
-			...state[REDUCER_RECORD_REDUCER],
+			...state[KEY_RECORD_REDUCER],
 		}
 	},
 	{
-		...action,
+		...actions,
 	}
 )(RecordDetailRoot)
