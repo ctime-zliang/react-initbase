@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import PageContent from '@/modules/Componnet/PageContent'
 import PageHeader from '@/modules/Componnet/PageHeader'
 import PageFooter from '@/modules/Componnet/PageFooter'
-import { IEntryListItem, KEY_ENTRYLINKLIST_REDUCER } from '../$Store/config'
+import { IEntryListItem, KEY_ENTRYLINKLIST_REDUCER } from '../store/config'
 import styles from './index.module.less'
 
 const { Content } = Layout

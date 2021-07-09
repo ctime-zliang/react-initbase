@@ -1,7 +1,7 @@
 import List from './List'
 import Detail from './Detail'
 import ErrorView from './Error'
-import injectReducer from './$Store/inject'
+import injectReducer from './store/inject'
 import { IStore } from 'store/store'
 
 export const RecordMgrList = (store: IStore) => {

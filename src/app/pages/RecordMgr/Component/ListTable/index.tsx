@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Table } from 'antd'
 import { listTableConfig } from './config'
-import { IRecordMgrItem } from '../../$Store/config'
+import { IRecordMgrItem } from '../../store/config'
 import { getQueryValueOfUrl } from '@/utils/utils'
 
 const LocalConfig: any = {
