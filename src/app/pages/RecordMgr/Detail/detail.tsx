@@ -6,9 +6,9 @@ import { KEY_RECORD_REDUCER } from '../$Store/config'
 import * as actions from '../$Store/action'
 import EditForm from '../Component/EditForm'
 import { baseEditFormDataConfig, BaseEditFormDataConfigType, IBaseEditFormDataConfig } from '../Component/EditForm/config'
-import './index.less'
 import { RouteComponentProps } from 'react-router'
 import { getQueryValueOfUrl } from '@/utils/utils'
+import styles from './index.module.less'
 
 const filterFormData = (paramsFormData: IBaseEditFormDataConfig): IBaseEditFormDataConfig => {
 	const copyFormData = JSON.parse(JSON.stringify(paramsFormData))
@@ -98,13 +98,13 @@ function RecordDetailRoot(props: IRecordDetailRootProps) {
 
 	return (
 		<>
-			<div className="detail-container">
-				<div className={['error-wrapper', !isExists ? 'error-wrapper-show' : ''].join(' ')}>
+			<div className={styles['detail-container']}>
+				<div className={[styles['error-wrapper'], !isExists ? styles['error-wrapper-show'] : ''].join(' ')}>
 					<Alert message={errMessage} type="error" />
 				</div>
 				<EditForm formData={formData} updateFormData={updateFormData} />
-				<Spin className={['detail-spin', isSpinShow ? 'detail-spin-show' : ''].join(' ')} />
-				<div className="submit-wrapper">
+				<Spin className={[styles['detail-spin'], isSpinShow ? styles['detail-spin-show'] : ''].join(' ')} />
+				<div className={styles['submit-wrapper']}>
 					<Button type="primary" disabled={isSubmitBtnDisabled} loading={isSubmitBtnLoading} onClick={submitItemData}>
 						Submit
 					</Button>

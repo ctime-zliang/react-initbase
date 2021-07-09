@@ -8,10 +8,10 @@ import ListFilterForm from '../Component/ListFilterForm'
 import { basePageConfig, IBasePageConfig, baseFormConfig, IBaseFormConfig } from './config'
 import * as actions from '../$Store/action'
 import { createSearchString } from './utils'
-import './index.less'
 import { getQueryValueOfUrl } from '@/utils/utils'
 import { KEY_RECORD_REDUCER, IRecordMgrItem } from '../$Store/config'
 import { IGProfile, SERVER_RENDER } from 'store/profile/config'
+import styles from './index.module.less'
 
 const { Content } = Layout
 
@@ -137,9 +137,9 @@ function RecordList(props: TIRecordListProps) {
 
 	return (
 		<>
-			<section className="list-container">
-				<section className="list-wrapper">
-					<div className="list-header">
+			<section className={styles['list-container']}>
+				<section className={styles['list-wrapper']}>
+					<div className={styles['list-header']}>
 						<ListFilterForm
 							onDialogEditFormClosed={onDialogEditFormClosed}
 							handleAddItem={addItemRequestAction}
@@ -157,7 +157,7 @@ function RecordList(props: TIRecordListProps) {
 							list={list}
 						/>
 					</Content>
-					<Row className="pagination-wrapper">
+					<Row className={styles['pagination-wrapper']}>
 						<Pagination
 							size="small"
 							total={pageConfig.countTotal}
@@ -168,7 +168,7 @@ function RecordList(props: TIRecordListProps) {
 							onChange={onPaginationChange}
 						/>
 					</Row>
-					<Row className="total-count-wrapper">
+					<Row className={styles['total-count-wrapper']}>
 						<div>Total Count: {countTotal}</div>
 					</Row>
 				</section>
