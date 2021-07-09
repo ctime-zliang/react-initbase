@@ -11,7 +11,7 @@ function PageHeaderRoot(props: IPageHeaderRootProps) {
 			<Layout>
 				<Header>
 					<a className="log-link" href="/" target="_blank" title="React App">
-						<div className="protail-wrapper protail-wrapper-bgimg">
+						<div className="protail-wrapper">
 							<img className="log-img" src={logoImage} title="Logo Image" />
 							<span title={userId}>React App</span>
 						</div>

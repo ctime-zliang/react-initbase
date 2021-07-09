@@ -6,7 +6,6 @@ export interface IRouteItem {
 	render?: Function
 	requiresAuth?: boolean
 	routes?: IRouteItem[]
-	children?: IRouteItem[]
 	exact?: boolean
 	noMatch?: boolean
 	strict?: boolean
