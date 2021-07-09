@@ -11,7 +11,7 @@ function AbstractRoot() {
 		<Container>
 			<div style={{ fontSize: '12px', paddingTop: '5px' }}>
 				<span>
-					<Link to="/linklist">[点击此处进入 Link List 页面]</Link>
+					<Link to="/link">[点击此处进入 Link List 页面]</Link>
 				</span>
 			</div>
 		</Container>
