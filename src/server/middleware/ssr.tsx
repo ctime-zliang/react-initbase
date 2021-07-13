@@ -38,12 +38,11 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 			const styles = sheet.getStyleTags()
 			const assets = getAssetsPathsList(path.join(paths.common.buildRoot, `./${paths.client.devBuild.pathTagForSSR}/manifest.json`))
 			const htmlString = layout({
-				css: assets.css,
-				js: assets.js,
 				styles,
 				state,
 				content,
 				helmet: helmetContext.helmet,
+				...assets
 			})
 			ctx.type = 'text/html'
 			ctx.status = 200

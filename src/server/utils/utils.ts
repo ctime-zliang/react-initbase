@@ -8,42 +8,41 @@ export async function sleep(delay: number = 1000) {
 
 interface IGetAssetsPathsList {
 	css: string[]
+	cssChunks: string[]
 	js: string[]
+	jsChunks: string[]
 }
 export const getAssetsPathsList = (manifestFileUrl: string): IGetAssetsPathsList => {
 	const result: IGetAssetsPathsList = {
 		css: [],
+		cssChunks: [],
 		js: [],
+		jsChunks: []
 	}
 	try {
 		if (!fs.existsSync(manifestFileUrl)) {
 			throw new Error(`manifest file is not exist!`)
 		}
 		const content = JSON.parse(fs.readFileSync(manifestFileUrl, 'utf-8'))
-		const cssChunks: string[] = []
-		const cssNormal: string[] = []
-		const jsChunks: string[] = []
-		const jsNormal: string[] = []
 		Object.keys(content).forEach((item: string | any, index: number): void => {
 			if (/.css$/i.test(item)) {
 				if (/\/chunk/i.test(content[item])) {
-					cssChunks.push(content[item])
+					result.cssChunks.push(content[item])
 					return
 				}
-				cssNormal.push(content[item])
+				result.css.push(content[item])
 				return
 			}
 			if (/.js$/i.test(item)) {
-				// if (/\/chunk/i.test(content[item])) {
-				// 	jsChunks.push(content[item])
-				// 	return
-				// }
-				jsNormal.push(content[item])
+				console.log(item)
+				if (/\/chunk/i.test(content[item])) {
+					result.jsChunks.push(content[item])
+					return
+				}
+				result.js.push(content[item])
 				return
 			}
 		})
-		result.css = [...cssChunks, ...cssNormal]
-		result.js = [...jsChunks, ...jsNormal]
 		return result
 	} catch (e) {
 		console.log(e)

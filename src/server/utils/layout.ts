@@ -1,13 +1,17 @@
-export default ({ css, js, state, content, styles, helmet }: any) => {
-	const _css: string[] = Array.from(new Set(css))
-	const _js: string[] = Array.from(new Set(js))
+export default ({ css, cssChunks, js, jsChunks, state, content, styles, helmet }: any) => {
+	let _css: string[] = Array.from(new Set(css)) as string[]
+	let _js: string[] = Array.from(new Set(js)) as string[]
+    let _cssChunks: string[] = Array.from(new Set(cssChunks)) as string[]
+	let _jsChunks: string[] = Array.from(new Set(jsChunks)) as string[]
 	let _cssString = ``
 	let _jsString = ``
 
-	_css.forEach((item: string) => {
+    const _cssPaths = [..._cssChunks, ..._css]
+    const _jsPaths = [..._jsChunks, ..._js]
+	_cssPaths.forEach((item: string) => {
 		_cssString += `<link rel="stylesheet" href=${item} />\n`
 	})
-	_js.forEach((item: string) => {
+	_jsPaths.forEach((item: string) => {
 		_jsString += `<script src=${item}></script>\n`
 	})
 	return `
