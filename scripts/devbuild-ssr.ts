@@ -57,8 +57,8 @@ const handler = async (app: Koa) => {
 		`webpack-hot-middleware/client?path=http://${serverBuildHost}:${serverBuildPort}/__webpack_hmr`,
 		devClientWebpackConfig.entry.client || '',
 	]
-	devClientWebpackConfig.output.hotUpdateMainFilename = 'updates/[hash].hot-update.json'
-	devClientWebpackConfig.output.hotUpdateChunkFilename = 'updates/[id].[hash].hot-update.js'
+	devClientWebpackConfig.output.hotUpdateMainFilename = `updates/[hash].hot-update.json`
+	devClientWebpackConfig.output.hotUpdateChunkFilename = `updates/[id].[hash].hot-update.js`
 
 	const clientCompiler: any = webpack(devClientWebpackConfig)
 	const serverCompiler: any = webpack(devServerWebpackConfig)
@@ -112,12 +112,10 @@ const handler = async (app: Koa) => {
 
 	logger.info(`[Info] Remote service will be start.`)
 	const serverPath = paths.server.devBuild.path() + '/' + paths.server.output.filename
-	if (!script) {
-		script = nodemon({
-			script: serverPath,
-			...buildConfig.ssr.nodemon,
-		})
-	}
+	script = nodemon({
+		script: serverPath,
+		...buildConfig.ssr.nodemon,
+	})
 	script.on('start', () => {
 		logger.info(`[Info] Remote service has been started.`)
 	})
