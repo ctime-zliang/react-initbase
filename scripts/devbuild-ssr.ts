@@ -1,5 +1,6 @@
 import webpack from 'webpack'
 import nodemon from 'nodemon'
+import { exec } from 'child_process'
 import Koa from 'koa'
 import rimraf from 'rimraf'
 import koaCors from 'koa-cors'
@@ -38,6 +39,8 @@ app.use(async (ctx: Koa.Context, next: Koa.Next) => {
 const serverBuildPort = !isNaN(Number(process.env.PORT)) ? Number(process.env.PORT) + 1 : buildConfig.ssr.defaultPort
 const serverBuildHost = buildConfig.ssr.defaultHost
 
+const serverEntryPath = paths.server.devBuild.path() + '/' + paths.server.output.filename
+
 const rimrafPaths = () => {
 	try {
 		rimraf.sync(clientPaths.devBuild.pathForSSR())
@@ -47,8 +50,9 @@ const rimrafPaths = () => {
 	}
 }
 
-let script: any = null
-const handler = async (app: Koa) => {
+let restartTimer: any = -1
+
+const handler = async (app: any) => {
 	logger.info(`[Info] Starting build...`)
 	const startStamp = Date.now()
 
@@ -63,7 +67,23 @@ const handler = async (app: Koa) => {
 	const clientCompiler: any = webpack(devClientWebpackConfig)
 	const serverCompiler: any = webpack(devServerWebpackConfig)
 	const clientPromise = compilerPromise('client', clientCompiler)
-	const serverPromise = compilerPromise('server', serverCompiler)
+	const serverPromise = compilerPromise('server', serverCompiler, (tag: string) => {
+		if (tag === 'compile') {
+			clearTimeout(restartTimer)
+		}
+		if (tag === 'done') {
+			// serverExecer()
+			restartTimer = setTimeout(() => {
+				// exec('ls -al', (err, stdout, stderr) => {
+				// 	if (err) {
+				// 		console.log(err)
+				// 		return
+				// 	}
+				// 	console.log(stdout)
+				// })
+			}, 1000)
+		}
+	})
 
 	const serverWatchOptions = {
 		ignored: /node_modules/,
@@ -109,27 +129,31 @@ const handler = async (app: Koa) => {
 		return
 	}
 	logger.info(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
+	
+	serverExecer()
+}
 
-	logger.info(`[Info] Remote service will be start.`)
-	const serverPath = paths.server.devBuild.path() + '/' + paths.server.output.filename
-	script = nodemon({
-		script: serverPath,
+const serverExecer = () => {
+	logger.info(`[Info] Render Server will be start.`)
+	const script = nodemon({
+		script: serverEntryPath,
 		...buildConfig.ssr.nodemon,
 	})
 	script.on('start', () => {
-		logger.info(`[Info] Remote service has been started.`)
+		logger.info(`[Info] Render Server has been started.`)
 	})
 	script.on('restart', () => {
-		logger.info(`[Info] Remote service has been restart.`)
+		logger.info(`[Info] Render Server has been restart.`)
 	})
 	script.on('quit', () => {
-		logger.info(`[Info] Remote service has been quit.`)
+		logger.info(`[Info] Render Server has been quit.`)
 		process.exit()
 	})
 	script.on('error', () => {
 		logger.error(`[Info] An error occured. Exiting.`)
 		process.exit(1)
 	})
+	return script
 }
 
 rimrafPaths()
