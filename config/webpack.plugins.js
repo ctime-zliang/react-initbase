@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
+const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 const HappyPack = require('happypack')
 const OS = require('os')
@@ -61,6 +62,7 @@ module.exports = {
 				'process.env.NODE_ENV': JSON.stringify('development'),
 				IS_DEVELOPMETN: true,
 			}),
+			new ReactRefreshPlugin(),
 			!utils.clientOnly() && new WriteFileWebpackPlugin(),
 			utils.clientOnly() &&
 				new HtmlWebpackPlugin({

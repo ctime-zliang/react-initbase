@@ -74,6 +74,7 @@ const lessLoaderClient = {
 	test: /\.less$/,
 	exclude: /\.module\.less$/,
 	use: [
+		'css-hot-loader',
 		'style-loader',
 		MiniCssExtractPlugin.loader,
 		{
@@ -106,6 +107,7 @@ const cssLoaderServer = {
 	test: /\.css$/,
 	exclude: /\.module\.css$/,
 	use: [
+		'css-hot-loader',
 		'isomorphic-style-loader',
 		// MiniCssExtractPlugin.loader,
 		'css-loader',
@@ -115,6 +117,7 @@ const cssLoaderServer = {
 const cssModulesLoaderServer = {
 	test: /\.module\.css$/,
 	use: [
+		'css-hot-loader',
 		'isomorphic-style-loader',
 		// MiniCssExtractPlugin.loader,
 		{
@@ -132,6 +135,7 @@ const lessLoaderServer = {
 	test: /\.less$/,
 	exclude: /\.module\.less$/,
 	use: [
+		'css-hot-loader',
 		'isomorphic-style-loader',
 		// MiniCssExtractPlugin.loader,
 		{
@@ -147,6 +151,7 @@ const lessLoaderServer = {
 const lessMoudlesLoaderServer = {
 	test: /\.module\.less$/,
 	use: [
+		'css-hot-loader',
 		'isomorphic-style-loader',
 		// MiniCssExtractPlugin.loader,
 		{

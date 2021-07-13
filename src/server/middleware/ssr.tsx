@@ -16,11 +16,13 @@ import App from '../../app/App'
 const helmetContext: any = {}
 const serverRenderer = (params: { [key: string]: any } = {}) => {
 	return async (ctx: IExtendKoaContext, next: Koa.Next) => {
+		const stampCollection: any = {}
 		if (params.filter(ctx) === true) {
 			await next()
 			return
 		}
 		try {
+			stampCollection['startServerRender'] = new Date().getTime()
 			const sheet = new ServerStyleSheet()
 			const store = ctx.serverStore
 			const state = JSON.stringify(store.getState())
@@ -44,9 +46,11 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 				helmet: helmetContext.helmet,
 				...assets
 			})
+			stampCollection['endServerRender'] = new Date().getTime()
 			ctx.type = 'text/html'
 			ctx.status = 200
 			ctx.body = htmlString
+			console.log('==============>>> SSR 渲染耗时: ', stampCollection['endServerRender'] - stampCollection['startServerRender'])
 			return
 		} catch (e) {
 			params.onError(ctx, e)

@@ -7,7 +7,7 @@ export default ({ css, cssChunks, js, jsChunks, state, content, styles, helmet }
 	let _jsString = ``
 
     const _cssPaths = [..._cssChunks, ..._css]
-    const _jsPaths = [..._jsChunks, ..._js]
+    const _jsPaths = [..._js, ..._jsChunks]
 	_cssPaths.forEach((item: string) => {
 		_cssString += `<link rel="stylesheet" href=${item} />\n`
 	})

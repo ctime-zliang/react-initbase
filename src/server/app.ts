@@ -1,10 +1,11 @@
 import Koa from 'koa'
 import middleware from './middleware'
 import errorHandler from './error'
+import { IExtendKoaContext } from './types/koa-context'
 
 const app = new Koa()
 
-app.on('error', (error, ctx) => {
+app.on('error', (error, ctx: IExtendKoaContext) => {
 	const result = errorHandler(error, ctx)
 	console.log(result)
 })

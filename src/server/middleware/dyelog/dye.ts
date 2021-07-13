@@ -1,7 +1,7 @@
 const MAX_LENGTH = 9900
 const SPLIT_LINE = `>>> ==================================================`
 const PREFIX_TAG = `DYE_KOALOG|`
-const zeroize = (num, width) => {
+const zeroize = (num: number, width: number) => {
 	const s = String(num)
 	const len = s.length
 	return len >= width ? s : '000000'.slice(len - width) + s
@@ -14,7 +14,7 @@ const getTime = () => {
 	var msec = zeroize(now.getTime() % 1000, 3)
 	return HH + ':' + mm + ':' + ss + ' ' + msec
 }
-const substring = body => {
+const substring = (body: string) => {
 	return (body || '').substr(0, MAX_LENGTH)
 }
 const trim = (string = '') => {
@@ -24,23 +24,23 @@ const trim = (string = '') => {
 	return string.replace(/(^\s*)|(\s*$)/g, '')
 }
 
-const debug = (ctx, msg) => {
+const debug = (ctx: any, msg: any) => {
 	msg = getTime() + '|DEBUG|' + msg
-	this.log('debug', ctx, msg)
+	(this as any).log('debug', ctx, msg)
 }
-const info = (ctx, msg) => {
+const info = (ctx: any, msg: any) => {
 	msg = getTime() + '|INFO|' + msg
-	this.log('info', ctx, msg)
+	(this as any).log('info', ctx, msg)
 }
-const warn = (ctx, msg) => {
+const warn = (ctx: any, msg: any) => {
 	msg = getTime() + '|WARN|' + msg
-	this.log('warn', ctx, msg)
+	(this as any).log('warn', ctx, msg)
 }
-const error = (ctx, msg) => {
+const error = (ctx: any, msg: any) => {
 	msg = getTime() + '|ERROR|' + msg
-	this.log('error', ctx, msg)
+	(this as any).log('error', ctx, msg)
 }
-const log = (type, ctx, msg) => {
+const log = (type: string, ctx: any, msg: any) => {
 	msg = type + '|' + msg
 	if (ctx && ctx.request && !ctx._logs) {
 		ctx._logs = []
@@ -49,14 +49,14 @@ const log = (type, ctx, msg) => {
 		ctx._logs.push(msg)
 	}
 }
-const handleDyeLog = (ctx, debug = true) => {
+const handleDyeLog = (ctx: any, debug = true) => {
 	ctx._logs = ctx._logs || []
 
 	/* ... */
 	const header = []
 	if (ctx.request) {
 		header.push('request url: ' + `${ctx.request.protocol}://${ctx.request.host}${ctx.request.url}`)
-		const headerObj = {}
+		const headerObj: {[key: string]: any} = {}
 		Object.keys(ctx.request.headers).forEach((item, index) => {
 			headerObj[item] = ctx.request.headers[item] || ''
 		})

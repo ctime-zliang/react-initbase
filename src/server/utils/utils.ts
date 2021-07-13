@@ -34,7 +34,6 @@ export const getAssetsPathsList = (manifestFileUrl: string): IGetAssetsPathsList
 				return
 			}
 			if (/.js$/i.test(item)) {
-				console.log(item)
 				if (/\/chunk/i.test(content[item])) {
 					result.jsChunks.push(content[item])
 					return
