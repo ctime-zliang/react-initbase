@@ -1,5 +1,5 @@
 import webpack from 'webpack'
-import nodemon from 'nodemon'
+import nodemon, { restart } from 'nodemon'
 import { exec } from 'child_process'
 import Koa from 'koa'
 import rimraf from 'rimraf'
@@ -50,8 +50,6 @@ const rimrafPaths = () => {
 	}
 }
 
-let restartTimer: any = -1
-
 const handler = async (app: any) => {
 	logger.info(`[Info] Starting build...`)
 	const startStamp = Date.now()
@@ -64,26 +62,16 @@ const handler = async (app: any) => {
 	devClientWebpackConfig.output.hotUpdateMainFilename = `updates/[hash].hot-update.json`
 	devClientWebpackConfig.output.hotUpdateChunkFilename = `updates/[id].[hash].hot-update.js`
 
+	const devClientPublicPath = devClientWebpackConfig.output.publicPath
+	const devServerPublicPath = devServerWebpackConfig.output.publicPath
+
+	devClientWebpackConfig.output.publicPath = `http://${serverBuildHost}:${serverBuildPort}${devClientPublicPath}`
+	devServerWebpackConfig.output.publicPath = `http://${serverBuildHost}:${serverBuildPort}${devClientPublicPath}`
+
 	const clientCompiler: any = webpack(devClientWebpackConfig)
 	const serverCompiler: any = webpack(devServerWebpackConfig)
 	const clientPromise = compilerPromise('client', clientCompiler)
-	const serverPromise = compilerPromise('server', serverCompiler, (tag: string) => {
-		if (tag === 'compile') {
-			clearTimeout(restartTimer)
-		}
-		if (tag === 'done') {
-			// serverExecer()
-			restartTimer = setTimeout(() => {
-				// exec('ls -al', (err, stdout, stderr) => {
-				// 	if (err) {
-				// 		console.log(err)
-				// 		return
-				// 	}
-				// 	console.log(stdout)
-				// })
-			}, 1000)
-		}
-	})
+	const serverPromise = compilerPromise('server', serverCompiler)
 
 	const serverWatchOptions = {
 		ignored: /node_modules/,
@@ -100,7 +88,7 @@ const handler = async (app: any) => {
 	app.use(webpackHotMiddleware(clientCompiler))
 
 	app.listen(serverBuildPort)
-	logger.info(`[Info] Build service has started.`)
+	logger.info(`[Info] Build service Started - http://${serverBuildHost}:${serverBuildPort}`)
 
 	serverCompiler.watch(serverWatchOptions, (error: any, stats: any) => {
 		if (!error && !stats.hasErrors()) {
@@ -124,36 +112,35 @@ const handler = async (app: any) => {
 		await serverPromise
 	} catch (error) {
 		logger.error(`[Error] Build failed...`)
-		logger.info(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
+		logger.warn(`[Info]  Build Time Consuming ${(Date.now() - startStamp) / 1000}s`)
 		console.error(error)
 		return
 	}
-	logger.info(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
-	
+	logger.warn(`[Info] Build Time Consuming ${(Date.now() - startStamp) / 1000}s`)
+
 	serverExecer()
 }
 
 const serverExecer = () => {
-	logger.info(`[Info] Render Server will be start.`)
-	const script = nodemon({
+	logger.info(`[Info] Render Server Starting.`)
+	const serverHandler = nodemon({
 		script: serverEntryPath,
 		...buildConfig.ssr.nodemon,
 	})
-	script.on('start', () => {
-		logger.info(`[Info] Render Server has been started.`)
+	serverHandler.on('start', () => {
+		logger.warn(`[Info] Render Server Started.`)
 	})
-	script.on('restart', () => {
-		logger.info(`[Info] Render Server has been restart.`)
+	serverHandler.on('restart', () => {
+		logger.warn(`[Info] Render Server Restart.`)
 	})
-	script.on('quit', () => {
-		logger.info(`[Info] Render Server has been quit.`)
+	serverHandler.on('quit', () => {
+		logger.info(`[Info] Render Server Quit.`)
 		process.exit()
 	})
-	script.on('error', () => {
+	serverHandler.on('error', () => {
 		logger.error(`[Info] An error occured. Exiting.`)
 		process.exit(1)
 	})
-	return script
 }
 
 rimrafPaths()

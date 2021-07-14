@@ -44,7 +44,7 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 				state,
 				content,
 				helmet: helmetContext.helmet,
-				...assets
+				...assets,
 			})
 			stampCollection['endServerRender'] = new Date().getTime()
 			ctx.type = 'text/html'

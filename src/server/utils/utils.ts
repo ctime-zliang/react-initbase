@@ -17,7 +17,7 @@ export const getAssetsPathsList = (manifestFileUrl: string): IGetAssetsPathsList
 		css: [],
 		cssChunks: [],
 		js: [],
-		jsChunks: []
+		jsChunks: [],
 	}
 	try {
 		if (!fs.existsSync(manifestFileUrl)) {

@@ -15,7 +15,7 @@ const utils = require('./utils')
 
 const clientPaths = paths.client
 const serverPaths = paths.server
-const HappyThreadPoolCase = HappyPack.ThreadPool({ size: OS.cpus().length })
+// const HappyThreadPoolCase = HappyPack.ThreadPool({ size: OS.cpus().length })
 
 module.exports = {
 	common: [

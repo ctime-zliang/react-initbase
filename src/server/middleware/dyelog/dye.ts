@@ -25,20 +25,16 @@ const trim = (string = '') => {
 }
 
 const debug = (ctx: any, msg: any) => {
-	msg = getTime() + '|DEBUG|' + msg
-	(this as any).log('debug', ctx, msg)
+	msg = getTime() + '|DEBUG|' + msg(this as any).log('debug', ctx, msg)
 }
 const info = (ctx: any, msg: any) => {
-	msg = getTime() + '|INFO|' + msg
-	(this as any).log('info', ctx, msg)
+	msg = getTime() + '|INFO|' + msg(this as any).log('info', ctx, msg)
 }
 const warn = (ctx: any, msg: any) => {
-	msg = getTime() + '|WARN|' + msg
-	(this as any).log('warn', ctx, msg)
+	msg = getTime() + '|WARN|' + msg(this as any).log('warn', ctx, msg)
 }
 const error = (ctx: any, msg: any) => {
-	msg = getTime() + '|ERROR|' + msg
-	(this as any).log('error', ctx, msg)
+	msg = getTime() + '|ERROR|' + msg(this as any).log('error', ctx, msg)
 }
 const log = (type: string, ctx: any, msg: any) => {
 	msg = type + '|' + msg
@@ -56,7 +52,7 @@ const handleDyeLog = (ctx: any, debug = true) => {
 	const header = []
 	if (ctx.request) {
 		header.push('request url: ' + `${ctx.request.protocol}://${ctx.request.host}${ctx.request.url}`)
-		const headerObj: {[key: string]: any} = {}
+		const headerObj: { [key: string]: any } = {}
 		Object.keys(ctx.request.headers).forEach((item, index) => {
 			headerObj[item] = ctx.request.headers[item] || ''
 		})

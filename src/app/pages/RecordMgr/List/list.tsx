@@ -204,7 +204,7 @@ export default connect(
 		return {
 			...ownProps,
 			...state[KEY_RECORD_REDUCER],
-			...state[KEY_G_PROFILE_REDUCER]
+			...state[KEY_G_PROFILE_REDUCER],
 		}
 	},
 	{
