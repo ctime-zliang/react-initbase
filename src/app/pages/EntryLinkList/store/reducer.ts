@@ -8,7 +8,7 @@ const actionTypeReducers: { [key: string]: Function } = {
 
 export default (state: IEntryList = createDefaultState(), action: IAction): IEntryList => {
 	const func: any = actionTypeReducers[action.type] || null
-	if (action.data && func) {
+	if (func) {
 		return func(state, action.data)
 	}
 	return state

@@ -35,7 +35,7 @@ const ClockcanvasWrapper = styled.div`
 `
 
 const loadingSVGLoadingMask = withLoading(SVGLoadingMask)
-function HomeRoot() {
+function HomeRoot(props: any) {
 	const [isShow, setIsShow] = useState<boolean>(false)
 
 	useEffect(() => {

@@ -32,15 +32,7 @@ function ListTableRoot(props: IListTableRootProps) {
 			hasFlag = true
 		}
 		const url = `/record/detail/${itemData.id}${str}`
-		const id = `LINK_DETAIL_${itemData.id}`
-		const fragment = document.createRange().createContextualFragment(`<a id=${id} href="${url}" target="_blank">-</a>`)
-		document.body.appendChild(fragment)
-		const aElement = document.getElementById(id)
-		if (aElement) {
-			aElement.click()
-			document.body.removeChild(aElement)
-		}
-		// window.open(url)
+		window.open(url)
 	}, [])
 
 	if (!LocalConfig.isSettedConfig) {

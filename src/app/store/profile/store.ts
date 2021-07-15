@@ -3,6 +3,7 @@ import { CLIENT_RENDER, IGProfile, KEY_G_PROFILE_REDUCER } from './config'
 export function createInitialState(g_RENDER_WAY: string = CLIENT_RENDER): IGProfile {
 	return {
 		g_RENDER_WAY,
+		g_languageSet: 'zh-cn',
 		g_globalId: String(new Date().getTime()),
 	}
 }

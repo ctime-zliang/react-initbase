@@ -2,17 +2,29 @@ import { ACTION_TYPE, IGProfile } from './config'
 import { IAction } from './config'
 import { createDefaultState } from './store'
 
-const actionTypeReducers = {
-	[ACTION_TYPE.MODIFY_GLOBAL_RUNID](state: IGProfile, actionData: any): IGProfile {
+const LANGUAGE_TOGGLE_MAP = {
+	'zh-cn': 'en',
+	'en': 'zh-cn'
+}
+
+const actionTypeReducers: {[key: string]: any} = {
+	[ACTION_TYPE.G_MODIFY_RUNID](state: IGProfile, actionData: any): IGProfile {
 		const newState: IGProfile = JSON.parse(JSON.stringify(state))
 		newState.g_globalId = actionData.g_globalId
+		return newState
+	},
+	[ACTION_TYPE.G_MODIFY_LUNGAUGES](state: IGProfile, actionData: any): IGProfile {
+		const newState: IGProfile = JSON.parse(JSON.stringify(state))
+		// @ts-ignore
+		newState.g_languageSet = LANGUAGE_TOGGLE_MAP[state.g_languageSet] || LANGUAGE_TOGGLE_MAP['zh-cn']
 		return newState
 	},
 }
 
 export default (state: IGProfile = createDefaultState(), action: IAction): IGProfile => {
-	if (action.data && actionTypeReducers[action.type]) {
-		return actionTypeReducers[action.type](state, action.data)
+	const func: any = actionTypeReducers[action.type]  || null
+	if (func) {
+		return func(state, action.data)
 	}
 	return state
 }

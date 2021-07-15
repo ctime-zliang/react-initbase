@@ -4,12 +4,12 @@ import { IAction } from './config'
 import { createDefaultState } from './store'
 
 const actionTypeReducers: { [key: string]: Function } = {
-	[ACTION_TYPE.MODIFY_RECORD_LIST](state: IRecordMgr, actionData: any): IRecordMgr {
+	[ACTION_TYPE.RECORD_MODIFY_LIST](state: IRecordMgr, actionData: any): IRecordMgr {
 		const newState: IRecordMgr = JSON.parse(JSON.stringify(state))
 		newState.list = [].concat(actionData.list)
 		return newState
 	},
-	[ACTION_TYPE.SET_ROW_LOADING_STATUS](state: IRecordMgr, actionData: any): IRecordMgr {
+	[ACTION_TYPE.RECORD_SET_ROW_LOADING_STATUS](state: IRecordMgr, actionData: any): IRecordMgr {
 		const newState: IRecordMgr = JSON.parse(JSON.stringify(state))
 		const ids = actionData.ids || []
 		newState.list.forEach((item: IRecordMgrItem, index: number) => {
@@ -19,7 +19,7 @@ const actionTypeReducers: { [key: string]: Function } = {
 		})
 		return newState
 	},
-	[ACTION_TYPE.REMOVE_RECORD_ITEM](state: IRecordMgr, actionData: any): IRecordMgr {
+	[ACTION_TYPE.RECORD_REMOVE_RECORD_ITEM](state: IRecordMgr, actionData: any): IRecordMgr {
 		const newState: IRecordMgr = JSON.parse(JSON.stringify(state))
 		const ids = actionData.ids || []
 		ids.forEach((item: number, index: number) => {
@@ -31,7 +31,7 @@ const actionTypeReducers: { [key: string]: Function } = {
 		})
 		return newState
 	},
-	[ACTION_TYPE.TOGGLE_SELECT_KEYS](state: IRecordMgr, acionData: any): IRecordMgr {
+	[ACTION_TYPE.RECORD_TOGGLE_SELECT_KEYS](state: IRecordMgr, acionData: any): IRecordMgr {
 		const newState: IRecordMgr = JSON.parse(JSON.stringify(state))
 		const selectedKeys: number[] = acionData.selectedKeys
 		newState.list.forEach((item: IRecordMgrItem, index: number) => {
@@ -42,7 +42,7 @@ const actionTypeReducers: { [key: string]: Function } = {
 		return newState
 	},
 	/* ... */
-	[ACTION_TYPE.MODIFY_COUNTTOTAL](state: IRecordMgr, acionData: any): IRecordMgr {
+	[ACTION_TYPE.RECORD_MODIFY_COUNTTOTAL](state: IRecordMgr, acionData: any): IRecordMgr {
 		const newState: IRecordMgr = JSON.parse(JSON.stringify(state))
 		newState.countTotal = acionData.countTotal
 		return newState
@@ -51,7 +51,7 @@ const actionTypeReducers: { [key: string]: Function } = {
 
 export default (state: IRecordMgr = createDefaultState(), action: IAction): IRecordMgr => {
 	const func: any = actionTypeReducers[action.type] || null
-	if (action.data && func) {
+	if (func) {
 		return func(state, action.data)
 	}
 	return state
