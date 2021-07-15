@@ -3,11 +3,11 @@ import { IAction } from './config'
 import { createDefaultState } from './store'
 
 const LANGUAGE_TOGGLE_MAP = {
-	'zh-cn': 'en',
-	'en': 'zh-cn'
+	zh_cn: 'en_us',
+	en_us: 'zh_cn',
 }
 
-const actionTypeReducers: {[key: string]: any} = {
+const actionTypeReducers: { [key: string]: any } = {
 	[ACTION_TYPE.G_MODIFY_RUNID](state: IGProfile, actionData: any): IGProfile {
 		const newState: IGProfile = JSON.parse(JSON.stringify(state))
 		newState.g_globalId = actionData.g_globalId
@@ -22,7 +22,7 @@ const actionTypeReducers: {[key: string]: any} = {
 }
 
 export default (state: IGProfile = createDefaultState(), action: IAction): IGProfile => {
-	const func: any = actionTypeReducers[action.type]  || null
+	const func: any = actionTypeReducers[action.type] || null
 	if (func) {
 		return func(state, action.data)
 	}

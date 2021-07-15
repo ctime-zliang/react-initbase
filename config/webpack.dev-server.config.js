@@ -7,10 +7,11 @@ module.exports = {
 	compress: true,
 	progress: true,
 	hot: true,
-	open: true,
+	open: false,
 	inline: true,
 	watchContentBase: true,
 	historyApiFallback: true,
+	writeToDisk: false,
 	headers: {
 		Cookie: `sessionKey=webpacdevsessionKey; PATH=/;`,
 	},

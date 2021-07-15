@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button, Row, Col, Input } from 'antd'
+import { useTranslation } from 'react-i18next'
 import EditForm from '../EditForm'
 import { message as messageTips } from 'antd'
 import { withDialog } from '@/utils/hoc/with-dialog'
@@ -12,6 +13,7 @@ const dialogEditForm = withDialog(EditForm)
 
 function ListFilterFormRoot(props: IListFilterFormRootProps) {
 	const { keywordsValue, handleKeywordsEnterAction, handleKeywordsChangeAction, handleRefreshAction, handleAddItem, onDialogEditFormClosed } = props
+	const { t } = useTranslation()
 	let hasSubmitedItem = false
 
 	const handleSearch = ($evte: any) => {
@@ -79,7 +81,7 @@ function ListFilterFormRoot(props: IListFilterFormRootProps) {
 				<Col span={12} style={{ paddingRight: '10px' }}>
 					<Input
 						allowClear={true}
-						placeholder="Input Something..."
+						placeholder={t('record.Input Something...')}
 						onPressEnter={handleSearch}
 						onChange={handleKeywordsChangeAction}
 						value={keywordsValue}
@@ -90,16 +92,16 @@ function ListFilterFormRoot(props: IListFilterFormRootProps) {
 				</Col>
 				<Col span={12} className={formStyles['search-btn-container']}>
 					<Button onClick={handleSearch} className={formStyles['search-btn-item']}>
-						Search
+						{t('Search')}
 					</Button>
 					<Button onClick={handleRefreshAction} className={formStyles['search-btn-item']}>
-						Refresh
+						{t('Refresh')}
 					</Button>
 				</Col>
 			</Row>
 			<Row>
 				<Button onClick={showDialogEditForm} className="search-btn-item-extra" style={{ marginLeft: '5px' }}>
-					Add Item(s)
+					{t('record.Add Items')}
 				</Button>
 			</Row>
 		</>

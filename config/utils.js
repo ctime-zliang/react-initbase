@@ -17,6 +17,6 @@ module.exports = {
 			.join('')
 	},
 	clientOnly() {
-		return process.argv.includes('--env.client-only')
+		return process.argv.includes('client-only=true')
 	},
 }

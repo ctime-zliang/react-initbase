@@ -29,13 +29,6 @@ const webpackConfigBase = {
 		timings: true,
 		version: false,
 	},
-	node: {
-		dgram: 'empty',
-		fs: 'empty',
-		net: 'empty',
-		tls: 'empty',
-		child_process: 'empty',
-	},
 }
 
 module.exports = webpackConfigBase

@@ -11,6 +11,7 @@
 		"strict": true,
 		"module": "commonjs",
 		"isolatedModules": true,
+		"resolveJsonModule": true,
 		"noEmit": true,
 		"baseUrl": "./src",
 		"paths": {

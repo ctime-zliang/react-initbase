@@ -4,6 +4,9 @@ const utils = require('./utils')
 module.exports = {
 	common: {
 		buildRoot: utils.resolveDirectory(`./dist/`),
+		i18n: {
+			locales: utils.resolveDirectory(`./src/app/i18n/locales`),
+		},
 	},
 	client: {
 		base: {

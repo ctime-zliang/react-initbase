@@ -1,4 +1,4 @@
-const WebpackMerge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const webpackBaseConfig = require('./webpack-client.base.config')
 const paths = require('./webpack.paths')
 const devServerConfig = require('./webpack.dev-server.config')
@@ -28,4 +28,4 @@ const webpackDevConfig = {
 	},
 }
 
-module.exports = WebpackMerge(webpackBaseConfig, webpackDevConfig)
+module.exports = merge(webpackBaseConfig, webpackDevConfig)

@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router'
 import { connect } from 'react-redux'
 import { Layout, Row, Pagination, Modal } from 'antd'
 import { message as messageTips } from 'antd'
+import { useTranslation } from 'react-i18next'
 import ListTable from '../Component/ListTable'
 import ListFilterForm from '../Component/ListFilterForm'
 import { basePageConfig, IBasePageConfig, baseFormConfig, IBaseFormConfig } from './config'
@@ -28,6 +29,7 @@ function RecordList(props: TIRecordListProps) {
 		fetchListRequestAction,
 		addItemRequestAction,
 	} = props
+	const { t } = useTranslation()
 	const [pageConfig, setPageConfig] = useState(basePageConfig)
 	const [formConfig, setFormConfig] = useState(baseFormConfig)
 	const [tableLoading, setTableLoading] = useState<boolean>(false)
@@ -169,7 +171,9 @@ function RecordList(props: TIRecordListProps) {
 						/>
 					</Row>
 					<Row className={styles['total-count-wrapper']}>
-						<div>Total Count: {countTotal}</div>
+						<div>
+							{t('record.Total Count')}: {countTotal}
+						</div>
 					</Row>
 				</section>
 			</section>

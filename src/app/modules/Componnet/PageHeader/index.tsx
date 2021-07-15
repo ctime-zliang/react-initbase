@@ -10,9 +10,6 @@ import { RouteComponentProps } from 'react-router'
 const { Header } = Layout
 function PageHeaderRoot(props: IPageHeaderRootProps) {
 	const { g_languageSet, g_globalId, updateGLanguageSet } = props
-	const updateGLanguageSetHandler = async () => {
-		await updateGLanguageSet()
-	}
 	return (
 		<header className="app-page-header">
 			<Layout>
@@ -23,7 +20,12 @@ function PageHeaderRoot(props: IPageHeaderRootProps) {
 							<span title={g_globalId}>React App</span>
 						</div>
 					</a>
-					<div>Language: <Button size="small" style={{marginLeft: '8px'}} onClick={updateGLanguageSetHandler}>{g_languageSet || '-'}</Button></div>
+					<div>
+						Language:{' '}
+						<Button size="small" style={{ marginLeft: '8px' }} onClick={updateGLanguageSet}>
+							{g_languageSet || '-'}
+						</Button>
+					</div>
 				</Header>
 			</Layout>
 		</header>
@@ -41,7 +43,6 @@ export default connect(
 		}
 	},
 	{
-		...actions
+		...actions,
 	}
 )(PageHeaderRoot)
-

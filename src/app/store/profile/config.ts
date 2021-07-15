@@ -16,7 +16,7 @@ export const KEY_G_PROFILE_REDUCER = 'G_PROFILE_REDUCER'
 export const CLIENT_RENDER = `CLIENT_RENDER`
 export const SERVER_RENDER = `SERVER_RENDER`
 
-export interface IGProfile {	
+export interface IGProfile {
 	g_RENDER_WAY: string
 	g_globalId: string
 	g_languageSet: string
