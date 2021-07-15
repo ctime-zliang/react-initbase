@@ -10,7 +10,9 @@ import paths from '../config/webpack.paths'
 import { logger, compilerPromise } from './utils/utils'
 import { buildConfig } from './config'
 // @ts-ignore
-import { devMiddleware as webpackDevMiddleware, hotMiddleware as webpackHotMiddleware } from 'koa-webpack-middleware'
+// import { devMiddleware as webpackDevMiddleware, hotMiddleware as webpackHotMiddleware } from 'koa-webpack-middleware'
+import webpackDevMiddleware from './utils/koa-webpack-dev-middleware'
+import webpackHotMiddleware from './utils/koa-webpack-hot-middleware'
 
 const clientPaths = paths.client
 const serverPaths = paths.server
@@ -54,35 +56,29 @@ const handler = async (app: any) => {
 	logger.info(`[Info] Starting build...`)
 	const startStamp = Date.now()
 
-	devClientWebpackConfig.output.path = clientPaths.devBuild.pathForSSR()
-	devClientWebpackConfig.entry.bundle = [
+	;(devClientWebpackConfig as {[key: string]: any}).output.path = clientPaths.devBuild.pathForSSR()
+	;(devClientWebpackConfig as {[key: string]: any}).entry.bundle = [
 		`webpack-hot-middleware/client?path=http://${serverBuildHost}:${serverBuildPort}/__webpack_hmr`,
 		devClientWebpackConfig.entry.client || '',
 	]
-	devClientWebpackConfig.output.hotUpdateMainFilename = `updates/[hash].hot-update.json`
-	devClientWebpackConfig.output.hotUpdateChunkFilename = `updates/[id].[hash].hot-update.js`
+	;(devClientWebpackConfig as {[key: string]: any}).output.hotUpdateMainFilename = `updates/[hash].hot-update.json`
+	;(devClientWebpackConfig as {[key: string]: any}).output.hotUpdateChunkFilename = `updates/[id].[hash].hot-update.js`
 
-	const devClientPublicPath = devClientWebpackConfig.output.publicPath
-	const devServerPublicPath = devServerWebpackConfig.output.publicPath
+	const devClientPublicPath = (devClientWebpackConfig as {[key: string]: any}).output.publicPath
+	const devServerPublicPath = (devServerWebpackConfig as {[key: string]: any}).output.publicPath
 
-	devClientWebpackConfig.output.publicPath = `http://${serverBuildHost}:${serverBuildPort}${devClientPublicPath}`
-	devServerWebpackConfig.output.publicPath = `http://${serverBuildHost}:${serverBuildPort}${devClientPublicPath}`
+	;(devClientWebpackConfig as {[key: string]: any}).output.publicPath = `http://${serverBuildHost}:${serverBuildPort}${devClientPublicPath}`
+	;(devServerWebpackConfig as {[key: string]: any}).output.publicPath = `http://${serverBuildHost}:${serverBuildPort}${devClientPublicPath}`
 
 	const clientCompiler: any = webpack(devClientWebpackConfig)
 	const serverCompiler: any = webpack(devServerWebpackConfig)
 	const clientPromise = compilerPromise('client', clientCompiler)
 	const serverPromise = compilerPromise('server', serverCompiler)
 
-	const serverWatchOptions = {
-		ignored: /node_modules/,
-		stats: devClientWebpackConfig.stats,
-	}
-
 	app.use(
 		webpackDevMiddleware(clientCompiler, {
-			publicPath: devClientWebpackConfig.output.publicPath,
-			stats: devClientWebpackConfig.stats,
-			serverWatchOptions,
+			publicPath: (devClientWebpackConfig as {[key: string]: any}).output.publicPath,
+			stats: (devClientWebpackConfig as {[key: string]: any}).stats,
 		})
 	)
 	app.use(webpackHotMiddleware(clientCompiler))
@@ -90,9 +86,13 @@ const handler = async (app: any) => {
 	app.listen(serverBuildPort)
 	logger.info(`[Info] Build service Started - http://${serverBuildHost}:${serverBuildPort}`)
 
+	const serverWatchOptions = {
+		ignored: /node_modules/,
+		stats: devClientWebpackConfig.stats,
+	}
 	serverCompiler.watch(serverWatchOptions, (error: any, stats: any) => {
 		if (!error && !stats.hasErrors()) {
-			console.log(stats.toString(devServerWebpackConfig.stats))
+			console.log(stats.toString((devServerWebpackConfig as {[key: string]: any}).stats))
 			return
 		}
 		if (error) {

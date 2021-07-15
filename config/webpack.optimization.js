@@ -6,7 +6,7 @@ const clientPaths = paths.client
 module.exports = {
 	client: {
 		base: {
-			noEmitOnErrors: true,
+			// noEmitOnErrors: true,
 			// splitChunks: {
 			// 	cacheGroups: {
 			// 		commons: {
