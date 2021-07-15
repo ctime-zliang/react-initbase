@@ -42,12 +42,12 @@ const handler = async () => {
 		await clientPromise
 	} catch (error) {
 		logger.error(`[Error] Build failed...`)
-		logger.info(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
+		logger.warn(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
 		console.error(error)
 		return
 	}
 	logger.success(`[Success] Build successed.`)
-	logger.info(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
+	logger.warn(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
 }
 
 rimrafPaths()

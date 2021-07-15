@@ -21,7 +21,7 @@ const handler = async () => {
 	logger.info(`[Info] Starting build...`)
 	const startStamp = Date.now()
 
-	prodClientWebpackConfig.output.path = clientPaths.prodBuild.pathForSSR()
+	;(prodClientWebpackConfig as {[key: string]: any}).output.path = clientPaths.prodBuild.pathForSSR()
 
 	const clientCompiler: any = webpack(prodClientWebpackConfig)
 	const serverCompiler: any = webpack(prodServerWebpackConfig)
@@ -73,14 +73,13 @@ const handler = async () => {
 	try {
 		await clientPromise
 		await serverPromise
-		logger.info(`[Info] Build success.`)
 	} catch (error) {
 		logger.error(`[Error] Build failed...`)
 		console.error(error)
-		logger.info(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
+		logger.warn(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
 		return
 	}
-	logger.info(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
+	logger.warn(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
 }
 
 rimrafPaths()

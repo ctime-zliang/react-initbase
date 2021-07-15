@@ -70,7 +70,6 @@ module.exports = {
 			}),
 			new ReactRefreshPlugin(),
 			// !utils.clientOnly() && new WriteFileWebpackPlugin(),
-			// new WriteFileWebpackPlugin(),
 			utils.clientOnly() &&
 				new HtmlWebpackPlugin({
 					filename: clientPaths.devBuild.htmlWebpackPluginFilename,
@@ -131,6 +130,7 @@ module.exports = {
 			}),
 		],
 		prodBuild: [
+			// new WriteFileWebpackPlugin(),
 			new CopyWebpackPlugin({
 				patterns: [
 					{
