@@ -8,12 +8,10 @@ import { IExtendKoaContext } from '../types/koa-context'
 
 export default (params: { [key: string]: any } = {}) => {
 	return async (ctx: IExtendKoaContext, next: Koa.Next) => {
-		const stampCollection: any = {}
 		if (params.filter(ctx) === true) {
 			await next()
 			return
 		}
-		stampCollection['startCreateStore'] = new Date().getTime()
 		const store = configureStore({
 			initialState: {
 				[KEY_G_PROFILE_REDUCER]: { ...createGProfileInitialState(SERVER_RENDER) },
@@ -33,8 +31,6 @@ export default (params: { [key: string]: any } = {}) => {
 			console.log(err)
 		})
 		ctx.serverStore = store
-		stampCollection['endCreateStore'] = new Date().getTime()
-		console.log('==============>>> CreateStore 执行耗时: ', stampCollection['endCreateStore'] - stampCollection['startCreateStore'])
 		await next()
 	}
 }

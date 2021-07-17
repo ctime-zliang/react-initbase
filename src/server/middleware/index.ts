@@ -11,9 +11,12 @@ import interceptor from './interceptor'
 import parameter from './parameter'
 import { IExtendKoaContext } from '../types/koa-context'
 
+const assetsChildPath = process.env.NODE_ENV === 'development' ? paths.client.devBuild.pathTagForSSR : paths.client.prodBuild.pathTagForSSR
+const assetsPath = path.join(__dirname, `../${assetsChildPath}`)
+
 export default (app: Koa) => {
 	app.use(interceptor())
-	app.use(koaStatic(path.join(paths.common.buildRoot, `./${paths.client.devBuild.pathTagForSSR}`)))
+	app.use(koaStatic(assetsPath))
 	app.use(bodyParser())
 	app.use(parameter())
 	app.use(

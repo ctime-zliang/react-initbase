@@ -19,7 +19,6 @@ const filterFormData = (paramsFormData: IBaseEditFormDataConfig): IBaseEditFormD
 }
 
 function RecordDetailRoot(props: IRecordDetailRootProps) {
-	console.log(props)
 	const { match, history, fetchItemRequestAction, updateItemRequestAction } = props
 	const [formData, setFormData] = useState(baseEditFormDataConfig)
 	const [isExists, setIsExists] = useState<boolean>(true)

@@ -24,6 +24,7 @@ const pathOfServerPathAboutProdBuild = serverPaths.prodBuild.path()
 
 module.exports = {
 	common: [
+		new WebpackManifestPlugin({ fileName: 'manifest.json' }),
 		new ESBuildPlugin(),
 		new MiniCssExtractPlugin({
 			filename: clientPaths.base.stylesSheetFilename,
@@ -53,7 +54,6 @@ module.exports = {
 		new TypedCssModulesPlugin({
 			globPattern: 'src/**/*.(css|less|sass)',
 		}),
-		new WebpackManifestPlugin({ fileName: 'manifest.json' }),
 		new webpack.ProgressPlugin(),
 	],
 	client: {

@@ -25,7 +25,7 @@ const handler = async () => {
 
 	clientCompiler.watch({}, (error: any, stats: any) => {
 		if (!error && !stats.hasErrors()) {
-			console.log(stats.toString(prodClientWebpackCfg.stats))
+			logger.error(stats.toString(prodClientWebpackCfg.stats))
 			return
 		}
 		if (error) {

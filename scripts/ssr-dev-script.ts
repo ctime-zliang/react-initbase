@@ -42,8 +42,6 @@ app.use(async (ctx: Koa.Context, next: Koa.Next) => {
 const serverBuildPort = !isNaN(Number(process.env.PORT)) ? Number(process.env.PORT) + 1 : buildConfig.ssr.defaultPort
 const serverBuildHost = buildConfig.ssr.defaultHost
 
-const serverEntryPath = paths.server.devBuild.path() + '/' + paths.server.output.filename
-
 const rimrafPaths = () => {
 	try {
 		rimraf.sync(clientPaths.devBuild.pathForSSR())
@@ -53,6 +51,7 @@ const rimrafPaths = () => {
 	}
 }
 
+let serverHandler: any = null
 const handler = async (app: any) => {
 	logger.info(`[Info] Starting build...`)
 	const startStamp = Date.now()
@@ -65,6 +64,8 @@ const handler = async (app: any) => {
 
 	devClientWebpackCfg.output.hotUpdateMainFilename = `updates/[hash].hot-update.json`
 	devClientWebpackCfg.output.hotUpdateChunkFilename = `updates/[id].[hash].hot-update.js`
+	devServerWebpackCfg.output.hotUpdateMainFilename = `updates/[hash].hot-update.json`
+	devServerWebpackCfg.output.hotUpdateChunkFilename = `updates/[id].[hash].hot-update.js`
 
 	const devClientPublicPath = devClientWebpackCfg.output.publicPath
 	const devServerPublicPath = devServerWebpackCfg.output.publicPath
@@ -75,7 +76,11 @@ const handler = async (app: any) => {
 	const clientCompiler: any = webpack(devClientWebpackCfg)
 	const serverCompiler: any = webpack(devServerWebpackCfg)
 	const clientPromise = compilerPromise('client', clientCompiler)
-	const serverPromise = compilerPromise('server', serverCompiler)
+	const serverPromise = compilerPromise('server', serverCompiler, (statusText: string) => {
+		if (statusText == 'done') {
+			/* ... */
+		}
+	})
 
 	app.use(
 		webpackDevMiddleware(clientCompiler, {
@@ -88,23 +93,6 @@ const handler = async (app: any) => {
 
 	app.listen(serverBuildPort)
 	logger.info(`[Info] Build service Started - http://${serverBuildHost}:${serverBuildPort}`)
-
-	// const clientWatchOptions = {
-	// 	ignored: /node_modules/,
-	// 	stats: devClientWebpackCfg.stats,
-	// }
-	// clientCompiler.watch(clientWatchOptions, (error: any, stats: any) => {
-	// 	if (error) {
-	// 		logger.error(error)
-	// 	}
-	// 	if (stats && stats && stats.hasErrors()) {
-	// 		const info = stats.toJson()
-	// 		const errors = info.errors[0].split('\n')
-	// 		errors.forEach((item: any) => {
-	// 			logger.error(item)
-	// 		})
-	// 	}
-	// })
 
 	const serverWatchOptions = {
 		ignored: /node_modules/,
@@ -132,12 +120,9 @@ const handler = async (app: any) => {
 	}
 	logger.warn(`[Info] Build Time Consuming ${(Date.now() - startStamp) / 1000}s`)
 
-	serverExecer()
-}
-
-const serverExecer = () => {
 	logger.info(`[Info] Render Server Starting.`)
-	const serverHandler = nodemon({
+	const serverEntryPath = paths.server.devBuild.path() + '/' + paths.server.output.filename
+	serverHandler = nodemon({
 		script: serverEntryPath,
 		...buildConfig.ssr.nodemon,
 	})

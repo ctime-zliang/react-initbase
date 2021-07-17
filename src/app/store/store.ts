@@ -26,9 +26,6 @@ export function configureStore(params: IConfigureStoreParams = {}) {
 		store = createStore(createCombineReducers(), initialState, composeEnhancers(applyMiddleware(...[thunk].concat(...(middleware || [])))))
 	}
 	store.asyncReducers = {}
-	// store.subscribe(() => {
-	// 	console.log(`==> store.subscribe: `, store.getState())
-	// })
 
 	return store
 }

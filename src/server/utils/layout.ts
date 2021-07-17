@@ -6,8 +6,7 @@ export default ({ css, cssCommons, js, jsCommons, state, content, styles, helmet
 
 	let cssString = ``
 	let jsString = ``
-	console.log(`000000000000000000000000000000000000000`)
-	console.log(_cssCommons, _css)
+
 	;[..._cssCommons, ..._css].forEach((item: string) => {
 		cssString += `<link rel="stylesheet" href=${item} />\n`
 	})

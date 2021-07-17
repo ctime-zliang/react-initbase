@@ -4,7 +4,6 @@
 	"description": "",
 	"scripts": {
 		"prettier-all": "prettier --write .",
-		"prettier-src": "prettier --write ./src",
 		"ssr:devscript": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.json ts-node scripts/ssr-dev-script",
 		"ssr:prodscript": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/ssr-prod-script",
 		"server:prodscript": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/server-prod-script",

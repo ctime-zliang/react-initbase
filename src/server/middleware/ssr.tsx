@@ -39,8 +39,10 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 					</Provider>
 				)
 			)
+			const assetsChildPath =
+				process.env.NODE_ENV === 'development' ? paths.client.devBuild.pathTagForSSR : paths.client.prodBuild.pathTagForSSR
 			const styles = sheet.getStyleTags()
-			const assets = getAssetsPathsList(path.join(paths.common.buildRoot, `./${paths.client.devBuild.pathTagForSSR}/manifest.json`))
+			const assets = getAssetsPathsList(path.join(__dirname, `../${assetsChildPath}/manifest.json`))
 			const htmlString = layout({
 				styles,
 				state,
@@ -52,7 +54,11 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 			ctx.type = 'text/html'
 			ctx.status = 200
 			ctx.body = htmlString
-			console.log('==============>>> SSR 渲染耗时: ', stampCollection['endServerRender'] - stampCollection['startServerRender'])
+			console.log(
+				`============================[SSR 渲染耗时] ${
+					stampCollection['endServerRender'] - stampCollection['startServerRender']
+				} <============================`
+			)
 			return
 		} catch (e) {
 			params.onError(ctx, e)

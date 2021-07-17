@@ -28,7 +28,7 @@ const handler = async () => {
 	}
 	serverCompiler.watch(serverWatchOptions, (error: any, stats: any) => {
 		if (!error && !stats.hasErrors()) {
-			console.log(stats.toString(prodServerWebpackCfg.stats))
+			logger.error(stats.toString(prodServerWebpackCfg.stats))
 			return
 		}
 		if (error) {

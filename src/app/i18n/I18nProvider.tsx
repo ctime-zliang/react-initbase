@@ -26,7 +26,7 @@ i18next
 			useSuspense: false,
 			wait: true,
 		},
-		debug: true,
+		debug: false,
 		lng: 'en_us',
 		fallbackLng: 'en_us',
 		defaultNS: DEFAULT_NAMESPACE,
