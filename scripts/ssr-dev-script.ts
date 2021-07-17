@@ -60,9 +60,9 @@ const handler = async (app: any) => {
 	devClientWebpackCfg.output.path = clientPaths.devBuild.pathForSSR()
 	devClientWebpackCfg.entry.client = [
 		`webpack-hot-middleware/client?path=http://${serverBuildHost}:${serverBuildPort}/__webpack_hmr&timeout=10000&reload=true`,
-		devClientWebpackCfg.entry.client
+		devClientWebpackCfg.entry.client,
 	]
-	
+
 	devClientWebpackCfg.output.hotUpdateMainFilename = `updates/[hash].hot-update.json`
 	devClientWebpackCfg.output.hotUpdateChunkFilename = `updates/[id].[hash].hot-update.js`
 
@@ -70,7 +70,7 @@ const handler = async (app: any) => {
 	const devServerPublicPath = devServerWebpackCfg.output.publicPath
 
 	devClientWebpackCfg.output.publicPath = `http://${serverBuildHost}:${serverBuildPort}${devClientPublicPath}`
-	devClientWebpackCfg.output.publicPath = `http://${serverBuildHost}:${serverBuildPort}${devClientPublicPath}`
+	devServerWebpackCfg.output.publicPath = `http://${serverBuildHost}:${serverBuildPort}${devClientPublicPath}`
 
 	const clientCompiler: any = webpack(devClientWebpackCfg)
 	const serverCompiler: any = webpack(devServerWebpackCfg)
@@ -81,7 +81,7 @@ const handler = async (app: any) => {
 		webpackDevMiddleware(clientCompiler, {
 			publicPath: devClientWebpackCfg.output.publicPath,
 			stats: devClientWebpackCfg.stats,
-			writeToDisk: true
+			writeToDisk: true,
 		})
 	)
 	app.use(webpackHotMiddleware(clientCompiler))

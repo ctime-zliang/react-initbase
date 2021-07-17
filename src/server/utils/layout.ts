@@ -1,18 +1,18 @@
-export default ({ css, cssChunks, js, jsChunks, state, content, styles, helmet }: any) => {
+export default ({ css, cssCommons, js, jsCommons, state, content, styles, helmet }: any) => {
 	let _css: string[] = Array.from(new Set(css)) as string[]
 	let _js: string[] = Array.from(new Set(js)) as string[]
-	let _cssChunks: string[] = Array.from(new Set(cssChunks)) as string[]
-	let _jsChunks: string[] = Array.from(new Set(jsChunks)) as string[]
-	let _cssString = ``
-	let _jsString = ``
+	let _cssCommons: string[] = Array.from(new Set(cssCommons)) as string[]
+	let _jsCommons: string[] = Array.from(new Set(jsCommons)) as string[]
 
-	const _cssPaths = [..._cssChunks, ..._css]
-	const _jsPaths = [..._js, ..._jsChunks]
-	_cssPaths.forEach((item: string) => {
-		_cssString += `<link rel="stylesheet" href=${item} />\n`
+	let cssString = ``
+	let jsString = ``
+	console.log(`000000000000000000000000000000000000000`)
+	console.log(_cssCommons, _css)
+	;[..._cssCommons, ..._css].forEach((item: string) => {
+		cssString += `<link rel="stylesheet" href=${item} />\n`
 	})
-	_jsPaths.forEach((item: string) => {
-		_jsString += `<script src=${item}></script>\n`
+	;[..._jsCommons, ..._js].forEach((item: string) => {
+		jsString += `<script src=${item}></script>\n`
 	})
 	return `
         <!DOCTYPE html>
@@ -20,7 +20,7 @@ export default ({ css, cssChunks, js, jsChunks, state, content, styles, helmet }
             <head>
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                ${_cssString}                
+                ${cssString}                
                 ${helmet.title.toString() || 'React - Application'}
                 ${helmet.base.toString()}
                 ${helmet.meta.toString()}
@@ -33,7 +33,7 @@ export default ({ css, cssChunks, js, jsChunks, state, content, styles, helmet }
             </head>
             <body>
                 <div id="app" class="app">${content}</div>
-                ${_jsString}
+                ${jsString}
             </body>
         </html>
     `

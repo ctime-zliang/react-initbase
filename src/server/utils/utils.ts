@@ -8,16 +8,16 @@ export async function sleep(delay: number = 1000) {
 
 interface IGetAssetsPathsList {
 	css: string[]
-	cssChunks: string[]
+	cssCommons: string[]
 	js: string[]
-	jsChunks: string[]
+	jsCommons: string[]
 }
 export const getAssetsPathsList = (manifestFileUrl: string): IGetAssetsPathsList => {
 	const result: IGetAssetsPathsList = {
 		css: [],
-		cssChunks: [],
+		cssCommons: [],
 		js: [],
-		jsChunks: [],
+		jsCommons: [],
 	}
 	try {
 		if (!fs.existsSync(manifestFileUrl)) {
@@ -26,16 +26,16 @@ export const getAssetsPathsList = (manifestFileUrl: string): IGetAssetsPathsList
 		const content = JSON.parse(fs.readFileSync(manifestFileUrl, 'utf-8'))
 		Object.keys(content).forEach((item: string | any, index: number): void => {
 			if (/.css$/i.test(item)) {
-				if (/\/chunk/i.test(content[item])) {
-					result.cssChunks.push(content[item])
+				if (/\.vendor./i.test(content[item])) {
+					result.cssCommons.push(content[item])
 					return
 				}
 				result.css.push(content[item])
 				return
 			}
 			if (/.js$/i.test(item)) {
-				if (/\/chunk/i.test(content[item])) {
-					result.jsChunks.push(content[item])
+				if (/\.vendor./i.test(content[item])) {
+					result.jsCommons.push(content[item])
 					return
 				}
 				result.js.push(content[item])

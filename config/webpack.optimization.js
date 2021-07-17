@@ -27,7 +27,7 @@ module.exports = {
 		},
 		prodBuild: {
 			minimize: true,
-			minimizer: [				
+			minimizer: [
 				// new ESBuildMinifyPlugin({
 				// 	target: 'es2015',
 				// 	minifyWhitespace: true,

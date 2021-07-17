@@ -9,7 +9,7 @@ export const RecordMgrList = (store: IStore) => {
 	return {
 		path: '/record',
 		component: List,
-		getInitialProps
+		getInitialProps,
 	}
 }
 

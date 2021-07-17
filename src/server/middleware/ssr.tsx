@@ -10,7 +10,7 @@ import paths from '../../../config/webpack.paths'
 import { getAssetsPathsList } from '../utils/utils'
 import layout from '../utils/layout'
 import { IExtendKoaContext } from '../types/koa-context'
-/* ... */
+import I18nProvider from '../../app/i18n/I18nProvider'
 import App from '../../app/App'
 
 const helmetContext: any = {}
@@ -30,9 +30,11 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 				sheet.collectStyles(
 					<Provider store={store}>
 						<StaticRouter location={ctx.request.url} context={{}}>
-							<HelmetProvider context={helmetContext}>
-								<App store={store} />
-							</HelmetProvider>
+							<I18nProvider>
+								<HelmetProvider context={helmetContext}>
+									<App store={store} />
+								</HelmetProvider>
+							</I18nProvider>
 						</StaticRouter>
 					</Provider>
 				)

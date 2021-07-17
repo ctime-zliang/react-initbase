@@ -11,14 +11,14 @@ module.exports = {
 	client: {
 		base: {
 			stylesSheetFilename: `styles/style.[name].[hash:8].css`,
-			stylesSheetChunkFilename: `styles/chunk.[name].[chunkhash:8].css`,  // 异步导入(import)模块被打包后的文件路径定义
+			stylesSheetChunkFilename: `styles/chunk.[name].[chunkhash:8].css`, // 异步导入(import)模块被打包后的文件路径定义
 		},
 		entry: {
 			main: utils.resolveDirectory(`./src/client/index.tsx`),
 		},
 		output: {
 			filename: `srcipts/srcipt.[name].[hash:8].js`,
-			chunkFilename: `srcipts/chunk.[name].[chunkhash:8].js`,  // 异步导入(import)模块被打包后的文件路径定义
+			chunkFilename: `srcipts/chunk.[name].[chunkhash:8].js`, // 异步导入(import)模块被打包后的文件路径定义
 		},
 		loader: {
 			imagesFilename: `images/[name].[hash:8].[ext]`,

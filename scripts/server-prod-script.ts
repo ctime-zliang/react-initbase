@@ -24,7 +24,7 @@ const handler = async () => {
 	const serverPromise = compilerPromise('server', serverCompiler)
 
 	const serverWatchOptions = {
-		ignored: /node_modules/
+		ignored: /node_modules/,
 	}
 	serverCompiler.watch(serverWatchOptions, (error: any, stats: any) => {
 		if (!error && !stats.hasErrors()) {
