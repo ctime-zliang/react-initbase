@@ -10,6 +10,7 @@ import { RouteComponentProps } from 'react-router'
 const { Header } = Layout
 function PageHeaderRoot(props: IPageHeaderRootProps) {
 	const { g_languageSet, g_globalId, updateGLanguageSet } = props
+	console.log(`========logoImage: `, logoImage)
 	return (
 		<header className="app-page-header">
 			<Layout>
@@ -21,7 +22,7 @@ function PageHeaderRoot(props: IPageHeaderRootProps) {
 						</div>
 					</a>
 					<div>
-						Language:{' '}
+						ddd - Language:{' '}
 						<Button size="small" style={{ marginLeft: '8px' }} onClick={updateGLanguageSet}>
 							{g_languageSet || '-'}
 						</Button>

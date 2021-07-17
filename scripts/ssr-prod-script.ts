@@ -8,6 +8,9 @@ import { logger, compilerPromise } from './utils/utils'
 const clientPaths = paths.client
 const serverPaths = paths.server
 
+const prodClientWebpackCfg: any = prodClientWebpackConfig
+const prodServerWebpackCfg: any = prodServerWebpackConfig
+
 const rimrafPaths = () => {
 	try {
 		rimraf.sync(clientPaths.prodBuild.pathForSSR())
@@ -21,20 +24,20 @@ const handler = async () => {
 	logger.info(`[Info] Starting build...`)
 	const startStamp = Date.now()
 
-	;(prodClientWebpackConfig as {[key: string]: any}).output.path = clientPaths.prodBuild.pathForSSR()
+	prodClientWebpackCfg.output.path = clientPaths.prodBuild.pathForSSR()
 
-	const clientCompiler: any = webpack(prodClientWebpackConfig)
-	const serverCompiler: any = webpack(prodServerWebpackConfig)
+	const clientCompiler: any = webpack(prodClientWebpackCfg)
+	const serverCompiler: any = webpack(prodServerWebpackCfg)
 	const clientPromise = compilerPromise('client', clientCompiler)
 	const serverPromise = compilerPromise('server', serverCompiler)
 
 	const serverWatchOptions = {
 		ignored: /node_modules/,
-		stats: prodClientWebpackConfig.stats,
+		stats: prodClientWebpackCfg.stats,
 	}
 	serverCompiler.watch(serverWatchOptions, (error: any, stats: any) => {
 		if (!error && !stats.hasErrors()) {
-			console.log(stats.toString(prodServerWebpackConfig.stats))
+			console.log(stats.toString(prodServerWebpackCfg.stats))
 			return
 		}
 		if (error) {
@@ -42,8 +45,7 @@ const handler = async () => {
 		}
 		if (stats.hasErrors()) {
 			const info = stats.toJson()
-			const errors = info.errors[0].split('\n')
-			errors.forEach((item: any) => {
+			info.errors.forEach((item: any) => {
 				logger.error(item)
 			})
 		}
@@ -51,17 +53,13 @@ const handler = async () => {
 
 	const clientWatchOptions = {
 		ignored: /node_modules/,
-		stats: prodClientWebpackConfig.stats,
+		stats: prodClientWebpackCfg.stats,
 	}
 	clientCompiler.watch(clientWatchOptions, (error: any, stats: any) => {
-		if (!error && !stats.hasErrors()) {
-			console.log(stats.toString(prodClientWebpackConfig.stats))
-			return
-		}
 		if (error) {
 			logger.error(error)
 		}
-		if (stats.hasErrors()) {
+		if (stats && stats.hasErrors()) {
 			const info = stats.toJson()
 			const errors = info.errors[0].split('\n')
 			errors.forEach((item: any) => {
@@ -76,10 +74,10 @@ const handler = async () => {
 	} catch (error) {
 		logger.error(`[Error] Build failed...`)
 		console.error(error)
-		logger.warn(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
 		return
 	}
 	logger.warn(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
+	logger.info(`[Info]: SSR(Production) Compiled Completed.`)
 }
 
 rimrafPaths()

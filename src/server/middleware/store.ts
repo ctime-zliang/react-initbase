@@ -24,7 +24,10 @@ export default (params: { [key: string]: any } = {}) => {
 		const matchItems = branch && branch.length >= 2 ? [branch[branch.length - 1]] : branch
 		const promises = matchItems.map((item: any) => {
 			const Component = item.route.component
-			return Component.getInitialProps instanceof Function ? Component.getInitialProps(store, ctx.request) : Promise.resolve(null)
+			const routerGetInitialProps = typeof item.route.getInitialProps == 'function' ? item.route.getInitialProps : null
+			const comptGetInitialProps = typeof Component.getInitialProps == 'function' ? Component.getInitialProps : null
+			const getInitialProps = routerGetInitialProps || comptGetInitialProps
+			return getInitialProps ? getInitialProps(store, ctx.request) : Promise.resolve(null)
 		})
 		await Promise.all(promises).catch((err: any) => {
 			console.log(err)

@@ -9,7 +9,7 @@ const serverPlugins = plugins.server
 const webpackProdConfig = {
 	mode: 'production',
 	output: {
-		publicPath: serverPaths.devBuild.publicPath,
+		publicPath: serverPaths.prodBuild.publicPath,
 		path: serverPaths.prodBuild.path(),
 		filename: serverPaths.output.filename,
 		// libraryTarget: 'commonjs2'

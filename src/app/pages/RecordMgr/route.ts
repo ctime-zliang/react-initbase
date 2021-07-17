@@ -1,4 +1,4 @@
-import List from './List'
+import List, { getInitialProps } from './List'
 import ErrorView from './Error'
 import injectReducer from './store/inject'
 import { IStore } from 'store/store'
@@ -9,6 +9,7 @@ export const RecordMgrList = (store: IStore) => {
 	return {
 		path: '/record',
 		component: List,
+		getInitialProps
 	}
 }
 

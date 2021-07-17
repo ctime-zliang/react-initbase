@@ -31,7 +31,7 @@ function ListRoot(props: any) {
 								renderItem={(item: IEntryListItem, index) => {
 									const number = (++index, index) <= 9 ? '0' + index : index
 									return (
-										<List.Item style={{ justifyContent: 'flex-start' }}>
+										<List.Item className="entry-linklist" style={{ justifyContent: 'flex-start' }}>
 											<span style={{ paddingRight: '6px' }}>{number}.</span>
 											<Link className={styles['link-item']} to={{ pathname: `${item.path}` }}>
 												{item.title}

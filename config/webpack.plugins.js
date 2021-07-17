@@ -1,7 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const WriteFileWebpackPlugin = require('write-file-webpack-plugin')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
@@ -69,7 +68,6 @@ module.exports = {
 				IS_DEVELOPMETN: true,
 			}),
 			new ReactRefreshPlugin(),
-			// !utils.clientOnly() && new WriteFileWebpackPlugin(),
 			utils.clientOnly() &&
 				new HtmlWebpackPlugin({
 					filename: clientPaths.devBuild.htmlWebpackPluginFilename,
@@ -115,7 +113,6 @@ module.exports = {
 	server: {
 		base: [],
 		devBuild: [
-			// new WriteFileWebpackPlugin(),
 			new webpack.HotModuleReplacementPlugin(),
 			new CopyWebpackPlugin({
 				patterns: [
@@ -130,7 +127,6 @@ module.exports = {
 			}),
 		],
 		prodBuild: [
-			// new WriteFileWebpackPlugin(),
 			new CopyWebpackPlugin({
 				patterns: [
 					{

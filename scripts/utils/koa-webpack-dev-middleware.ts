@@ -1,51 +1,35 @@
 import koa from 'koa'
-import webpackDevMiddleware from 'webpack-dev-middleware'
+import devMiddleware from 'webpack-dev-middleware'
 
-const middleware = (doIt: any, req: any, res: any) => {
-    const { end: originalEnd } = res
-    return new Promise((resolve, reject) => {
-        res.end = function end() {
-            originalEnd.apply(this, arguments)
-            resolve(0)
-        }
-        doIt(
-            req, 
-            res, 
-            () => {
-                resolve(1)
-            }
-        )
-    })
-}
+export default (compiler: any, option: {[key: string]: any} = {}) => {
+    const expressMiddleware = devMiddleware(compiler, option)
 
-export default (compiler: any, option: any = {}) => {
-    const doIt = webpackDevMiddleware(compiler, option)
-    const koaMiddleware = async (ctx: any, next: koa.Next) => {
-        const { req } = ctx;
-        const locals = ctx.locals || ctx.state    
-        ctx.webpack = doIt    
-        const runNext = await middleware(
-            doIt, 
-            req, 
+    async function middleware (ctx: koa.Context, next: koa.Next) {
+        await expressMiddleware(
+            ctx.req, 
             {
-                end(content: any) {
+                // @ts-ignore
+                end(content: string): void {
                     ctx.body = content
                 },
-                locals,
-                setHeader() {
-                    ctx.set.apply(ctx, arguments)
+                // @ts-ignore
+                setHeader(name: string, value: any): void {
+                    ctx.set(name, value)
                 },
-            }
-        )    
-        if (runNext) {
-            await next()
-        }
+                // @ts-ignore
+                getHeader(contentType) {
+                    return undefined
+                }
+            }, 
+            next
+        )
     }
 
-    Object.keys(doIt).forEach((item: string, index: number) => {
-        // @ts-ignore
-        (koaMiddleware as any)[item] = doIt[item]
-    })
+    middleware.getFilenameFromUrl = expressMiddleware.getFilenameFromUrl
+    middleware.waitUntilValid = expressMiddleware.waitUntilValid
+    middleware.invalidate = expressMiddleware.invalidate
+    middleware.close = expressMiddleware.close
+    middleware.fileSystem = (expressMiddleware as any).fileSystem
 
-    return koaMiddleware
-};
+    return middleware
+}

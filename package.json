@@ -5,11 +5,12 @@
 	"scripts": {
 		"prettier-all": "prettier --write .",
 		"prettier-src": "prettier --write ./src",
-		"server:dev": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.json ts-node scripts/devbuild-ssr",
-		"server:prod": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/prodbuild-ssr",
+		"ssr:devscript": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.json ts-node scripts/ssr-dev-script",
+		"ssr:prodscript": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/ssr-prod-script",
+		"server:prodscript": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/server-prod-script",
 		"client:dev": "cross-env NODE_ENV=development webpack server --config ./config/webpack-client.dev.config.js --env client-only=true",
 		"client:prod": "cross-env NODE_ENV=production webpack --config ./config/webpack-client.prod.config.js --env client-only=true",
-		"client:prodscript": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/prodbuild-client --env client-only=true",
+		"client:prodscript": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/client-prod-script --env client-only=true",
 		"test": "jest"
 	},
 	"author": "",
@@ -111,7 +112,6 @@
 		"react-refresh": "^0.10.0",
 		"rimraf": "^3.0.2",
 		"style-loader": "~0.19.1",
-		"terser-webpack-plugin": "^3.0.1",
 		"ts-loader": "^8.0.17",
 		"ts-node": "^10.0.0",
 		"typed-css-modules-webpack-plugin": "^0.2.0",
@@ -126,7 +126,6 @@
 		"webpack-manifest-plugin": "^3.1.1",
 		"webpack-merge": "^5.8.0",
 		"webpack-node-externals": "^3.0.0",
-		"webpack-parallel-uglify-plugin": "^2.0.0",
-		"write-file-webpack-plugin": "^4.5.1"
+		"webpack-parallel-uglify-plugin": "^2.0.0"
 	}
 }

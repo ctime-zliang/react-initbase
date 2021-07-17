@@ -101,7 +101,7 @@ function ListFilterFormRoot(props: IListFilterFormRootProps) {
 			</Row>
 			<Row>
 				<Button onClick={showDialogEditForm} className="search-btn-item-extra" style={{ marginLeft: '5px' }}>
-					{t('record.Add Items')}
+					{t('record.Add Items')} - ffff
 				</Button>
 			</Row>
 		</>

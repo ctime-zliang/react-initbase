@@ -6,6 +6,8 @@ import paths from '../config/webpack.paths'
 
 const clientPaths = paths.client
 
+const prodClientWebpackCfg: any = prodClientWebpackConfig
+
 const rimrafPaths = () => {
 	try {
 		rimraf.sync(clientPaths.prodBuild.path())
@@ -18,12 +20,12 @@ const handler = async () => {
 	logger.info(`[Info] Starting build...`)
 	const startStamp = Date.now()
 
-	const clientCompiler: any = webpack(prodClientWebpackConfig as any)
+	const clientCompiler: any = webpack(prodClientWebpackCfg)
 	const clientPromise = compilerPromise('client', clientCompiler)
 
 	clientCompiler.watch({}, (error: any, stats: any) => {
 		if (!error && !stats.hasErrors()) {
-			console.log(stats.toString(prodClientWebpackConfig.stats))
+			console.log(stats.toString(prodClientWebpackCfg.stats))
 			return
 		}
 		if (error) {
@@ -31,8 +33,7 @@ const handler = async () => {
 		}
 		if (stats.hasErrors()) {
 			const info = stats.toJson()
-			const errors = info.errors[0].split('\n')
-			errors.forEach((item: any) => {
+			info.errors.forEach((item: any) => {
 				logger.error(item)
 			})
 		}
@@ -42,12 +43,12 @@ const handler = async () => {
 		await clientPromise
 	} catch (error) {
 		logger.error(`[Error] Build failed...`)
-		logger.warn(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
 		console.error(error)
 		return
 	}
 	logger.success(`[Success] Build successed.`)
 	logger.warn(`[Build Time Consuming] ${(Date.now() - startStamp) / 1000}s`)
+	logger.info(`[Info]: Client(Production) Compiled Completed.`)
 }
 
 rimrafPaths()
