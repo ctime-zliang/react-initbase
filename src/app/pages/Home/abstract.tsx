@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
 const Container = styled.section`
 	padding: 5px 0 0 0;
@@ -7,15 +8,12 @@ const Container = styled.section`
 `
 
 function AbstractRoot() {
+	const { t } = useTranslation()
 	return (
 		<Container>
 			<div style={{ fontSize: '22px', color: '#666666' }}>
 				<span>
-					<em>React-Initbase</em>，一个使用{' '}
-					<a href="https://zh-hans.reactjs.org/" target="_blank" title="点击此处访问 React 中文官网">
-						React
-					</a>{' '}
-					编写的应用
+					<em>React-Initbase</em>, {t('an application developed by react')}
 				</span>
 			</div>
 		</Container>
