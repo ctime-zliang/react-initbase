@@ -10,7 +10,7 @@ const remoteCookie = `LOGIN_AUTH_TAG=${String(Date.now())}`
 
 const commonPenetratRequest = async (ctx: IExtendKoaContext, res: TResponse, url: string, methods: string = 'get') => {
 	const fn = methods.toLocaleLowerCase() == 'get' ? getRequest : postRequest
-	// await sleep(2000)
+	await sleep(1000)
 	const remoteRes: IRquestResponse = await fn(
 		url,
 		{ ...ctx.requestParams },
@@ -19,6 +19,20 @@ const commonPenetratRequest = async (ctx: IExtendKoaContext, res: TResponse, url
 		}
 	)
 	if (remoteRes.error || !remoteRes.data || typeof remoteRes.data != 'object') {
+		if (ctx.path == '/api/record/fetchList') {
+			res.setData({
+				...ctx.requestParams,
+				list: [
+					{
+						id: 1,
+						title: 'Test Default Title',
+						content: 'Test Default Content',
+						extra: '',
+					},
+				],
+			})
+			return
+		}
 		res.setStatus(httpStatus.ServerError.status).setMessage(String(remoteRes.data || 'Remote Request Error'))
 		return
 	}

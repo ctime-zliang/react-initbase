@@ -60,9 +60,6 @@ declare module '*.module.less' {
 	export = content
 }
 
-declare const __BROWSER__: boolean
-declare const __SERVER__: boolean
-
 interface Window {
 	browserHistory: any
 	store: any
@@ -73,3 +70,4 @@ interface Window {
 declare module 'express-manifest-helpers'
 declare module 'react-router-config'
 declare module 'request'
+declare module 'window'

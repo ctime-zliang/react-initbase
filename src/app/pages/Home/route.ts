@@ -1,6 +1,7 @@
+import { IRouteItem } from 'router/config'
 import Home from './'
 
-export default () => {
+export default (): IRouteItem => {
 	return {
 		path: '/',
 		exact: true,

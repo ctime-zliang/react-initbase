@@ -11,5 +11,6 @@ export interface IRouteItem {
 	strict?: boolean
 	sensitive?: boolean
 	getInitialProps?: Function
+	storeKeys?: string[]
 	[key: string]: any
 }

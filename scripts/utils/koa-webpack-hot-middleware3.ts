@@ -16,7 +16,7 @@ export default (compiler: any, option: { [key: string]: any } = {}) => {
 					ctx.set(headers)
 				},
 				end() {
-					console.log(`============================>[koa-webpack-hot-middleare] Request End <============================`)
+					console.log(`=======================>[koa-webpack-hot-middleare] Request End <=======================`)
 				},
 			},
 			next

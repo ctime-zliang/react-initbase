@@ -21,15 +21,14 @@ function RecordListRoot(props: any) {
 	)
 }
 
-export const getInitialProps = (store: any, request: any) => {
+export const getInitialProps = async (store: any, request: any) => {
 	const query = request.query || {}
-	return store.dispatch(
-		recordActions.fetchListRequestAction({
-			keywords: query.keywords || '',
-			pageIndex: query.pageIndex,
-			pageSize: query.pageSize,
-		})
-	)
+	const handler = recordActions.fetchListRequestAction({
+		keywords: query.keywords || '',
+		pageIndex: query.pageIndex,
+		pageSize: query.pageSize,
+	})
+	await handler(store.dispatch)
 }
 
 export default React.memo(RecordListRoot)

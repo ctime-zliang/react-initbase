@@ -16,7 +16,7 @@ import App from '../../app/App'
 const helmetContext: any = {}
 const serverRenderer = (params: { [key: string]: any } = {}) => {
 	return async (ctx: IExtendKoaContext, next: Koa.Next) => {
-		const stampCollection: any = {}
+		const stampCollection: { [key: string]: any } = {}
 		if (params.filter(ctx) === true) {
 			await next()
 			return
@@ -25,7 +25,6 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 			stampCollection['startServerRender'] = new Date().getTime()
 			const sheet = new ServerStyleSheet()
 			const store = ctx.serverStore
-			const state = JSON.stringify(store.getState())
 			const content = renderToString(
 				sheet.collectStyles(
 					<Provider store={store}>
@@ -45,7 +44,7 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 			const assets = getAssetsPathsList(path.join(__dirname, `../${assetsChildPath}/manifest.json`))
 			const htmlString = layout({
 				styles,
-				state,
+				state: JSON.stringify(ctx.usedState),
 				content,
 				helmet: helmetContext.helmet,
 				...assets,
@@ -54,11 +53,8 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 			ctx.type = 'text/html'
 			ctx.status = 200
 			ctx.body = htmlString
-			console.log(
-				`============================[SSR 渲染耗时] ${
-					stampCollection['endServerRender'] - stampCollection['startServerRender']
-				} <============================`
-			)
+			const v = stampCollection['endServerRender'] - stampCollection['startServerRender']
+			console.log(`=======================>[SSR 渲染耗时] ${v}ms <=======================`)
 			return
 		} catch (e) {
 			params.onError(ctx, e)

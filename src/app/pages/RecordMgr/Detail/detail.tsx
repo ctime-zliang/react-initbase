@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { message as messageTips } from 'antd'
 import { Spin, Button, Alert } from 'antd'
-import { KEY_RECORD_REDUCER } from '../store/config'
+import { KEYOF_RECORD_REDUCER } from '../store/config'
 import * as actions from '../store/action'
 import EditForm from '../Component/EditForm'
 import { baseEditFormDataConfig, BaseEditFormDataConfigType, IBaseEditFormDataConfig } from '../Component/EditForm/config'
@@ -123,7 +123,7 @@ export default connect(
 	(state: { [key: string]: any } = {}, ownProps) => {
 		return {
 			...ownProps,
-			...state[KEY_RECORD_REDUCER],
+			...state[KEYOF_RECORD_REDUCER],
 		}
 	},
 	{

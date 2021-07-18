@@ -10,8 +10,8 @@ import { basePageConfig, IBasePageConfig, baseFormConfig, IBaseFormConfig } from
 import * as actions from '../store/action'
 import { createSearchString } from './utils'
 import { getQueryValueOfUrl } from '@/utils/utils'
-import { KEY_RECORD_REDUCER, IRecordMgrItem } from '../store/config'
-import { IGProfile, KEY_G_PROFILE_REDUCER, SERVER_RENDER } from '@/store/profile/config'
+import { KEYOF_RECORD_REDUCER, IRecordMgrItem } from '../store/config'
+import { IGProfile, KEYOF_G_PROFILE_REDUCER, SERVER_RENDER } from '@/store/globalProfile/config'
 import styles from './index.module.less'
 
 const { Content } = Layout
@@ -207,8 +207,8 @@ export default connect(
 	(state: { [key: string]: any } = {}, ownProps) => {
 		return {
 			...ownProps,
-			...state[KEY_RECORD_REDUCER],
-			...state[KEY_G_PROFILE_REDUCER],
+			...state[KEYOF_RECORD_REDUCER],
+			...state[KEYOF_G_PROFILE_REDUCER],
 		}
 	},
 	{

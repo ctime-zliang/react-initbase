@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Layout, Button } from 'antd'
 import './index.less'
-import { IGProfile, KEY_G_PROFILE_REDUCER } from '@/store/profile/config'
-import * as actions from '@/store/profile/action'
+import { IGProfile, KEYOF_G_PROFILE_REDUCER } from '@/store/globalProfile/config'
+import * as actions from '@/store/globalProfile/action'
 import logoImage from '@/asserts/images/log.jpg'
 import { RouteComponentProps } from 'react-router'
 
@@ -39,7 +39,7 @@ export default connect(
 	(state: { [key: string]: any } = {}, ownProps) => {
 		return {
 			...ownProps,
-			...state[KEY_G_PROFILE_REDUCER],
+			...state[KEYOF_G_PROFILE_REDUCER],
 		}
 	},
 	{

@@ -5,7 +5,7 @@ export const updateGRunId = () => {
 	return async (dispatch: Function) => {
 		await sleep()
 		dispatch({
-			type: ACTION_TYPE.G_MODIFY_RUNID,
+			type: ACTION_TYPE.PROFILE_MODIFY_RUNID,
 			data: Math.random(),
 		})
 	}
@@ -13,7 +13,7 @@ export const updateGRunId = () => {
 
 export const updateGLanguageSet = () => {
 	return {
-		type: ACTION_TYPE.G_MODIFY_LUNGAUGES,
+		type: ACTION_TYPE.PROFILE_MODIFY_LUNGAUGES,
 		data: null,
 	}
 }

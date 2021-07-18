@@ -26,9 +26,8 @@ export default ({ css, cssCommons, js, jsCommons, state, content, styles, helmet
                 ${helmet.link.toString()}
                 ${helmet.script.toString()}
                 ${styles}
-                <script>
-                    window.__PRELOADED_STATE__ = ${state}
-                </script>
+                <script>window.__PRELOADED_STATE__ = ${state}</script>
+                <script>window.__PRELOADED_EXTRA__ = {}</script>
             </head>
             <body>
                 <div id="app" class="app">${content}</div>

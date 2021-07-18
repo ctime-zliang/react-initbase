@@ -11,7 +11,7 @@ export interface IAction {
 	data: any
 }
 
-export const KEY_RECORD_REDUCER = 'RECORD_REDUCER'
+export const KEYOF_RECORD_REDUCER = 'RECORD_REDUCER'
 
 /********************************* *********************************/
 /********************************* *********************************/

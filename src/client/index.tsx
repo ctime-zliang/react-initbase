@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from 'react-redux'
 import I18nProvider from '../app/i18n/I18nProvider'
-import { configureStore } from '../app/store/store'
+import { configureStore } from '../app/store/rootStore'
 import App from '../app/App'
 
 let store: any = null
@@ -13,7 +13,7 @@ if (process.env.__CLIENT_ONLY__) {
 	ReactDOM.render(
 		<Provider store={store}>
 			<BrowserRouter>
-				<I18nProvider>
+				<I18nProvider __CLIENT_ONLY__={process.env.__CLIENT_ONLY__}>
 					<HelmetProvider>
 						<App store={store} />
 					</HelmetProvider>
@@ -23,11 +23,15 @@ if (process.env.__CLIENT_ONLY__) {
 		document.getElementById('app')
 	)
 } else {
-	store = window.store || configureStore({ ...(window.__PRELOADED_STATE__ || {}) })
+	store =
+		(window as any).__store ||
+		configureStore({
+			initialState: window.__PRELOADED_STATE__ || {},
+		})
 	hydrate(
 		<Provider store={store}>
 			<BrowserRouter>
-				<I18nProvider>
+				<I18nProvider __CLIENT_ONLY__={process.env.__CLIENT_ONLY__}>
 					<HelmetProvider>
 						<App store={store} />
 					</HelmetProvider>
@@ -38,9 +42,9 @@ if (process.env.__CLIENT_ONLY__) {
 	)
 }
 
-// Object.defineProperty(window, 'store', {
-// 	value: store,
-// })
-// Object.defineProperty(window, 'env', {
-// 	value: process.env.NODE_ENV,
-// })
+Object.defineProperty(window, '__store', {
+	value: store,
+})
+Object.defineProperty(window, '__env', {
+	value: process.env.NODE_ENV,
+})

@@ -6,7 +6,7 @@ export interface IAction {
 	data: any
 }
 
-export const KEY_ENTRYLINKLIST_REDUCER = 'ENTRYLINKLIST_REDUCER'
+export const KEYOF_ENTRYLINKLIST_REDUCER = 'ENTRYLINKLIST_REDUCER'
 
 /********************************* *********************************/
 /********************************* *********************************/

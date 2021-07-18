@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import PageContent from '@/modules/Componnet/PageContent'
 import PageHeader from '@/modules/Componnet/PageHeader'
 import PageFooter from '@/modules/Componnet/PageFooter'
-import { IEntryListItem, KEY_ENTRYLINKLIST_REDUCER } from '../store/config'
+import { IEntryListItem, KEYOF_ENTRYLINKLIST_REDUCER } from '../store/config'
 import styles from './index.module.less'
 
 const { Content } = Layout
@@ -52,6 +52,6 @@ function ListRoot(props: any) {
 export default connect((state: { [key: string]: any } = {}, ownProps: any) => {
 	return {
 		...ownProps,
-		...state[KEY_ENTRYLINKLIST_REDUCER],
+		...state[KEYOF_ENTRYLINKLIST_REDUCER],
 	}
 }, {})(ListRoot)

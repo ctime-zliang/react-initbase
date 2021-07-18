@@ -3,7 +3,7 @@ import Error404 from '@/pages/ErrorPage/route'
 import { RecordMgrList, RecordMgrDetail, RecordMgrError } from '@/pages/RecordMgr/route'
 import { EntryLinkList } from '@/pages/EntryLinkList/route'
 import { IRouteItem } from './config'
-import { IStore } from 'store/store'
+import { IStore } from 'store/rootStore'
 
 type TStore = IStore | any
 

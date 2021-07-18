@@ -1,6 +1,7 @@
+import { IRouteItem } from '@/router/config'
 import Error404 from './404'
 
-export default () => {
+export default (): IRouteItem => {
 	return {
 		path: '*',
 		exact: true,

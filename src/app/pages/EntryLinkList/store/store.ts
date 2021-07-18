@@ -1,4 +1,4 @@
-import { IEntryList, KEY_ENTRYLINKLIST_REDUCER } from './config'
+import { IEntryList, KEYOF_ENTRYLINKLIST_REDUCER } from './config'
 
 export function createInitialState(): IEntryList {
 	return {
@@ -9,13 +9,4 @@ export function createInitialState(): IEntryList {
 			},
 		],
 	}
-}
-
-export function createDefaultState(): IEntryList {
-	if (typeof window !== 'undefined' && window.__PRELOADED_STATE__) {
-		return {
-			...window.__PRELOADED_STATE__[KEY_ENTRYLINKLIST_REDUCER],
-		}
-	}
-	return createInitialState()
 }

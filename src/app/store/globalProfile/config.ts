@@ -1,6 +1,6 @@
 export enum ACTION_TYPE {
-	G_MODIFY_RUNID = 'G_MODIFY_RUNID',
-	G_MODIFY_LUNGAUGES = 'G_MODIFY_LUNGAUGES',
+	PROFILE_MODIFY_RUNID = 'PROFILE_MODIFY_RUNID',
+	PROFILE_MODIFY_LUNGAUGES = 'PROFILE_MODIFY_LUNGAUGES',
 }
 
 export interface IAction {
@@ -8,7 +8,7 @@ export interface IAction {
 	data: any
 }
 
-export const KEY_G_PROFILE_REDUCER = 'G_PROFILE_REDUCER'
+export const KEYOF_G_PROFILE_REDUCER = 'G_PROFILE_REDUCER'
 
 /********************************* *********************************/
 /********************************* *********************************/

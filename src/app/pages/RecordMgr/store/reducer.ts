@@ -1,7 +1,7 @@
 import { ACTION_TYPE, IRecordMgr, IRecordMgrItem } from './config'
 import { findResults, IFindResults } from '@/utils/utils'
 import { IAction } from './config'
-import { createDefaultState } from './store'
+import { createInitialState } from './store'
 
 const actionTypeReducers: { [key: string]: Function } = {
 	[ACTION_TYPE.RECORD_MODIFY_LIST](state: IRecordMgr, actionData: any): IRecordMgr {
@@ -49,10 +49,13 @@ const actionTypeReducers: { [key: string]: Function } = {
 	},
 }
 
-export default (state: IRecordMgr = createDefaultState(), action: IAction): IRecordMgr => {
-	const func: any = actionTypeReducers[action.type] || null
-	if (func) {
-		return func(state, action.data)
+export const initialState: IRecordMgr = Object.freeze(createInitialState())
+export const createReducer = (initState: IRecordMgr = initialState) => {
+	return (state: IRecordMgr = initState, action: IAction | any = {}): IRecordMgr => {
+		const func: any = actionTypeReducers[action.type] || null
+		if (func) {
+			return func(state, action.data)
+		}
+		return state
 	}
-	return state
 }
