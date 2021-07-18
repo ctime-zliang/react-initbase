@@ -8,7 +8,6 @@ import { IStore } from 'store/rootStore'
 type TStore = IStore | any
 
 export const createRoutes = (store: TStore): IRouteItem[] => {
-	// console.log(`createRoutes ☆☆☆`, store)
 	return [
 		HomeRoute(),
 		{

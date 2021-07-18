@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import i18next from 'i18next'
 import i18nextXHRBackend from 'i18next-xhr-backend'
 import i18nextBrowserLanguageDetector from 'i18next-browser-languagedetector'
@@ -53,10 +53,13 @@ export const i18Next = i18next
 function I18nProvider(props: any) {
 	const { __CLIENT_ONLY__, children } = props
 	const languageSet = useSelector(getLanguageSet)
+	const [isInitial, setIsInitial] = useState(true)
+	console.log(`I18nProvider 🌙🌙🌙`, props, languageSet)
 	useEffect(() => {
 		i18next.changeLanguage(languageSet)
 	}, [languageSet])
-	if (!__CLIENT_ONLY__) {
+	if (isInitial && !__CLIENT_ONLY__) {
+		setIsInitial(false)
 		i18next.changeLanguage(languageSet)
 	}
 	return <I18nextProvider i18n={i18next}>{children}</I18nextProvider>

@@ -35,6 +35,7 @@ export default (params: { [key: string]: any } = {}) => {
 		const concernedStoreKeys: string[] = Array.from(new Set([...nowStoreKeys, ...storeKeys]))
 		// const concernedStoreKeys: string[] = []
 		await Promise.all(promises).catch((err: any) => {
+			console.log(`=======================>[Store 处理出错]<=======================`)
 			console.log(err)
 		})
 		const allStoreData = store.getState() || {}
