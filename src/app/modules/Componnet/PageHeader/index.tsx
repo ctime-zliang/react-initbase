@@ -21,7 +21,7 @@ function PageHeaderRoot(props: IPageHeaderRootProps) {
 						</div>
 					</a>
 					<div>
-						11 - Language:{' '}
+						Language:{' '}
 						<Button size="small" style={{ marginLeft: '8px' }} onClick={updateGLanguageSet}>
 							{g_languageSet || '-'}
 						</Button>

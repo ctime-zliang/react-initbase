@@ -99,7 +99,7 @@ function RecordList(props: TIRecordListProps) {
 	const deleteRowData = useCallback(async () => {
 		const selectedIdList: string[] = propsListReference.current
 			.filter((item: IRecordMgrItem, index: number) => {
-				return item.isChcked
+				return item.isChecked
 			})
 			.map((item: IRecordMgrItem, index: number) => {
 				return item.id
@@ -132,7 +132,7 @@ function RecordList(props: TIRecordListProps) {
 			return
 		}
 		const selectedList: Array<IRecordMgrItem> = list.filter((item: IRecordMgrItem, index: number) => {
-			return item.isChcked
+			return item.isChecked
 		})
 		setDeleteModalTargetTitle(selectedList.length ? selectedList[0].title : '')
 	}, [isDeleteModalVisible])
@@ -207,8 +207,8 @@ export default connect(
 	(state: { [key: string]: any } = {}, ownProps) => {
 		return {
 			...ownProps,
-			...state[KEYOF_RECORD_REDUCER],
-			...state[KEYOF_G_PROFILE_REDUCER],
+			...(state[KEYOF_RECORD_REDUCER] || {}),
+			...(state[KEYOF_G_PROFILE_REDUCER] || {}),
 		}
 	},
 	{

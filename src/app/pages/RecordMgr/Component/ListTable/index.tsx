@@ -44,7 +44,7 @@ function ListTableRoot(props: IListTableRootProps) {
 	useEffect(() => {
 		const selectedList: string[] = list
 			.filter((item: IRecordMgrItem, index: number) => {
-				return item.isChcked && typeof item.key != 'undefined' && item.key != ''
+				return item.isChecked && typeof item.key != 'undefined' && item.key != ''
 			})
 			.map((item: IRecordMgrItem, index: number) => {
 				return item.key || ''

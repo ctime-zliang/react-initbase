@@ -17,7 +17,7 @@ export const KEYOF_RECORD_REDUCER = 'RECORD_REDUCER'
 /********************************* *********************************/
 
 export interface IRecordMgrItem {
-	isChcked: boolean
+	isChecked: boolean
 	id: string
 	title: string
 	content: string

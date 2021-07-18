@@ -13,7 +13,7 @@ export const RecordMgrList = (store: IStore): IRouteItem => {
 		path: '/record',
 		component: List,
 		getInitialProps,
-		storeKeys: [KEYOF_RECORD_REDUCER],
+		// storeKeys: [KEYOF_RECORD_REDUCER],
 	}
 }
 
@@ -24,7 +24,7 @@ export const RecordMgrDetail = (store: IStore): IRouteItem => {
 		component: asyncComponent(() => {
 			return import('./Detail')
 		}),
-		storeKeys: [KEYOF_RECORD_REDUCER],
+		storeKeys: [],
 	}
 }
 
@@ -33,6 +33,6 @@ export const RecordMgrError = (store: IStore): IRouteItem => {
 	return {
 		path: '/*',
 		component: ErrorView,
-		storeKeys: [KEYOF_RECORD_REDUCER],
+		storeKeys: [],
 	}
 }

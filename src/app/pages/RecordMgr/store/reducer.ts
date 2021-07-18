@@ -36,7 +36,7 @@ const actionTypeReducers: { [key: string]: Function } = {
 		const selectedKeys: number[] = acionData.selectedKeys
 		newState.list.forEach((item: IRecordMgrItem, index: number) => {
 			if (item.key) {
-				item.isChcked = !!selectedKeys.includes(+item.key)
+				item.isChecked = !!selectedKeys.includes(+item.key)
 			}
 		})
 		return newState

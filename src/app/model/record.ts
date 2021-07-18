@@ -27,7 +27,7 @@ function filterList(list: Array<IRecordMgrItem>, params: { [key: string]: any } 
 	return list.map((item: IRecordMgrItem, index: number) => {
 		return {
 			...item,
-			isChcked: false,
+			isChecked: false,
 			rowIndex: (pageIndex - 1) * pageSize + index + 1,
 			key: item.id,
 			isLoading: false,
