@@ -25,7 +25,7 @@ export default (params: { [key: string]: any } = {}) => {
 		const branch = matchRoutes(routes, ctx.request.path)
 		const matchItems = branch && branch.length >= 2 ? [branch[branch.length - 1]] : branch
 		const promises = matchItems.map((item: any) => {
-			storeKeys = [...(item.route.storeKeys || []), ...storeKeys]
+			storeKeys = [...(item.route.asyncStoreKeys || []), ...storeKeys]
 			const Component = item.route.component
 			const routerGetInitialProps = typeof item.route.getInitialProps == 'function' ? item.route.getInitialProps : null
 			const comptGetInitialProps = typeof Component.getInitialProps == 'function' ? Component.getInitialProps : null
