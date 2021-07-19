@@ -1,8 +1,5 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
-import PageContent from '@/modules/Componnet/PageContent'
-import PageHeader from '@/modules/Componnet/PageHeader'
-import PageFooter from '@/modules/Componnet/PageFooter'
 import * as recordActions from '../store/action'
 import RecordList from './list'
 
@@ -12,11 +9,7 @@ function RecordListRoot(props: any) {
 			<Helmet>
 				<title>Record List</title>
 			</Helmet>
-			<PageHeader />
-			<PageContent>
-				<RecordList {...props} />
-			</PageContent>
-			<PageFooter />
+			<RecordList {...props} />
 		</>
 	)
 }

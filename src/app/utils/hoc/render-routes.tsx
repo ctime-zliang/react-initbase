@@ -40,7 +40,11 @@ function createRouteComponentList(routes: IRouteItem[], profile: any, outerProps
 										exact={true}
 										path={route.path}
 										render={(routerProps: any) => {
-											return <route.component exact={true} path={route.path} {...routerProps} {...outerProps}></route.component>
+											return (
+												<route.layout {...routerProps} {...outerProps} path={route.path}>
+													<route.component {...routerProps} {...outerProps} path={route.path}></route.component>
+												</route.layout>
+											)
 										}}
 									/>
 									{createSpecRoute(route, profile, outerProps)}

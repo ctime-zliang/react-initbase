@@ -3,9 +3,6 @@ import { Helmet } from 'react-helmet-async'
 import { connect } from 'react-redux'
 import { Layout, List } from 'antd'
 import { Link } from 'react-router-dom'
-import PageContent from '@/modules/Componnet/PageContent'
-import PageHeader from '@/modules/Componnet/PageHeader'
-import PageFooter from '@/modules/Componnet/PageFooter'
 import { IEntryListItem, KEYOF_ENTRYLINKLIST_REDUCER } from '../store/config'
 import styles from './index.module.less'
 
@@ -18,33 +15,29 @@ function ListRoot(props: any) {
 			<Helmet>
 				<title>Entry Link List</title>
 			</Helmet>
-			<PageHeader />
-			<PageContent>
-				<section className={styles['list-container']}>
-					<section className={styles['list-wrapper']}>
-						<div className={styles['list-header']}></div>
-						<Content>
-							<List
-								size="small"
-								bordered
-								dataSource={list}
-								renderItem={(item: IEntryListItem, index) => {
-									const number = (++index, index) <= 9 ? '0' + index : index
-									return (
-										<List.Item className="entry-linklist" style={{ justifyContent: 'flex-start' }}>
-											<span style={{ paddingRight: '6px' }}>{number}.</span>
-											<Link className={styles['link-item']} to={{ pathname: `${item.path}` }}>
-												{item.title}
-											</Link>
-										</List.Item>
-									)
-								}}
-							/>
-						</Content>
-					</section>
+			<section className={styles['list-container']}>
+				<section className={styles['list-wrapper']}>
+					<div className={styles['list-header']}></div>
+					<Content>
+						<List
+							size="small"
+							bordered
+							dataSource={list}
+							renderItem={(item: IEntryListItem, index) => {
+								const number = (++index, index) <= 9 ? '0' + index : index
+								return (
+									<List.Item className="entry-linklist" style={{ justifyContent: 'flex-start' }}>
+										<span style={{ paddingRight: '6px' }}>{number}.</span>
+										<Link className={styles['link-item']} to={{ pathname: `${item.path}` }}>
+											{item.title}
+										</Link>
+									</List.Item>
+								)
+							}}
+						/>
+					</Content>
 				</section>
-			</PageContent>
-			<PageFooter />
+			</section>
 		</>
 	)
 }

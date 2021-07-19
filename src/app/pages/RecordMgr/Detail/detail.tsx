@@ -117,6 +117,7 @@ RecordDetailRoot.defaultProps = {}
 interface IRecordDetailRootProps extends RouteComponentProps {
 	fetchItemRequestAction: Function
 	updateItemRequestAction: Function
+	[key: string]: any
 }
 
 export default connect(

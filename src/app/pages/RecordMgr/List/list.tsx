@@ -124,7 +124,7 @@ function RecordList(props: TIRecordListProps) {
 		const keywords = decodeURI(getQueryValueOfUrl('keywords') || '')
 		setPageConfig({ ...pageConfig, pageSize, pageIndex, countTotal })
 		setFormConfig({ ...formConfig, keywords })
-		// fetchTableData({ pageIndex, pageSize, keywords })
+		fetchTableData({ pageIndex, pageSize, keywords })
 	}, [location])
 
 	useEffect(() => {

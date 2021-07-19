@@ -26,6 +26,7 @@ function Extra(props: IExtraProps) {
 }
 interface IExtraProps extends RouteComponentProps {
 	testMobxStore: ITestMobxStoreClass
+	[key: string]: any
 }
 
 export default inject('testMobxStore')(observer(Extra))

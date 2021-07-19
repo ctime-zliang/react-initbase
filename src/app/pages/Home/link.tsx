@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 const Container = styled.section`
+	text-align: center;
 	padding: 0 0 35px 0;
 `
 
