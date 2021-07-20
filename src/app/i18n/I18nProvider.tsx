@@ -37,7 +37,7 @@ i18next
 			en_us: { [DEFAULT_NAMESPACE]: enUS },
 		},
 		parseMissingKeyHandler(missing: any) {
-			console.warn('MISSING TRANSLATION:', missing)
+			// console.warn('MISSING TRANSLATION:', missing)
 			return missing
 		},
 	})
@@ -54,7 +54,7 @@ function I18nProvider(props: any) {
 	const { __CLIENT_ONLY__, children } = props
 	const languageSet = useSelector(getLanguageSet)
 	const [isInitial, setIsInitial] = useState(true)
-	console.log(`I18nProvider 🌙🌙🌙`, props, languageSet)
+	// console.log(`I18nProvider 🌙🌙🌙`, props, languageSet)
 	useEffect(() => {
 		i18next.changeLanguage(languageSet)
 	}, [languageSet])

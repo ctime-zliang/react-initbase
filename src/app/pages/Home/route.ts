@@ -6,5 +6,9 @@ export default (): IRouteItem => {
 		path: '/',
 		exact: true,
 		component: Home,
+		meta: {
+			isSetPageHeaderHidder: true,
+			isSetPageFooterHidder: true,
+		},
 	}
 }

@@ -4,12 +4,13 @@ import PageHeader from '@/modules/Componnet/PageHeader'
 import PageFooter from '@/modules/Componnet/PageFooter'
 
 function Layout(props: any) {
-	console.log(`Layout ☆☆☆`, props)
+	console.log(`RooLayoutt ☆☆☆`, props)
+	const meta = props.meta || {}
 	return (
 		<>
-			<PageHeader />
+			<PageHeader {...props} {...meta} />
 			<PageContent>{props.children}</PageContent>
-			<PageFooter />
+			<PageFooter {...props} {...meta} />
 		</>
 	)
 }

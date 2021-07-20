@@ -17,7 +17,7 @@ import styles from './index.module.less'
 const { Content } = Layout
 
 function RecordList(props: TIRecordListProps) {
-	console.log(`RecordList.props ❤❤❤`, props)
+	// console.log(`RecordList.props ❤❤❤`, props)
 	const {
 		g_RENDER_WAY,
 		list,

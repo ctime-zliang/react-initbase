@@ -1,6 +1,6 @@
 import React from 'react'
 import { IRouteItem } from '../../router/config'
-import { Route, Redirect, Switch } from 'react-router-dom'
+import { Route, Redirect, Switch, RouteComponentProps } from 'react-router-dom'
 
 function createSpecRoute(route: IRouteItem, profile: any, outerProps: any) {
 	let SpecComponent: any = null
@@ -23,26 +23,26 @@ function createSpecRoute(route: IRouteItem, profile: any, outerProps: any) {
 	return null
 }
 function createRouteComponentList(routes: IRouteItem[], profile: any, outerProps: any) {
-	return routes.map((route, index) => {
+	return routes.map((route: IRouteItem, index: number) => {
 		return (
 			<Route
 				key={route.path}
 				path={route.path}
 				exact={route.exact}
 				strict={route.strict}
-				render={(routerProps: any) => {
+				render={(routerProps: RouteComponentProps) => {
 					if (!route.requiresAuth || route.path === profile.authPath) {
 						return (
 							<>
 								<Switch>
-									{createRouteComponentList(route.routes || route.children || [], profile, outerProps)}
+									{createRouteComponentList(route.routes || [], profile, outerProps)}
 									<Route
 										exact={true}
 										path={route.path}
-										render={(routerProps: any) => {
+										render={(routerProps: RouteComponentProps) => {
 											return (
-												<route.layout {...routerProps} {...outerProps} path={route.path}>
-													<route.component {...routerProps} {...outerProps} path={route.path}></route.component>
+												<route.layout {...routerProps} {...outerProps} {...route}>
+													<route.component {...routerProps} {...outerProps} {...route}></route.component>
 												</route.layout>
 											)
 										}}

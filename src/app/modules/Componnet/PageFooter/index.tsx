@@ -8,8 +8,8 @@ import { RouteComponentProps } from 'react-router'
 
 const { Footer } = Layout
 function PageFooterRoot(props: IPageFooterRootProps) {
-	const { isHidden } = props
-	if (isHidden) {
+	const { isSetPageFooterHidder } = props
+	if (isSetPageFooterHidder) {
 		return null
 	}
 	return (
@@ -21,10 +21,10 @@ function PageFooterRoot(props: IPageFooterRootProps) {
 	)
 }
 PageFooterRoot.defaultProps = {
-	isHidden: false
+	isSetPageFooterHidder: false,
 }
 interface IPageFooterRootProps extends RouteComponentProps, IGProfile {
-	isHidden: boolean
+	isSetPageFooterHidder: boolean
 	[key: string]: any
 }
 
