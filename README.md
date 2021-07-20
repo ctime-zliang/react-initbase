@@ -37,4 +37,29 @@ git clone https://github.com/ctime-zliang/react-initbase
 
 ### Usage
 
-> Please refer to the package.json
+base scripts cmd
+
+- prettier-all
+
+  *Formatting codes by [prettier]*
+
+- ssr:devscript
+
+  *Run the project as SSR in development*
+
+- ssr:prodscript
+
+  *Build the project as SSR in production*
+
+- server:prodscript
+
+  *Build server side of SSR in production*
+
+- client:dev
+
+  *Run the project as CSR in development*
+
+- client:prod
+
+  *Build the project as CSR in production*
+
