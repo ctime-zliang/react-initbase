@@ -1,9 +1,17 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Layout } from 'antd'
 import './index.less'
+import { IGProfile, KEYOF_G_PROFILE_REDUCER } from '@/store/globalProfile/config'
+import * as actions from '@/store/globalProfile/action'
+import { RouteComponentProps } from 'react-router'
 
 const { Footer } = Layout
-function PageFooterRoot() {
+function PageFooterRoot(props: IPageFooterRootProps) {
+	const { isHidden } = props
+	if (isHidden) {
+		return null
+	}
 	return (
 		<footer className="app-page-footer">
 			<Layout>
@@ -12,5 +20,22 @@ function PageFooterRoot() {
 		</footer>
 	)
 }
+PageFooterRoot.defaultProps = {
+	isHidden: false
+}
+interface IPageFooterRootProps extends RouteComponentProps, IGProfile {
+	isHidden: boolean
+	[key: string]: any
+}
 
-export default React.memo(PageFooterRoot)
+export default connect(
+	(state: { [key: string]: any } = {}, ownProps) => {
+		return {
+			...ownProps,
+			...state[KEYOF_G_PROFILE_REDUCER],
+		}
+	},
+	{
+		...actions,
+	}
+)(PageFooterRoot)

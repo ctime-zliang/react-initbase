@@ -8,8 +8,13 @@ import logoImage from '@/asserts/images/log.jpg'
 import { RouteComponentProps } from 'react-router'
 
 const { Header } = Layout
-function PageHeaderRoot(props: IPageHeaderRootProps) {
+function PageHeaderRoot(props: IPageHeaderRootProps) {	
+	console.log(props)
 	const { g_languageSet, g_globalId, updateGLanguageSet } = props
+	const { isHidden } = props
+	if (isHidden) {
+		return null
+	}
 	return (
 		<header className="app-page-header">
 			<Layout>
@@ -31,7 +36,11 @@ function PageHeaderRoot(props: IPageHeaderRootProps) {
 		</header>
 	)
 }
+PageHeaderRoot.defaultProps = {
+	isHidden: false
+}
 interface IPageHeaderRootProps extends RouteComponentProps, IGProfile {
+	isHidden: boolean
 	[key: string]: any
 }
 
