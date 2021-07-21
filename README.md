@@ -1,6 +1,10 @@
 # react-initbase
 
-React application, supports SSR isomorphic rendering and Client-Side rendering
+React application, supports **SSR Isomorphic Render** and **Client-Side Render**
+
+> At present, this project is mainly developed on Windows OS, so I can't guarantee whether there are problems when compiling on other platforms, such Mac……
+>
+> If you like, you can debug yourself when you encounter problems.
 
 ### Features
 
