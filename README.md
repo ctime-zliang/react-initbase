@@ -33,6 +33,10 @@ React application, supports **SSR Isomorphic Render** and **Client-Side Render**
 -   Less
 -   Mockjs (Not enabled by default)
 
+### View
+
+![home_ps](.\doc\home_ps.png)
+
 ### Fetch
 
 ```

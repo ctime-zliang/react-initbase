@@ -13,7 +13,7 @@ function AbstractRoot() {
 		<Container>
 			<div style={{ fontSize: '22px', color: '#666666' }}>
 				<span>
-					<strong>React-Initbase</strong>, {t('an application developed by react')}
+					<strong>React-Initbase</strong>, {t('an application developed by React')}
 				</span>
 			</div>
 		</Container>
