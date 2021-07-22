@@ -18,7 +18,6 @@ React application, supports **SSR Isomorphic Render** and **Client-Side Render**
 
     -   Fractal [√]
     -   Centralized [√]
-
 -   Webpack 5
 -   Babel 7
 -   antd 4
@@ -32,6 +31,7 @@ React application, supports **SSR Isomorphic Render** and **Client-Side Render**
 -   Typescript
 -   PostCSS
 -   Less
+-   Mockjs (Not enabled by default)
 
 ### Fetch
 
@@ -43,27 +43,26 @@ git clone https://github.com/ctime-zliang/react-initbase
 
 base scripts cmd
 
-- prettier-all
+-   prettier-all
 
-  *Formatting codes by [prettier]*
+    _Formatting codes by [prettier]_
 
-- ssr:devscript
+-   ssr:devscript
 
-  *Run the project as SSR in development*
+    _Run the project as SSR in development_
 
-- ssr:prodscript
+-   ssr:prodscript
 
-  *Build the project as SSR in production*
+    _Build the project as SSR in production_
 
-- server:prodscript
+-   server:prodscript
 
-  *Build server side of SSR in production*
+    _Build server side of SSR in production_
 
-- client:dev
+-   client:dev
 
-  *Run the project as CSR in development*
+    _Run the project as CSR in development_
 
-- client:prod
+-   client:prod
 
-  *Build the project as CSR in production*
-
+    _Build the project as CSR in production_

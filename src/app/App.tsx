@@ -8,6 +8,10 @@ import './asserts/style/reset.less'
 	maybe import antd.css in this
 */
 import '../../node_modules/antd/dist/antd.css'
+/*
+	Mock
+ */
+// import '@/mock/mock'
 
 const App = (props: any) => {
 	const __root_id__ = Math.random()
