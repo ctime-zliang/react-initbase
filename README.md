@@ -5,6 +5,8 @@ React application, supports **SSR Isomorphic Render** and **Client-Side Render**
 > At present, this project is mainly developed on Windows OS, so I can't guarantee whether there are problems when compiling on other platforms, such Mac……
 >
 > If you like, you can debug yourself when you encounter problems.
+>
+> Windows: recommend Win10 and above versions
 
 ### Features
 
@@ -21,10 +23,10 @@ React application, supports **SSR Isomorphic Render** and **Client-Side Render**
 -   Webpack 5
 -   Babel 7
 -   antd 4
--   mobx 6
+-   mobx
 -   koa 2
--   i18n 20
--   axios 0.18
+-   i18n
+-   axios
 -   jest & testing-library
 -   HRM & Hot-Reload
 -   DEY-log & chalk
