@@ -17,7 +17,7 @@ const App = (props: any) => {
 	const __root_id__ = Math.random()
 	return (
 		<>
-			{/* <Suspense fallback={<section>Loading</section>}> */}
+			{/* <Suspense fallback={<section>Data Loading...</section>}> */}
 			<Helmet link={[{ rel: 'icon', type: 'image/jpg', href: favicon }]}>
 				<title>React Application</title>
 			</Helmet>

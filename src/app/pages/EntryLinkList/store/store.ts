@@ -7,6 +7,10 @@ export function createInitialState(): IEntryList {
 				path: `/record`,
 				title: 'Record List',
 			},
+			{
+				path: `/cssrender`,
+				title: 'CSS Render Test',
+			},
 		],
 	}
 }

@@ -4,7 +4,7 @@ import PageHeader from '@/modules/Componnet/PageHeader'
 import PageFooter from '@/modules/Componnet/PageFooter'
 
 function Layout(props: any) {
-	console.log(`RooLayoutt ☆☆☆`, props)
+	console.log(`Layout ☆☆☆`, props)
 	const meta = props.meta || {}
 	return (
 		<>

@@ -3,6 +3,7 @@ import HomeRoute from '@/pages/Home/route'
 import Error404 from '@/pages/ErrorPage/route'
 import { RecordMgrList, RecordMgrDetail, RecordMgrError } from '@/pages/RecordMgr/route'
 import { EntryLinkList } from '@/pages/EntryLinkList/route'
+import { CssRenderTest } from '@/pages/CssRenderTest/route'
 import { IRouteItem } from './config'
 import { IStore } from 'store/rootStore'
 
@@ -15,6 +16,7 @@ export const createRoutes = (store: TStore): IRouteItem[] => {
 			...RecordMgrList(store),
 			routes: [RecordMgrDetail(store), RecordMgrError(store)],
 		},
+		CssRenderTest(),
 		EntryLinkList(store),
 		Error404(),
 	]
