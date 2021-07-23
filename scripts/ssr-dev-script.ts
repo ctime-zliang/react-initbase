@@ -9,9 +9,8 @@ import devServerWebpackConfig from '../config/webpack-server.dev.config'
 import paths from '../config/webpack.paths'
 import { logger, compilerPromise } from './utils/utils'
 import { buildConfig } from './config'
-// @ts-ignore
-import webpackDevMiddleware from './utils/koa-webpack-dev-middleware'
-import webpackHotMiddleware from './utils/koa-webpack-hot-middleware'
+import webpackDevMiddleware from './middleware/koa-webpack-dev-middleware'
+import webpackHotMiddleware from './middleware/koa-webpack-hot-middleware'
 
 const clientPaths = paths.client
 const serverPaths = paths.server

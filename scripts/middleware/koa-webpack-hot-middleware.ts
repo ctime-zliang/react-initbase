@@ -1,6 +1,6 @@
 import koa from 'koa'
 // import hotMiddleware from 'webpack-hot-middleware'
-import hotMiddleware from '../middleware/express-webpack-hot-middleware'
+import hotMiddleware from './express-webpack-hot-middleware'
 import { PassThrough } from 'stream'
 
 export default (compiler: any, option: { [key: string]: any } = {}) => {
