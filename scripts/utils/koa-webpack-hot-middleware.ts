@@ -1,31 +1,31 @@
 import koa from 'koa'
-import webpackHotMiddleware from 'webpack-hot-middleware'
-
-const middleware = (doIt: any, ctx: koa.Context) => {
-	const res: any = ctx.res
-	const req: any = ctx.req
-	const originalEnd: Function = res.end
-	return function (done: any) {
-		res.end = function (...args: any[]) {
-			originalEnd.apply(this, args)
-			done(null, 0)
-		}
-		res.writeHead = function (status: number, headers: { [key: string]: any } = {}) {
-			ctx.status = status
-			ctx.set(headers)
-		}
-		doIt(req, res, function () {
-			done(null, 1)
-		})
-	}
-}
+// import hotMiddleware from 'webpack-hot-middleware'
+import hotMiddleware from '../middleware/express-webpack-hot-middleware'
+import { PassThrough } from 'stream'
 
 export default (compiler: any, option: { [key: string]: any } = {}) => {
-	const action: any = webpackHotMiddleware(compiler, option)
-	return async function (ctx: koa.Context, next: koa.Next) {
-		const nextStep: any = await middleware(action, ctx)
-		if (nextStep) {
-			await next()
-		}
+	const expressMiddleware: any = hotMiddleware(compiler, option)
+	return async (ctx: koa.Context, next: koa.Next) => {
+		let stream: any = new PassThrough()
+		ctx.body = stream
+		stream.on('error', (error: any) => {
+			console.log(`=======================>[koa-webpack-hot-middleare] PassThrough Error <=======================`)
+			console.log(error)
+		})
+		await expressMiddleware(
+			ctx.req,
+			{
+				stream,
+				write: stream.write.bind(stream),
+				writeHead(status: number, headers: { [key: string]: any } = {}) {
+					ctx.status = status
+					ctx.set(headers)
+				},
+				end() {
+					console.log(`=======================>[koa-webpack-hot-middleare] Request End <=======================`)
+				},
+			},
+			next
+		)
 	}
 }

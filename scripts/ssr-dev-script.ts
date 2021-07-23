@@ -11,7 +11,7 @@ import { logger, compilerPromise } from './utils/utils'
 import { buildConfig } from './config'
 // @ts-ignore
 import webpackDevMiddleware from './utils/koa-webpack-dev-middleware'
-import webpackHotMiddleware from './utils/koa-webpack-hot-middleware3'
+import webpackHotMiddleware from './utils/koa-webpack-hot-middleware'
 
 const clientPaths = paths.client
 const serverPaths = paths.server
@@ -76,11 +76,7 @@ const handler = async (app: any) => {
 	const clientCompiler: any = webpack(devClientWebpackCfg)
 	const serverCompiler: any = webpack(devServerWebpackCfg)
 	const clientPromise = compilerPromise('client', clientCompiler)
-	const serverPromise = compilerPromise('server', serverCompiler, (statusText: string) => {
-		if (statusText == 'done') {
-			/* ... */
-		}
-	})
+	const serverPromise = compilerPromise('server', serverCompiler)
 
 	app.use(
 		webpackDevMiddleware(clientCompiler, {
@@ -122,9 +118,19 @@ const handler = async (app: any) => {
 
 	logger.info(`[Info] Render Server Starting.`)
 	const serverEntryPath = paths.server.devBuild.path() + '/' + paths.server.output.filename
+	const ignore = [
+		...buildConfig.ssr.nodemon.ignore,
+		`./dist/${clientPaths.devBuild.pathTag}`,
+		`./dist/${clientPaths.devBuild.pathTagForSSR}`,
+		`./dist/${clientPaths.prodBuild.pathTag}`,
+		`./dist/${clientPaths.prodBuild.pathTagForSSR}`,
+		`./dist/${serverPaths.prodBuild.pathTag}`,
+	]
 	serverHandler = nodemon({
 		script: serverEntryPath,
 		...buildConfig.ssr.nodemon,
+		ignore,
+		watch: [`./dist/${serverPaths.devBuild.pathTag}`],
 	})
 	serverHandler.on('start', () => {
 		logger.warn(`[Info] Render Server Started.`)

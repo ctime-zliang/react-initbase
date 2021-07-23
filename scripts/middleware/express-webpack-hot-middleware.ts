@@ -1,34 +1,31 @@
-import url from 'url'
+import { parse } from 'url'
 
-const parse: any = url.parse
-
-const pathMatch = (url: string, path: any) => {
+const pathMatch = (url: string, path: string): boolean => {
 	try {
 		return parse(url).pathname === path
 	} catch (e) {
 		return false
 	}
 }
-const createEventStream = (heartbeat: number) => {
+const createEventStream = (heartbeat: number): { [key: string]: any } => {
 	let clientId: number = 0
 	let clients: { [key: string]: any } = {}
-	const everyClient = (fn: Function) => {
-		Object.keys(clients).forEach((id: string) => {
+
+	let everyClient: Function = (fn: Function) => {
+		Object.keys(clients).forEach((id: string | number) => {
 			fn(clients[id])
 		})
 	}
-	const interval: number = (
-		setInterval(() => {
-			everyClient((client: any) => {
-				// client.write('data: \uD83D\uDC93\n\n')
-				if (!client.ctx.res.finished) {
-				}
-				client.ctx.res.write('data: \uD83D\uDC93\n\n')
-			})
-		}, heartbeat) as any
-	).unref()
+	let interval: any = setInterval(function heartbeatTick() {
+		everyClient((client: any) => {
+			if (!client.stream.destroyed) {
+				client.write('data: \uD83D\uDC93\n\n')
+			}
+		})
+	}, heartbeat).unref()
 
 	return {
+		/* ... */
 		close() {
 			clearInterval(interval)
 			everyClient((client: any) => {
@@ -38,10 +35,9 @@ const createEventStream = (heartbeat: number) => {
 			})
 			clients = {}
 		},
-		handler(ctx: any) {
-			const req = ctx.request
-			const res = ctx.response
-			const headers = {
+		/* ... */
+		handler(req: any, res: any) {
+			let headers = {
 				'Access-Control-Allow-Origin': '*',
 				'Content-Type': 'text/event-stream;charset=utf-8',
 				'Cache-Control': 'no-cache, no-transform',
@@ -49,45 +45,36 @@ const createEventStream = (heartbeat: number) => {
 				// http://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffering
 				'X-Accel-Buffering': 'no',
 			}
-			const id = clientId++
-			const isHttp1 = !(parseInt(req.httpVersion) >= 2)
+			let isHttp1 = !(parseInt(req.httpVersion) >= 2)
 			if (isHttp1) {
 				req.socket.setKeepAlive(true)
 				Object.assign(headers, {
 					Connection: 'keep-alive',
 				})
 			}
-			Object.keys(headers).forEach((item: string) => {
-				// @ts-ignore
-				res.set(item, headers[item])
-			})
-			// res.status = 200
-			// res.headers = headers
-			// res.body = `\n`
-			// ctx.res.writeHeader(200, headers);
-			// res.body = `\n`
-			ctx.res.write(`\n`)
-			ctx.res.writeHead(200, headers)
+			res.writeHead(200, headers)
+			res.write('\n')
+			var id = clientId++
 			clients[id] = res
-			// delete clients[id]
-			// req.on('close', () => {
-			//     if (!res.finished) {
-			//         res.end()
-			//     }
-			//     delete clients[id]
-			// })
+			req.on('close', () => {
+				if (!res.finished) {
+					res.end()
+				}
+				delete clients[id]
+			})
 		},
+		/* ... */
 		publish(payload: any) {
 			everyClient((client: any) => {
-				// client.write('data: ' + JSON.stringify(payload) + '\n\n')
-				if (!client.ctx.res.finished) {
-					client.ctx.res.write('data: ' + JSON.stringify(payload) + '\n\n')
+				if (!client.stream.destroyed) {
+					client.write('data: ' + JSON.stringify(payload) + '\n\n')
 				}
 			})
 		},
 	}
 }
-const publishStats = (action: any, statsResult: any, eventStream: any) => {
+
+const publishStats = (action: any, statsResult: { [key: string]: any }, eventStream: any, log?: Function) => {
 	const stats = statsResult.toJson({
 		all: false,
 		cached: true,
@@ -96,15 +83,19 @@ const publishStats = (action: any, statsResult: any, eventStream: any) => {
 		timings: true,
 		hash: true,
 	})
+	// For multi-compiler, stats will be an object with a 'children' array of stats
 	const bundles = extractBundles(stats)
-	bundles.forEach((stats: any) => {
-		let name = stats.name || ''
+	bundles.forEach((stats: { [key: string]: any }) => {
+		let name: any | string = stats.name || ''
+
+		// Fallback to compilation name in case of 1 bundle (if it exists)
 		if (bundles.length === 1 && !name && statsResult.compilation) {
 			name = statsResult.compilation.name || ''
 		}
 
-		console.log('[[webpack built]] ' + (name ? name + ' ' : '') + stats.hash + ' in ' + stats.time + 'ms')
-
+		if (log) {
+			log('webpack built ' + (name ? name + ' ' : '') + stats.hash + ' in ' + stats.time + 'ms')
+		}
 		eventStream.publish({
 			name: name,
 			action: action,
@@ -117,25 +108,30 @@ const publishStats = (action: any, statsResult: any, eventStream: any) => {
 	})
 }
 
-const extractBundles = (stats: any) => {
+const extractBundles = (stats: { [key: string]: any }): any[] => {
+	// Stats has modules, single bundle
 	if (stats.modules) {
 		return [stats]
 	}
+
+	// Stats has children, multiple bundles
 	if (stats.children && stats.children.length) {
 		return stats.children
 	}
+
+	// Not sure, assume single
 	return [stats]
 }
 
-const buildModuleMap = (modules: any[]) => {
+const buildModuleMap = (modules: any[]): { [key: string]: any } => {
 	const map: { [key: string]: any } = {}
-	modules.forEach((module: any) => {
+	modules.forEach((module: { [key: string]: any }) => {
 		map[module.id] = module.name
 	})
 	return map
 }
 
-export default (compiler: any, opts: { [key: string]: any } = {}) => {
+const webpackHotMiddleware = (compiler: any, opts: { [key: string]: any } = {}) => {
 	opts = opts || {}
 	opts.log = typeof opts.log == 'undefined' ? console.log.bind(console) : opts.log
 	opts.path = opts.path || '/__webpack_hmr'
@@ -155,22 +151,25 @@ export default (compiler: any, opts: { [key: string]: any } = {}) => {
 		}
 		eventStream.publish({ action: 'building' })
 	}
-	const onDone = (statsResult: any) => {
+	const onDone = (statsResult: string) => {
 		if (closed) {
 			return
 		}
+		// Keep hold of latest stats so they can be propagated to new clients
 		latestStats = statsResult
-		publishStats('built', latestStats, eventStream)
+		publishStats('built', latestStats, eventStream, opts.log)
 	}
-	const middleware = (ctx: any, next: any) => {
+	const middleware = (req: any, res: any, next: Function) => {
 		if (closed) {
 			return next()
 		}
-		if (!pathMatch(ctx.req.url, opts.path)) {
+		if (!pathMatch(req.url, opts.path)) {
 			return next()
 		}
-		eventStream.handler(ctx)
+		eventStream.handler(req, res)
 		if (latestStats) {
+			// Explicitly not passing in `log` fn as we don't want to log again on
+			// the server
 			publishStats('sync', latestStats, eventStream)
 		}
 	}
@@ -193,10 +192,13 @@ export default (compiler: any, opts: { [key: string]: any } = {}) => {
 		if (closed) {
 			return
 		}
+		// Can't remove compiler plugins, so we just set a flag and noop if closed
+		// https://github.com/webpack/tapable/issues/32#issuecomment-350644466
 		closed = true
 		eventStream.close()
 		eventStream = null
 	}
-
 	return middleware
 }
+
+export default webpackHotMiddleware

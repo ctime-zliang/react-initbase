@@ -20,6 +20,7 @@ React application, supports **SSR Isomorphic Render** and **Client-Side Render**
 
     -   Fractal [√]
     -   Centralized [√]
+
 -   Webpack 5
 -   Babel 7
 -   antd 4
@@ -37,7 +38,7 @@ React application, supports **SSR Isomorphic Render** and **Client-Side Render**
 
 ### View
 
-![home_ps](.\doc\home_ps.png)
+![home_ps](https://raw.githubusercontent.com/ctime-zliang/react-initbase/main/doc/home_ps.png)
 
 ### Fetch
 
