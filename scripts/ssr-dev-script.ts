@@ -23,7 +23,7 @@ app.use(
 	koaCors({
 		// @ts-ignore
 		origin(ctx: Koa.Context) {
-			return ctx.header.origin
+			return '*'
 		},
 		exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
 		credentials: true,

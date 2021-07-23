@@ -1,3 +1,7 @@
+/* 
+	在部分 Windows 平台上以开发模式运行此中间件时可能存在 Cannot call write after a stream was destroyed 的错误
+	因此基于 webpack-hot-middleware 源码做了部分修改
+ */
 import { parse } from 'url'
 
 const pathMatch = (url: string, path: string): boolean => {

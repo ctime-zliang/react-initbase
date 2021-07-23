@@ -70,3 +70,17 @@ export const formatDates = (date = new Date(), format: string = 'yyyy-MM-dd HH:i
 	}
 	return format
 }
+
+export const getLocalIP = (): string | null => {
+	const interfaces = require('os').networkInterfaces()
+	for (let devName in interfaces) {
+		let iface: any[] = interfaces[devName]
+		for (let i = 0; i < iface.length; i++) {
+			const alias = iface[i]
+			if (alias.family === 'IPv4' && !alias.internal) {
+				return alias.address
+			}
+		}
+	}
+	return null
+}
