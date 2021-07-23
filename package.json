@@ -1,7 +1,7 @@
 {
-	"name": "react-ssr-initbase",
+	"name": "react-initbase",
 	"version": "1.0.0",
-	"description": "",
+	"description": "React Application",
 	"scripts": {
 		"prettier-all": "prettier --write .",
 		"ssr:devscript": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.json ts-node scripts/ssr-dev-script",
