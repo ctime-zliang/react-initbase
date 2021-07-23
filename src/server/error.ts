@@ -1,4 +1,4 @@
-import { IExtendKoaContext } from '../types/koa-context'
+import { IExtendKoaContext } from './types/koa-context'
 
 const isErrorWithStatus = (error: any) => {
 	if (typeof error['status'] == 'number' && error['error'] && error['error']['stack']) {
