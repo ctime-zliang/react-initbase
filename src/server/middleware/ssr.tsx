@@ -40,6 +40,8 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 					</ReduxProvider>
 				)
 			)
+			;(global.window as any)['__PRELOADED_STATE__'] = null
+			;(global.window as any)['__PRELOADED_RESULT__'] = null
 			const assetsChildPath =
 				process.env.NODE_ENV === 'development' ? paths.client.devBuild.pathTagForSSR : paths.client.prodBuild.pathTagForSSR
 			const styles = sheet.getStyleTags()
