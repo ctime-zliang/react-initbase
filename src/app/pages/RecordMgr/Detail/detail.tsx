@@ -5,7 +5,7 @@ import { Spin, Button, Alert } from 'antd'
 import { KEYOF_RECORD_REDUCER } from '../store/config'
 import * as actions from '../store/action'
 import EditForm from '../Component/EditForm'
-import { baseEditFormDataConfig, BaseEditFormDataConfigType, IBaseEditFormDataConfig } from '../Component/EditForm/config'
+import { baseEditFormDataConfig, IBaseEditFormDataConfig } from '../Component/EditForm/config'
 import { RouteComponentProps } from 'react-router'
 import { getQueryValueOfUrl } from '@/utils/utils'
 import styles from './index.module.less'
@@ -13,14 +13,14 @@ import styles from './index.module.less'
 const filterFormData = (paramsFormData: IBaseEditFormDataConfig): IBaseEditFormDataConfig => {
 	const copyFormData = JSON.parse(JSON.stringify(paramsFormData))
 	Object.keys(baseEditFormDataConfig).forEach((item: string, index: number): void => {
-		copyFormData[item as BaseEditFormDataConfigType] = paramsFormData[item as BaseEditFormDataConfigType]
+		copyFormData[item as keyof IBaseEditFormDataConfig] = paramsFormData[item as keyof IBaseEditFormDataConfig]
 	})
 	return copyFormData
 }
 
 function RecordDetailRoot(props: IRecordDetailRootProps) {
 	const { match, history, fetchItemRequestAction, updateItemRequestAction } = props
-	const [formData, setFormData] = useState(baseEditFormDataConfig)
+	const [formData, setFormData] = useState<IBaseEditFormDataConfig>(filterFormData({ ...baseEditFormDataConfig, ...props }))
 	const [isExists, setIsExists] = useState<boolean>(true)
 	const [isSpinShow, setIsSpanShow] = useState<boolean>(true)
 	const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState<boolean>(true)

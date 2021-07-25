@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
-import * as recordActions from '../store/action'
+import { fetchListRequestAction } from '../store/action'
 import RecordList from './list'
 
 function RecordListRoot(props: any) {
@@ -14,9 +14,9 @@ function RecordListRoot(props: any) {
 	)
 }
 
-export const getInitialProps = async (store: any, request: any) => {
-	const query = request.query || {}
-	const handler = recordActions.fetchListRequestAction({
+export const getInitialProps = async (store: any, ctx: any) => {
+	const query = ctx.request.query || {}
+	const handler = fetchListRequestAction({
 		keywords: query.keywords || '',
 		pageIndex: query.pageIndex,
 		pageSize: query.pageSize,

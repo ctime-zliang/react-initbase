@@ -1,6 +1,7 @@
 import { modulesInjectReducer } from '@/store/rootReducer'
 import { IStore } from '@/store/rootStore'
-import List, { getInitialProps } from './List'
+import List, { getInitialProps as ListGetInitialProps } from './List'
+import Detail, { getInitialProps as DetailGetInitialProps } from './Detail'
 import ErrorView from './Error'
 import { asyncComponent } from '@/utils/hoc/async-component'
 import { KEYOF_RECORD_REDUCER } from './store/config'
@@ -12,7 +13,7 @@ export const RecordMgrList = (store: IStore): IRouteItem => {
 	return {
 		path: '/record',
 		component: List,
-		getInitialProps,
+		getInitialProps: ListGetInitialProps,
 		asyncStoreKeys: [KEYOF_RECORD_REDUCER],
 	}
 }
@@ -21,9 +22,11 @@ export const RecordMgrDetail = (store: IStore): IRouteItem => {
 	modulesInjectReducer(store, KEYOF_RECORD_REDUCER, createReducer)
 	return {
 		path: '/detail/:id',
-		component: asyncComponent(() => {
-			return import('./Detail')
-		}),
+		getInitialProps: DetailGetInitialProps,
+		// component: asyncComponent(() => {
+		// 	return import('./Detail')
+		// }),
+		component: Detail,
 		asyncStoreKeys: [],
 	}
 }

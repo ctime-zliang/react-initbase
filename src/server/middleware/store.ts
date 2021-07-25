@@ -30,14 +30,23 @@ export default (params: { [key: string]: any } = {}) => {
 			const routerGetInitialProps = typeof item.route.getInitialProps == 'function' ? item.route.getInitialProps : null
 			const comptGetInitialProps = typeof Component.getInitialProps == 'function' ? Component.getInitialProps : null
 			const getInitialProps = routerGetInitialProps || comptGetInitialProps
-			return getInitialProps ? getInitialProps(store, ctx.request) : Promise.resolve(null)
+			return getInitialProps ? getInitialProps(store, ctx) : Promise.resolve(null)
 		})
 		const concernedStoreKeys: string[] = Array.from(new Set([...nowStoreKeys, ...storeKeys]))
 		// const concernedStoreKeys: string[] = []
-		await Promise.all(promises).catch((err: any) => {
-			console.log(`=======================>[Store 处理出错]<=======================`)
-			console.log(err)
-		})
+		let resultsOfGetInitialProps: { [key: string]: any } = {}
+		await Promise.all(promises)
+			.then((rs: any[]) => {
+				rs.forEach((value: any, index: number) => {
+					if (Object.prototype.toString.call(value) === '[object Object]') {
+						resultsOfGetInitialProps = { ...resultsOfGetInitialProps, ...value }
+					}
+				})
+			})
+			.catch((err: any) => {
+				console.log(`=======================>[Store 处理出错]<=======================`)
+				console.log(err)
+			})
 		const allStoreData = store.getState() || {}
 		const usedState: { [key: string]: any } = {}
 		Object.keys(allStoreData).forEach((item: string) => {
@@ -48,6 +57,8 @@ export default (params: { [key: string]: any } = {}) => {
 		ctx.serverStore = store
 		ctx.usedState = usedState
 		ctx.concernedStoreKeys = concernedStoreKeys
+		ctx.resultsOfGetInitialProps = resultsOfGetInitialProps
+		console.log(resultsOfGetInitialProps)
 		stampCollection['endHandleStore'] = new Date().getTime()
 		const v = stampCollection['endHandleStore'] - stampCollection['startHandleStore']
 		console.log(`=======================>[Store 处理耗时] ${v}ms <=======================`)

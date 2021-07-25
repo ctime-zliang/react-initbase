@@ -1,4 +1,6 @@
-export default ({ css, cssCommons, js, jsCommons, state, content, styles, helmet }: any) => {
+/* ... */
+export default ({ css, cssCommons, js, jsCommons, state, initialResult, content, styles, helmet }: any) => {
+	initialResult = initialResult || JSON.stringify({})
 	let _css: string[] = Array.from(new Set(css)) as string[]
 	let _js: string[] = Array.from(new Set(js)) as string[]
 	let _cssCommons: string[] = Array.from(new Set(cssCommons)) as string[]
@@ -26,8 +28,10 @@ export default ({ css, cssCommons, js, jsCommons, state, content, styles, helmet
                 ${helmet.link.toString()}
                 ${helmet.script.toString()}
                 ${styles}
-                <script>window.__PRELOADED_STATE__ = ${state}</script>
-                <script>window.__PRELOADED_EXTRA__ = {}</script>
+                <script>
+                    window.__PRELOADED_STATE__ = ${state}
+                    window.__PRELOADED_RESULT__ = ${initialResult}
+                </script>
             </head>
             <body>
                 <div id="app" class="app">${content}</div>

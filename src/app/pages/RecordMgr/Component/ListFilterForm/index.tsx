@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import EditForm from '../EditForm'
 import { message as messageTips } from 'antd'
 import { withDialog } from '@/utils/hoc/with-dialog'
-import { baseEditFormDataConfig, BaseEditFormDataConfigType, IBaseEditFormDataConfig } from '../EditForm/config'
+import { baseEditFormDataConfig, IBaseEditFormDataConfig } from '../EditForm/config'
 import { baseFormConfig } from '../../List/config'
 import formStyles from './index.module.css'
 import './index.css'
@@ -60,7 +60,7 @@ function ListFilterFormRoot(props: IListFilterFormRootProps) {
 			})
 			await handleAddItem(formData)
 			Object.keys(formData).forEach((item: string, index: number): void => {
-				formData[item as BaseEditFormDataConfigType] = ''
+				formData[item as keyof IBaseEditFormDataConfig] = ''
 			})
 			dialogEditForm.setData({ formData })
 			dialogEditForm.setProps((preProps: any) => {

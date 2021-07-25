@@ -20,7 +20,7 @@ export function createDefaultSuccessResponse(data: any = null, ret: number = 0, 
 
 export async function sleep(delay: number = 1000) {
 	return new Promise((_, reject) => {
-		window.setTimeout(_, delay)
+		setTimeout(_, delay)
 	})
 }
 
@@ -69,4 +69,11 @@ export function findResults(list: any, key: string, value: any): IFindResults {
 		}
 	}
 	return res
+}
+
+export function getWindowAttribute(key: string, isParse: boolean = false): any {
+	if (typeof window !== 'undefined' && (window as any)[key]) {
+		return (window as any)[key] || {}
+	}
+	return null
 }

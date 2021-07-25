@@ -33,6 +33,16 @@ const commonPenetratRequest = async (ctx: IExtendKoaContext, res: TResponse, url
 			})
 			return
 		}
+		if (ctx.path == '/api/record/fetchItem') {
+			res.setData({
+				...ctx.requestParams,
+				id: 1,
+				title: 'Test Default Title',
+				content: 'Test Default Content',
+				extra: '',
+			})
+			return
+		}
 		res.setStatus(httpStatus.ServerError.status).setMessage(String(remoteRes.data || 'Remote Request Error'))
 		return
 	}

@@ -3,12 +3,11 @@ export interface IBaseEditFormDataConfig {
 	content: string
 	extra: string
 }
-export const baseEditFormDataConfig = {
+export const baseEditFormDataConfig: IBaseEditFormDataConfig = {
 	title: ``,
 	content: ``,
 	extra: ``,
 }
-export type BaseEditFormDataConfigType = keyof IBaseEditFormDataConfig
 
 export interface IBaseConfig {
 	contentInputElementHeight: number

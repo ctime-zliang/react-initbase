@@ -9,5 +9,6 @@ export interface IExtendKoaContext extends koa.Context {
 	usedState?: any
 	serverStore?: any
 	concernedStoreKeys?: string[]
+	resultsOfGetInitialProps?: any
 	[key: string]: any
 }

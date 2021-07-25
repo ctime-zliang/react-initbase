@@ -3,7 +3,7 @@ import React from 'react'
 import path from 'path'
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
-import { Provider } from 'react-redux'
+import { Provider as ReduxProvider } from 'react-redux'
 import { HelmetProvider } from 'react-helmet-async'
 import { ServerStyleSheet } from 'styled-components'
 import paths from '../../../config/webpack.paths'
@@ -22,12 +22,14 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 			return
 		}
 		try {
+			;(global.window as any)['__PRELOADED_STATE__'] = ctx.usedState
+			;(global.window as any)['__PRELOADED_RESULT__'] = ctx.resultsOfGetInitialProps
 			stampCollection['startServerRender'] = new Date().getTime()
 			const sheet = new ServerStyleSheet()
 			const store = ctx.serverStore
 			const content = renderToString(
 				sheet.collectStyles(
-					<Provider store={store}>
+					<ReduxProvider store={store}>
 						<StaticRouter location={ctx.request.url} context={{}}>
 							<I18nProvider>
 								<HelmetProvider context={helmetContext}>
@@ -35,7 +37,7 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 								</HelmetProvider>
 							</I18nProvider>
 						</StaticRouter>
-					</Provider>
+					</ReduxProvider>
 				)
 			)
 			const assetsChildPath =
@@ -45,6 +47,7 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 			const htmlString = layout({
 				styles,
 				state: JSON.stringify(ctx.usedState),
+				initialResult: JSON.stringify(ctx.resultsOfGetInitialProps),
 				content,
 				helmet: helmetContext.helmet,
 				...assets,
