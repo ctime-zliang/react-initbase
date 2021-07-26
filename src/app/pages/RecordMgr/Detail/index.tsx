@@ -6,7 +6,7 @@ import { testMobxStore } from '@/store/__mobx/testStore'
 import RecordDetail from './detail'
 import Extra from './extra'
 import { fetchItemRequestAction } from '../store/action'
-import { getWindowAttribute } from '@/utils/utils'
+import { useWindowResult } from '@/utils/hooks/use.window-result'
 
 configure({ enforceActions: 'always' })
 
@@ -14,15 +14,14 @@ const SSR_DATA_KEY = 'detailData'
 function RecordDetailRoot(props: any) {
 	const { match } = props
 	const params: { [key: string]: any } = match.params
-	const __PRELOADED_RESULT__DATA: any = getWindowAttribute('__PRELOADED_RESULT__') || {}
-	const ssrData = __PRELOADED_RESULT__DATA[SSR_DATA_KEY] || {}
+	const [ssrData] = useWindowResult(SSR_DATA_KEY)
 	return (
 		<>
 			<Helmet>
 				<title>{params.id || ''} - Record Detail</title>
 			</Helmet>
-			<RecordDetail {...props} {...ssrData} />
-			<div style={{ display: 'none' }}>{ssrData.content}</div>
+			<RecordDetail {...props} {...(ssrData || {})} />
+			<div style={{ display: 'none' }}>{(ssrData || {}).content}</div>
 			<Provider {...{ testMobxStore }}>
 				<Extra {...(props as any)} />
 			</Provider>

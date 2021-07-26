@@ -70,10 +70,3 @@ export function findResults(list: any, key: string, value: any): IFindResults {
 	}
 	return res
 }
-
-export function getWindowAttribute(key: string, isParse: boolean = false): any {
-	if (typeof window !== 'undefined' && (window as any)[key]) {
-		return (window as any)[key] || {}
-	}
-	return null
-}
