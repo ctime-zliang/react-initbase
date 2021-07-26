@@ -1,9 +1,7 @@
-import { sleep } from '@/utils/utils'
 import { ACTION_TYPE } from './config'
 
 export const updateGRunId = () => {
 	return async (dispatch: Function) => {
-		await sleep()
 		dispatch({
 			type: ACTION_TYPE.PROFILE_MODIFY_RUNID,
 			data: Math.random(),

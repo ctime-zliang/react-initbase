@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { createDefaultErrorResponse, createDefaultSuccessResponse, sleep } from '../utils/utils'
+import { createDefaultErrorResponse, createDefaultSuccessResponse } from '../utils/utils'
 import { BaseConfig } from '../config/config'
 import { ICommonResponse } from './config'
 import { IRecordMgrItem } from '@/pages/RecordMgr/store/config'
@@ -53,7 +53,6 @@ export async function fetchList(data: IFetchRecordListRequestBody): Promise<ICom
 
 export async function addItem(data: IAddRecordItemRequestBody): Promise<ICommonResponse> {
 	try {
-		await sleep(500)
 		const axiosResponse = await axios.post(`${remoteRequestUrlPrefix}/record/addItem`, { ...data })
 		const res: ICommonResponse = axiosResponse.data
 		if (res.ret !== 0) {
@@ -68,7 +67,6 @@ export async function addItem(data: IAddRecordItemRequestBody): Promise<ICommonR
 
 export async function delItems(data: Array<string>): Promise<ICommonResponse> {
 	try {
-		await sleep(500)
 		const axiosResponse = await axios.post(`${remoteRequestUrlPrefix}/record/delItems`, { ids: data })
 		const res: ICommonResponse = axiosResponse.data
 		if (res.ret !== 0) {
@@ -82,7 +80,6 @@ export async function delItems(data: Array<string>): Promise<ICommonResponse> {
 
 export async function fetchItem(id: string): Promise<ICommonResponse> {
 	try {
-		await sleep(500)
 		const axiosResponse = await axios.get(`${remoteRequestUrlPrefix}/record/fetchItem`, {
 			params: { id },
 		})
@@ -98,7 +95,6 @@ export async function fetchItem(id: string): Promise<ICommonResponse> {
 
 export async function updateItem(id: string, data: IAddRecordItemRequestBody): Promise<ICommonResponse> {
 	try {
-		await sleep(500)
 		const axiosResponse = await axios.post(`${remoteRequestUrlPrefix}/record/updateItem`, { id, ...data })
 		const res: ICommonResponse = axiosResponse.data
 		if (res.ret !== 0) {

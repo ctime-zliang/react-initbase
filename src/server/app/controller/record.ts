@@ -10,7 +10,7 @@ const remoteCookie = `LOGIN_AUTH_TAG=${String(Date.now())}`
 
 const commonPenetratRequest = async (ctx: IExtendKoaContext, res: TResponse, url: string, methods: string = 'get') => {
 	const fn = methods.toLocaleLowerCase() == 'get' ? getRequest : postRequest
-	await sleep(1000)
+	// await sleep(1000)
 	const remoteRes: IRquestResponse = await fn(
 		url,
 		{ ...ctx.requestParams },
