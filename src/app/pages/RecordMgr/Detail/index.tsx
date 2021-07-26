@@ -5,8 +5,8 @@ import { configure } from 'mobx'
 import { testMobxStore } from '@/store/__mobx/testStore'
 import RecordDetail from './detail'
 import Extra from './extra'
-import { fetchItemRequestAction } from '../store/action'
 import { useWindowResult } from '@/utils/hooks/use.window-result'
+import { fetchItem } from '@/model/record'
 
 configure({ enforceActions: 'always' })
 
@@ -42,9 +42,8 @@ export const getInitialProps = async (store: any, ctx: any) => {
 	if (!id) {
 		return
 	}
-	const handler = fetchItemRequestAction(id)
 	return {
-		[SSR_DATA_KEY]: (await handler(store.dispatch)).data,
+		[SSR_DATA_KEY]: (await fetchItem(id)).data,
 	}
 }
 
