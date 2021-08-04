@@ -5,11 +5,11 @@ import prodServerWebpackConfig from '../config/webpack-server.prod.config'
 import paths from '../config/webpack.paths'
 import { logger, compilerPromise } from './utils/utils'
 
-const clientPaths = paths.client
+const clientPaths: { [key: string]: any } = paths.client
 const serverPaths = paths.server
 
-const prodClientWebpackCfg: any = prodClientWebpackConfig
-const prodServerWebpackCfg: any = prodServerWebpackConfig
+const prodClientWebpackCfg: { [key: string]: any } = prodClientWebpackConfig
+const prodServerWebpackCfg: { [key: string]: any } = prodServerWebpackConfig
 
 const rimrafPaths = () => {
 	try {
@@ -22,7 +22,7 @@ const rimrafPaths = () => {
 
 const handler = async () => {
 	logger.info(`[Info] Starting build...`)
-	const startStamp = Date.now()
+	const startStamp: number = Date.now()
 
 	prodClientWebpackCfg.output.path = clientPaths.prodBuild.pathForSSR()
 
@@ -51,7 +51,7 @@ const handler = async () => {
 		}
 	})
 
-	const clientWatchOptions = {
+	const clientWatchOptions: { [key: string]: any } = {
 		ignored: /node_modules/,
 		stats: prodClientWebpackCfg.stats,
 	}

@@ -10,7 +10,7 @@ import { getLanguageSet } from '@/store/globalProfile/selectors'
 import zhCN from './locales/zh_cn/translation.json'
 import enUS from './locales/en_us/translation.json'
 
-const DEFAULT_NAMESPACE = 'dTranslation'
+const DEFAULT_NAMESPACE: string = 'dTranslation'
 i18next
 	.use(i18nextXHRBackend)
 	.use(i18nextBrowserLanguageDetector)
@@ -51,9 +51,9 @@ export const i18Next = i18next
 
 function I18nProvider(props: any) {
 	const { __CLIENT_ONLY__, children } = props
-	const languageSet = useSelector(getLanguageSet)
-	const [isInitial, setIsInitial] = useState(true)
-	// console.log(`I18nProvider 🌙🌙🌙`, props, languageSet)
+	const languageSet: string = useSelector(getLanguageSet)
+	const [isInitial, setIsInitial] = useState<boolean>(true)
+	console.log(`I18nProvider 🌙🌙🌙`, props, languageSet)
 	useEffect(() => {
 		i18next.changeLanguage(languageSet)
 	}, [languageSet])

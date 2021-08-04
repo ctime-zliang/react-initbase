@@ -14,7 +14,7 @@ import '../../node_modules/antd/dist/antd.css'
 // import '@/mock/mock'
 
 const App = (props: any) => {
-	const __root_id__ = Math.random()
+	const __root_id__: number = Math.random()
 	return (
 		<>
 			{/* <Suspense fallback={<section>Data Loading...</section>}> */}

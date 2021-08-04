@@ -4,6 +4,10 @@ export function createInitialState(): IEntryList {
 	return {
 		list: [
 			{
+				path: `/tests`,
+				title: 'Tests Modules',
+			},
+			{
 				path: `/record`,
 				title: 'Record List',
 			},

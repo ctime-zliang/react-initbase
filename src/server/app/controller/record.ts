@@ -5,8 +5,8 @@ import httpStatus from '../../lib/httpStatus'
 import { IExtendKoaContext } from '../../types/koa-context'
 import { sleep } from '../../utils/utils'
 
-const remotePrefixUrl = `http://127.0.0.1:12001`
-const remoteCookie = `LOGIN_AUTH_TAG=${String(Date.now())}`
+const remotePrefixUrl: string = `http://127.0.0.1:12001`
+const remoteCookie: string = `LOGIN_AUTH_TAG=${String(Date.now())}`
 
 const commonPenetratRequest = async (ctx: IExtendKoaContext, res: TResponse, url: string, methods: string = 'get') => {
 	const fn = methods.toLocaleLowerCase() == 'get' ? getRequest : postRequest
@@ -46,7 +46,7 @@ const commonPenetratRequest = async (ctx: IExtendKoaContext, res: TResponse, url
 		res.setStatus(httpStatus.ServerError.status).setMessage(String(remoteRes.data || 'Remote Request Error'))
 		return
 	}
-	const remoteData = remoteRes.data
+	const remoteData: { [key: string]: any } = remoteRes.data
 	const { data, ret, msg } = remoteData
 	if (ret === 0) {
 		res.setData({

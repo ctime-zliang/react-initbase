@@ -17,7 +17,7 @@ const getTime = () => {
 const substring = (body: string) => {
 	return (body || '').substr(0, MAX_LENGTH)
 }
-const trim = (string = '') => {
+const trim = (string: string = '') => {
 	if (String.prototype.trim) {
 		return String.prototype.trim.call(string)
 	}
@@ -45,7 +45,7 @@ const log = (type: string, ctx: any, msg: any) => {
 		ctx._logs.push(msg)
 	}
 }
-const handleDyeLog = (ctx: any, debug = true) => {
+const handleDyeLog = (ctx: any, debug: boolean = true) => {
 	ctx._logs = ctx._logs || []
 
 	/* ... */

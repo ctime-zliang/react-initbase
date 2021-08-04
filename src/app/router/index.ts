@@ -4,6 +4,7 @@ import Error404 from '@/pages/ErrorPage/route'
 import { RecordMgrList, RecordMgrDetail, RecordMgrError } from '@/pages/RecordMgr/route'
 import { EntryLinkList } from '@/pages/EntryLinkList/route'
 import { CssRenderTest } from '@/pages/CssRenderTest/route'
+import { TestModules } from '@/pages/TestModules/route'
 import { IRouteItem } from './config'
 import { IStore } from 'store/rootStore'
 
@@ -18,6 +19,7 @@ export const createRoutes = (store: TStore): IRouteItem[] => {
 		},
 		CssRenderTest(),
 		EntryLinkList(store),
+		TestModules(),
 		Error404(),
 	]
 }

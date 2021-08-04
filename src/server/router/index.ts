@@ -15,8 +15,9 @@ export default (app: koa) => {
 }
 
 export const errorRouterHanler = async (ctx: IExtendKoaContext, next: koa.Next) => {
-	if (errRouterMap[String(ctx.status)]) {
-		await errRouterMap[String(ctx.status)](ctx)
+	const handler: any = (errRouterMap as { [key: string]: any })[String(ctx.status)]
+	if (handler) {
+		await handler(ctx)
 		return null
 	}
 	await next()

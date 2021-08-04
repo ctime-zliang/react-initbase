@@ -4,11 +4,11 @@ import readline from 'readline'
 const __process: any = process
 
 export function animateProgress(message: string = '', amountOfDots = 3) {
-	let i = 0
+	let i: number = 0
 	return setInterval(() => {
 		readline.cursorTo(__process.stdout, 0)
 		i = (i + 1) % (amountOfDots + 1)
-		const dots = new Array(i + 1).join('.')
+		const dots: string = new Array(i + 1).join('.')
 		__process.stdout.write(message + dots)
 	}, 500)
 }

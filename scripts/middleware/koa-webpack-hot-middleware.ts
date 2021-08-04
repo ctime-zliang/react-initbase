@@ -1,9 +1,9 @@
 import koa from 'koa'
-import hotMiddleware from './express-webpack-hot-middleware'
+import expressWebpackHotMiddleware from './express-webpack-hot-middleware'
 import { PassThrough } from 'stream'
 
 export default (compiler: any, option: { [key: string]: any } = {}) => {
-	const expressMiddleware: any = hotMiddleware(compiler, option)
+	const expressMiddleware: any = expressWebpackHotMiddleware(compiler, option)
 	return async (ctx: koa.Context, next: koa.Next) => {
 		let stream: any = new PassThrough()
 		ctx.body = stream

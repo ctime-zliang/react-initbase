@@ -4,9 +4,9 @@ import prodServerWebpackConfig from '../config/webpack-server.prod.config'
 import paths from '../config/webpack.paths'
 import { logger, compilerPromise } from './utils/utils'
 
-const serverPaths = paths.server
+const serverPaths: { [key: string]: any } = paths.server
 
-const prodServerWebpackCfg: any = prodServerWebpackConfig
+const prodServerWebpackCfg: { [key: string]: any } = prodServerWebpackConfig
 
 const rimrafPaths = () => {
 	try {
@@ -18,12 +18,12 @@ const rimrafPaths = () => {
 
 const handler = async () => {
 	logger.info(`[Info] Starting build...`)
-	const startStamp = Date.now()
+	const startStamp: number = Date.now()
 
 	const serverCompiler: any = webpack(prodServerWebpackCfg)
 	const serverPromise = compilerPromise('server', serverCompiler)
 
-	const serverWatchOptions = {
+	const serverWatchOptions: { [key: string]: any } = {
 		ignored: /node_modules/,
 	}
 	serverCompiler.watch(serverWatchOptions, (error: any, stats: any) => {

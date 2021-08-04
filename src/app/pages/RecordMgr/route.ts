@@ -23,10 +23,10 @@ export const RecordMgrDetail = (store: IStore): IRouteItem => {
 	return {
 		path: '/detail/:id',
 		getInitialProps: DetailGetInitialProps,
-		// component: asyncComponent(() => {
-		// 	return import('./Detail')
-		// }),
-		component: Detail,
+		component: asyncComponent(() => {
+			return import('./Detail')
+		}),
+		// component: Detail,
 		asyncStoreKeys: [],
 	}
 }

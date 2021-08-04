@@ -3,7 +3,7 @@ import app from './app'
 import envConfig from './config/env.export'
 import logger from './lib/simple-logger'
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev: boolean = process.env.NODE_ENV === 'development'
 const handler = app.callback()
 
 const startServer = (host: string = '127.0.0.1', port: number = 0, tag: string = 'Locale') => {
@@ -22,7 +22,7 @@ const startServer = (host: string = '127.0.0.1', port: number = 0, tag: string =
  */
 if (true) {
 	startServer(envConfig?.host, envConfig?.port, 'Locale')
-	const localIP = getLocalIP()
+	const localIP: string | null = getLocalIP()
 	// localIP && startServer(localIP, envConfig?.port, 'Net Work')
 }
 

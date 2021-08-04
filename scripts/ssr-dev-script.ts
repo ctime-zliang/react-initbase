@@ -12,11 +12,11 @@ import { buildConfig } from './config'
 import webpackDevMiddleware from './middleware/koa-webpack-dev-middleware'
 import webpackHotMiddleware from './middleware/koa-webpack-hot-middleware'
 
-const clientPaths = paths.client
-const serverPaths = paths.server
+const clientPaths: { [key: string]: any } = paths.client
+const serverPaths: { [key: string]: any } = paths.server
 
-const devClientWebpackCfg: any = devClientWebpackConfig
-const devServerWebpackCfg: any = devServerWebpackConfig
+const devClientWebpackCfg: { [key: string]: any } = devClientWebpackConfig
+const devServerWebpackCfg: { [key: string]: any } = devServerWebpackConfig
 
 const app = new Koa()
 app.use(
@@ -38,8 +38,8 @@ app.use(async (ctx: Koa.Context, next: Koa.Next) => {
 	await next()
 })
 
-const serverBuildPort = !isNaN(Number(process.env.PORT)) ? Number(process.env.PORT) + 1 : buildConfig.ssr.defaultPort
-const serverBuildHost = buildConfig.ssr.defaultHost
+const serverBuildPort: number = !isNaN(Number(process.env.PORT)) ? Number(process.env.PORT) + 1 : buildConfig.ssr.defaultPort
+const serverBuildHost: string = buildConfig.ssr.defaultHost
 
 const rimrafPaths = () => {
 	try {
@@ -53,7 +53,7 @@ const rimrafPaths = () => {
 let serverHandler: any = null
 const handler = async (app: any) => {
 	logger.info(`[Info] Starting build...`)
-	const startStamp = Date.now()
+	const startStamp: number = Date.now()
 
 	devClientWebpackCfg.output.path = clientPaths.devBuild.pathForSSR()
 	devClientWebpackCfg.entry.client = [
@@ -66,8 +66,8 @@ const handler = async (app: any) => {
 	devServerWebpackCfg.output.hotUpdateMainFilename = `updates/[hash].hot-update.json`
 	devServerWebpackCfg.output.hotUpdateChunkFilename = `updates/[id].[hash].hot-update.js`
 
-	const devClientPublicPath = devClientWebpackCfg.output.publicPath
-	const devServerPublicPath = devServerWebpackCfg.output.publicPath
+	const devClientPublicPath: string = devClientWebpackCfg.output.publicPath
+	const devServerPublicPath: string = devServerWebpackCfg.output.publicPath
 
 	devClientWebpackCfg.output.publicPath = `http://${serverBuildHost}:${serverBuildPort}${devClientPublicPath}`
 	devServerWebpackCfg.output.publicPath = `http://${serverBuildHost}:${serverBuildPort}${devClientPublicPath}`
@@ -88,6 +88,22 @@ const handler = async (app: any) => {
 
 	app.listen(serverBuildPort)
 	logger.info(`[Info] Build service Started - http://${serverBuildHost}:${serverBuildPort}`)
+
+	const clientWatchOptions = {
+		ignored: /node_modules/,
+		stats: devClientWebpackCfg.stats,
+	}
+	clientCompiler.watch(clientWatchOptions, (error: any, stats: any) => {
+		if (error) {
+			logger.error(error)
+		}
+		if (stats && stats.hasErrors()) {
+			const info = stats.toJson()
+			info.errors.forEach((item: any) => {
+				logger.error(item)
+			})
+		}
+	})
 
 	const serverWatchOptions = {
 		ignored: /node_modules/,

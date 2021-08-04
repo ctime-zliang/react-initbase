@@ -1,12 +1,12 @@
-import Koa from 'koa'
+import koa from 'koa'
+import init from './lib/init'
 import middleware from './middleware'
 import errorHandler from './error'
 import { IExtendKoaContext } from './types/koa-context'
 
-const app = new Koa()
+const app: koa = new koa()
 
-//@ts-ignore
-global.window = {}
+init(app)
 
 app.on('error', (error, ctx: IExtendKoaContext) => {
 	const result = errorHandler(error, ctx)

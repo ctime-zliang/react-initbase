@@ -1,9 +1,8 @@
 import koa from 'koa'
-import devMiddleware from 'webpack-dev-middleware'
+import wbepackDevMiddleware from 'webpack-dev-middleware'
 
 export default (compiler: any, option: { [key: string]: any } = {}) => {
-	const expressMiddleware = devMiddleware(compiler, option)
-
+	const expressMiddleware = wbepackDevMiddleware(compiler, option)
 	async function middleware(ctx: koa.Context, next: koa.Next) {
 		await expressMiddleware(
 			ctx.req,
@@ -17,7 +16,7 @@ export default (compiler: any, option: { [key: string]: any } = {}) => {
 					ctx.set(name, value)
 				},
 				// @ts-ignore
-				getHeader(contentType) {
+				getHeader(contentType: string) {
 					return undefined
 				},
 			},

@@ -17,7 +17,9 @@ function ListRoot(props: any) {
 			</Helmet>
 			<section className={styles['list-container']}>
 				<section className={styles['list-wrapper']}>
-					<div className={styles['list-header']}></div>
+					<div className={styles['list-header']}>
+						<span>Entry Link List</span>
+					</div>
 					<Content>
 						<List
 							size="small"

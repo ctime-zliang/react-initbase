@@ -1,6 +1,6 @@
 import RecordController from '../../app/controller/record'
 
-const prefixUrl = `/api/record`
+const prefixUrl: string = `/api/record`
 
 export default [
 	{

@@ -6,7 +6,7 @@ export async function sleep(delay: number = 1000) {
 	})
 }
 
-interface IGetAssetsPathsList {
+export interface IGetAssetsPathsList {
 	css: string[]
 	cssCommons: string[]
 	js: string[]
@@ -50,7 +50,7 @@ export const getAssetsPathsList = (manifestFileUrl: string): IGetAssetsPathsList
 }
 
 export const formatDates = (date = new Date(), format: string = 'yyyy-MM-dd HH:ii:ss'): string => {
-	let o: any = {
+	let o: { [key: string]: any } = {
 		'M+': date.getMonth() + 1,
 		'd+': date.getDate(),
 		'H+': date.getHours(),
@@ -72,11 +72,11 @@ export const formatDates = (date = new Date(), format: string = 'yyyy-MM-dd HH:i
 }
 
 export const getLocalIP = (): string | null => {
-	const interfaces = require('os').networkInterfaces()
+	const interfaces: { [key: string]: any } = require('os').networkInterfaces()
 	for (let devName in interfaces) {
 		let iface: any[] = interfaces[devName]
 		for (let i = 0; i < iface.length; i++) {
-			const alias = iface[i]
+			const alias: { [key: string]: any } = iface[i]
 			if (alias.family === 'IPv4' && !alias.internal) {
 				return alias.address
 			}

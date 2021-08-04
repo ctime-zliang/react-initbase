@@ -4,9 +4,9 @@ import prodClientWebpackConfig from '../config/webpack-client.prod.config'
 import { logger, compilerPromise } from './utils/utils'
 import paths from '../config/webpack.paths'
 
-const clientPaths = paths.client
+const clientPaths: { [key: string]: any } = paths.client
 
-const prodClientWebpackCfg: any = prodClientWebpackConfig
+const prodClientWebpackCfg: { [key: string]: any } = prodClientWebpackConfig
 
 const rimrafPaths = () => {
 	try {
@@ -18,7 +18,7 @@ const rimrafPaths = () => {
 
 const handler = async () => {
 	logger.info(`[Info] Starting build...`)
-	const startStamp = Date.now()
+	const startStamp: number = Date.now()
 
 	const clientCompiler: any = webpack(prodClientWebpackCfg)
 	const clientPromise = compilerPromise('client', clientCompiler)

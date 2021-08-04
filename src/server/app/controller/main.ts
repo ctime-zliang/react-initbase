@@ -10,7 +10,7 @@ class RtestController extends Controller {
 	}
 
 	async rtest(ctx: IExtendKoaContext, res: TResponse) {
-		const query = ctx.query
+		const query: { [key: string]: any } = ctx.query
 		res.setData({
 			...query,
 			controllerKey: 'Key inserted by Controller',
@@ -18,7 +18,7 @@ class RtestController extends Controller {
 	}
 
 	async imglist(ctx: IExtendKoaContext, res: TResponse) {
-		const query = ctx.query
+		const query: { [key: string]: any } = ctx.query
 		res.setData({
 			...query,
 		})

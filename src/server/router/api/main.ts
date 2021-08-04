@@ -1,6 +1,6 @@
 import MainController from '../../app/controller/main'
 
-const prefixUrl = `/api`
+const prefixUrl: string = `/api`
 
 export default [
 	{

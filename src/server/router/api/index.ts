@@ -1,5 +1,5 @@
 import routerExec from '../../lib/router.exec'
-import { IRoute } from '../types/route'
+import { IRoute } from '../../types/route'
 import main from './main'
 import record from './record'
 

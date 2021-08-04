@@ -20,13 +20,14 @@ const createEventStream = (heartbeat: number): { [key: string]: any } => {
 			fn(clients[id])
 		})
 	}
-	let interval: any = setInterval(function heartbeatTick() {
+	let intervalRes: any = setInterval(function heartbeatTick() {
 		everyClient((client: any) => {
 			if (!client.stream.destroyed) {
 				client.write('data: \uD83D\uDC93\n\n')
 			}
 		})
-	}, heartbeat).unref()
+	}, heartbeat)
+	let interval: number = intervalRes.unref()
 
 	return {
 		/* ... */
@@ -41,7 +42,7 @@ const createEventStream = (heartbeat: number): { [key: string]: any } => {
 		},
 		/* ... */
 		handler(req: any, res: any) {
-			let headers = {
+			let headers: { [key: string]: any } = {
 				'Access-Control-Allow-Origin': '*',
 				'Content-Type': 'text/event-stream;charset=utf-8',
 				'Cache-Control': 'no-cache, no-transform',
@@ -49,7 +50,7 @@ const createEventStream = (heartbeat: number): { [key: string]: any } => {
 				// http://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffering
 				'X-Accel-Buffering': 'no',
 			}
-			let isHttp1 = !(parseInt(req.httpVersion) >= 2)
+			let isHttp1: boolean = !(parseInt(req.httpVersion) >= 2)
 			if (isHttp1) {
 				req.socket.setKeepAlive(true)
 				Object.assign(headers, {
@@ -58,7 +59,7 @@ const createEventStream = (heartbeat: number): { [key: string]: any } => {
 			}
 			res.writeHead(200, headers)
 			res.write('\n')
-			var id = clientId++
+			let id: number = clientId++
 			clients[id] = res
 			req.on('close', () => {
 				if (!res.finished) {
@@ -68,7 +69,7 @@ const createEventStream = (heartbeat: number): { [key: string]: any } => {
 			})
 		},
 		/* ... */
-		publish(payload: any) {
+		publish(payload: { [key: string]: any }) {
 			everyClient((client: any) => {
 				if (!client.stream.destroyed) {
 					client.write('data: ' + JSON.stringify(payload) + '\n\n')
@@ -79,7 +80,7 @@ const createEventStream = (heartbeat: number): { [key: string]: any } => {
 }
 
 const publishStats = (action: any, statsResult: { [key: string]: any }, eventStream: any, log?: Function) => {
-	const stats = statsResult.toJson({
+	const stats: { [key: string]: any } = statsResult.toJson({
 		all: false,
 		cached: true,
 		children: true,
@@ -88,7 +89,7 @@ const publishStats = (action: any, statsResult: { [key: string]: any }, eventStr
 		hash: true,
 	})
 	// For multi-compiler, stats will be an object with a 'children' array of stats
-	const bundles = extractBundles(stats)
+	const bundles: object[] = extractBundles(stats)
 	bundles.forEach((stats: { [key: string]: any }) => {
 		let name: any | string = stats.name || ''
 

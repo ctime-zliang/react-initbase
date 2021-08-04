@@ -18,16 +18,16 @@ export const logger = {
 	},
 }
 
-export const compilerPromise = (name: string, compiler: any, callback = new Function()) => {
+export const compilerPromise = (name: string, compiler: any, callback: Function = new Function()) => {
 	return new Promise((resolve, reject) => {
 		compiler.hooks.compile.tap(name, () => {
 			logger.info(`[Info]: [${name}] Compiling...`)
-			callback && callback('compile', compiler)
+			callback('compile', compiler)
 		})
 		compiler.hooks.done.tap(name, (stats: any) => {
 			if (!stats.hasErrors()) {
 				logger.info(`[Info]: [${name}] Compiled successfully.`)
-				callback && callback('done', compiler)
+				callback('done', compiler)
 				resolve({ msg: null })
 				return
 			}

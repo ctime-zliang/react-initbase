@@ -5,7 +5,7 @@ import PageFooter from '@/modules/Componnet/PageFooter'
 
 function Layout(props: any) {
 	console.log(`Layout ☆☆☆`, props)
-	const meta = props.meta || {}
+	const meta: { [key: string]: any } = props.meta || {}
 	return (
 		<>
 			<PageHeader {...props} {...meta} />

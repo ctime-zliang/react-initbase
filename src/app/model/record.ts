@@ -7,7 +7,7 @@ import { IRecordMgrItem } from '@/pages/RecordMgr/store/config'
 axios.defaults.withCredentials = true
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
-const remoteRequestUrlPrefix = BaseConfig.remoteRequestUrlPrefix()
+const remoteRequestUrlPrefix: string = BaseConfig.remoteRequestUrlPrefix()
 
 export interface IFetchRecordListRequestBody {
 	keywords?: string

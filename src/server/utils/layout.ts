@@ -6,8 +6,8 @@ export default ({ css, cssCommons, js, jsCommons, state, initialResult, content,
 	let _cssCommons: string[] = Array.from(new Set(cssCommons)) as string[]
 	let _jsCommons: string[] = Array.from(new Set(jsCommons)) as string[]
 
-	let cssString = ``
-	let jsString = ``
+	let cssString: string = ``
+	let jsString: string = ``
 
 	;[..._cssCommons, ..._css].forEach((item: string) => {
 		cssString += `<link rel="stylesheet" href=${item} />\n`
