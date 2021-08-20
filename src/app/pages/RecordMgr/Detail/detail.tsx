@@ -2,23 +2,27 @@ import React, { FC, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { message as messageTips } from 'antd'
 import { Spin, Button, Alert } from 'antd'
-import { KEYOF_RECORD_REDUCER } from '../store/config'
 import * as actions from '../store/action'
 import EditForm from '../Component/EditForm'
 import { baseEditFormDataConfig, IBaseEditFormDataConfig } from '../Component/EditForm/config'
 import { RouteComponentProps } from 'react-router'
 import { getQueryValueOfUrl } from '@/utils/utils'
+import { useItemDetail } from './item-detail.hook'
 import styles from './index.module.less'
 
-const filterFormData = (paramsFormData: IBaseEditFormDataConfig): IBaseEditFormDataConfig => {
-	const copyFormData = JSON.parse(JSON.stringify(paramsFormData))
+/*
+	从 sourceData 中过滤出指定的 key 集合并组成新的数据对象并返回
+ */
+const filterFormData = (sourceData: IBaseEditFormDataConfig): IBaseEditFormDataConfig => {
+	const copyFormData = JSON.parse(JSON.stringify(sourceData))
 	Object.keys(baseEditFormDataConfig).forEach((item: string, index: number): void => {
-		copyFormData[item as keyof IBaseEditFormDataConfig] = paramsFormData[item as keyof IBaseEditFormDataConfig]
+		copyFormData[item as keyof IBaseEditFormDataConfig] = sourceData[item as keyof IBaseEditFormDataConfig]
 	})
 	return copyFormData
 }
 
-function RecordDetailRoot(props: IRecordDetailRootProps) {
+function RecordDetail(props: IRecordDetailProps) {
+	console.log(`========= RecordDetail >>>>>`, props)
 	const { match, history, fetchItemRequestAction, updateItemRequestAction } = props
 	const [formData, setFormData] = useState<IBaseEditFormDataConfig>(filterFormData({ ...baseEditFormDataConfig, ...props }))
 	const [isExists, setIsExists] = useState<boolean>(true)
@@ -27,6 +31,12 @@ function RecordDetailRoot(props: IRecordDetailRootProps) {
 	const [isSubmitBtnLoading, setIsSubmitBtnLoading] = useState<boolean>(false)
 	const [errMessage, setErrMessage] = useState<string>(``)
 	const [itemId, setItemId] = useState<string | number | null>(null)
+	/* ... */
+	const urlParams: { [key: string]: any } = match.params
+	const id = urlParams && urlParams.id ? urlParams.id : null
+
+	const { data, error } = useItemDetail(id)
+	console.log(data, error)
 
 	const handleUpdateFormData = (paramsFormData: IBaseEditFormDataConfig) => {
 		setFormData({ ...filterFormData(paramsFormData) })
@@ -87,10 +97,9 @@ function RecordDetailRoot(props: IRecordDetailRootProps) {
 	}
 
 	useEffect(() => {
-		const urlParams: { [key: string]: any } = match.params
-		if (urlParams && urlParams.id) {
-			setItemId(urlParams.id)
-			fetchItemData(urlParams.id)
+		if (id) {
+			setItemId(id)
+			// fetchItemData(urlParams.id)
 			return
 		}
 		setIsSubmitBtnDisabled(false)
@@ -113,8 +122,8 @@ function RecordDetailRoot(props: IRecordDetailRootProps) {
 		</>
 	)
 }
-RecordDetailRoot.defaultProps = {}
-interface IRecordDetailRootProps extends RouteComponentProps {
+RecordDetail.defaultProps = {}
+interface IRecordDetailProps extends RouteComponentProps {
 	fetchItemRequestAction: Function
 	updateItemRequestAction: Function
 	[key: string]: any
@@ -124,10 +133,9 @@ export default connect(
 	(state: { [key: string]: any } = {}, ownProps) => {
 		return {
 			...ownProps,
-			...state[KEYOF_RECORD_REDUCER],
 		}
 	},
 	{
 		...actions,
 	}
-)(RecordDetailRoot)
+)(RecordDetail)

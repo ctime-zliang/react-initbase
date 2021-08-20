@@ -4,8 +4,8 @@
 	"description": "React Application",
 	"scripts": {
 		"prettier-all": "prettier --write .",
-		"ssr:devscript": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.json ts-node scripts/ssr-dev-script",
-		"ssr:prodscript": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/ssr-prod-script",
+		"ssr:dev": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.json ts-node scripts/ssr-dev-script",
+		"ssr:prod": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/ssr-prod-script",
 		"server:prodscript": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/server-prod-script",
 		"client:dev": "cross-env NODE_ENV=development webpack server --config ./config/webpack-client.dev.config.js --env client-only=true",
 		"client:prod": "cross-env NODE_ENV=production webpack --config ./config/webpack-client.prod.config.js --env client-only=true",
@@ -41,6 +41,7 @@
 		"redux-thunk": "^2.3.0",
 		"reselect": "^4.0.0",
 		"styled-components": "^5.2.1",
+		"swr": "^0.5.6",
 		"uuid": "^8.3.2"
 	},
 	"devDependencies": {
