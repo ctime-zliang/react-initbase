@@ -1,22 +1,29 @@
 import React from 'react'
 import useSWR from 'swr'
-import { fetchItemUrl } from '@/model/record'
+import { fetchItem, fetchItemUrl } from '@/api/record'
 
-const fetcher = (...args: any[]) => {
-	fetch(args[0], {
-		credentials: 'include',
-		method: 'GET',
-	})
-		.then(res => {
-			return res.json()
-		})
-		.catch(e => {
-			console.warn(e)
-		})
-}
-
-export function useItemDetail(id: string) {
-	const { data, error } = useSWR(`${fetchItemUrl}?id=${id}`, fetcher)
+export function useItemDetail(id: string, initialData: any = {}) {
+	const profile: { [key: string]: any } = {
+		shouldRetryOnError: false,
+		errorRetryCount: 3,
+		revalidateOnFocus: false,
+		onSuccess(res: { [key: string]: any }, url: string, config: any) {
+			console.log(`useSWR onSuccess`, res, url, config)
+		},
+		onError(res: { [key: string]: any }, url: string, config: any) {
+			console.log(`useSWR onError`, res, url, config)
+		},
+	}
+	if (initialData && Object.keys(initialData).length) {
+		profile.initialData = initialData
+	}
+	const { data, error } = useSWR(
+		`${fetchItemUrl}?id=${id}`,
+		async (...args: any) => {
+			return await fetchItem(args[0])
+		},
+		profile
+	)
 	return {
 		data,
 		error,

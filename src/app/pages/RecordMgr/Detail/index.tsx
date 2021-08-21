@@ -6,7 +6,7 @@ import { testMobxStore } from '@/store/__mobx/testStore'
 import RecordDetail from './detail'
 import Extra from './extra'
 import { useWindowResult } from '@/utils/hooks/use.window-result'
-import { fetchItem } from '@/model/record'
+import { fetchItem } from '@/api/record'
 
 configure({ enforceActions: 'always' })
 

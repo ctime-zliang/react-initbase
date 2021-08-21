@@ -13,8 +13,9 @@ import styles from './index.module.less'
 /*
 	从 sourceData 中过滤出指定的 key 集合并组成新的数据对象并返回
  */
-const filterFormData = (sourceData: IBaseEditFormDataConfig): IBaseEditFormDataConfig => {
-	const copyFormData = JSON.parse(JSON.stringify(sourceData))
+const filterFormData = (sourceData: IBaseEditFormDataConfig): IBaseEditFormDataConfig | any => {
+	const copyFormData: IBaseEditFormDataConfig | any = JSON.parse(JSON.stringify(sourceData))
+	// const copyFormData: IBaseEditFormDataConfig | any = {}
 	Object.keys(baseEditFormDataConfig).forEach((item: string, index: number): void => {
 		copyFormData[item as keyof IBaseEditFormDataConfig] = sourceData[item as keyof IBaseEditFormDataConfig]
 	})
@@ -22,8 +23,8 @@ const filterFormData = (sourceData: IBaseEditFormDataConfig): IBaseEditFormDataC
 }
 
 function RecordDetail(props: IRecordDetailProps) {
-	console.log(`========= RecordDetail >>>>>`, props)
 	const { match, history, fetchItemRequestAction, updateItemRequestAction } = props
+	const filteredFormData = filterFormData({ ...baseEditFormDataConfig, ...props })
 	const [formData, setFormData] = useState<IBaseEditFormDataConfig>(filterFormData({ ...baseEditFormDataConfig, ...props }))
 	const [isExists, setIsExists] = useState<boolean>(true)
 	const [isSpinShow, setIsSpanShow] = useState<boolean>(true)
@@ -34,9 +35,9 @@ function RecordDetail(props: IRecordDetailProps) {
 	/* ... */
 	const urlParams: { [key: string]: any } = match.params
 	const id = urlParams && urlParams.id ? urlParams.id : null
-
-	const { data, error } = useItemDetail(id)
-	console.log(data, error)
+	/* ... */
+	const initialData = props.title ? { data: filteredFormData } : null
+	const { data, error } = useItemDetail(id, initialData)
 
 	const handleUpdateFormData = (paramsFormData: IBaseEditFormDataConfig) => {
 		setFormData({ ...filterFormData(paramsFormData) })
@@ -95,6 +96,20 @@ function RecordDetail(props: IRecordDetailProps) {
 			setIsSubmitBtnLoading(false)
 		}
 	}
+
+	useEffect(() => {
+		if (error) {
+			setIsExists(false)
+			setIsSpanShow(false)
+			messageTips.error(error.msg)
+			setErrMessage(error.msg)
+		}
+		if (data) {
+			handleUpdateFormData(data.data)
+			setIsSpanShow(false)
+			setIsSubmitBtnDisabled(false)
+		}
+	}, [data, error])
 
 	useEffect(() => {
 		if (id) {
