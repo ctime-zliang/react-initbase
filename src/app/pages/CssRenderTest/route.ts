@@ -5,6 +5,5 @@ export const CssRenderTest = (): IRouteItem => {
 	return {
 		path: '/cssrender',
 		component: Index,
-		asyncStoreKeys: [],
 	}
 }

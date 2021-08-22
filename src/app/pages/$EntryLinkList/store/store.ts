@@ -15,6 +15,10 @@ export function createInitialState(): IEntryList {
 				path: `/cssrender`,
 				title: 'CSS Render Test',
 			},
+			{
+				path: `/inf-scroll`,
+				title: 'Infinite Scrolling',
+			},
 		],
 	}
 }
