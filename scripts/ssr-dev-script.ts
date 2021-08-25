@@ -1,28 +1,29 @@
+/*
+	生成 SSR 开发包的构建脚本
+ */
 import webpack from 'webpack'
-import nodemon, { restart } from 'nodemon'
-import { exec } from 'child_process'
-import Koa from 'koa'
+import nodemon from 'nodemon'
+import koa from 'koa'
 import rimraf from 'rimraf'
 import koaCors from 'koa-cors'
 import devClientWebpackConfig from '../config/webpack-client.dev.config'
 import devServerWebpackConfig from '../config/webpack-server.dev.config'
 import paths from '../config/webpack.paths'
-import { logger, compilerPromise } from './utils/utils'
+import { logger, compilerPromise, ICompilerPromise } from './utils/utils'
 import { buildConfig } from './config'
 import webpackDevMiddleware from './middleware/koa-webpack-dev-middleware'
 import webpackHotMiddleware from './middleware/koa-webpack-hot-middleware'
 
 const clientPaths: { [key: string]: any } = paths.client
 const serverPaths: { [key: string]: any } = paths.server
-
 const devClientWebpackCfg: { [key: string]: any } = devClientWebpackConfig
 const devServerWebpackCfg: { [key: string]: any } = devServerWebpackConfig
 
-const app = new Koa()
+const app: koa = new koa()
 app.use(
 	koaCors({
 		// @ts-ignore
-		origin(ctx: Koa.Context) {
+		origin(ctx: koa.Context) {
 			return '*'
 		},
 		exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
@@ -31,7 +32,7 @@ app.use(
 		allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
 	})
 )
-app.use(async (ctx: Koa.Context, next: Koa.Next) => {
+app.use(async (ctx: koa.Context, next: koa.Next) => {
 	if (['/', '/favicon.ico'].includes(ctx.request.path)) {
 		ctx.body = `This is Build Server, No Content Body`
 	}
@@ -41,7 +42,7 @@ app.use(async (ctx: Koa.Context, next: Koa.Next) => {
 const serverBuildPort: number = !isNaN(Number(process.env.PORT)) ? Number(process.env.PORT) + 1 : buildConfig.ssr.defaultPort
 const serverBuildHost: string = buildConfig.ssr.defaultHost
 
-const rimrafPaths = () => {
+const rimrafPaths = (): void => {
 	try {
 		rimraf.sync(clientPaths.devBuild.pathForSSR())
 		rimraf.sync(serverPaths.devBuild.path())
@@ -51,7 +52,7 @@ const rimrafPaths = () => {
 }
 
 let serverHandler: any = null
-const handler = async (app: any) => {
+const handler = async (app: koa): Promise<void> => {
 	logger.info(`[Info] Starting build...`)
 	const startStamp: number = Date.now()
 
@@ -74,8 +75,8 @@ const handler = async (app: any) => {
 
 	const clientCompiler: any = webpack(devClientWebpackCfg)
 	const serverCompiler: any = webpack(devServerWebpackCfg)
-	const clientPromise = compilerPromise('client', clientCompiler)
-	const serverPromise = compilerPromise('server', serverCompiler)
+	const clientPromise: Promise<ICompilerPromise> = compilerPromise('client', clientCompiler)
+	const serverPromise: Promise<ICompilerPromise> = compilerPromise('server', serverCompiler)
 
 	app.use(
 		webpackDevMiddleware(clientCompiler, {
@@ -89,7 +90,7 @@ const handler = async (app: any) => {
 	app.listen(serverBuildPort)
 	logger.info(`[Info] Build service Started - http://${serverBuildHost}:${serverBuildPort}`)
 
-	const clientWatchOptions = {
+	const clientWatchOptions: { [key: string]: any } = {
 		ignored: /node_modules/,
 		stats: devClientWebpackCfg.stats,
 	}
@@ -98,14 +99,14 @@ const handler = async (app: any) => {
 			logger.error(error)
 		}
 		if (stats && stats.hasErrors()) {
-			const info = stats.toJson()
+			const info: any = stats.toJson()
 			info.errors.forEach((item: any) => {
 				logger.error(item)
 			})
 		}
 	})
 
-	const serverWatchOptions = {
+	const serverWatchOptions: { [key: string]: any } = {
 		ignored: /node_modules/,
 		stats: devClientWebpackCfg.stats,
 	}
@@ -132,8 +133,8 @@ const handler = async (app: any) => {
 	logger.warn(`[Info] Build Time Consuming ${(Date.now() - startStamp) / 1000}s`)
 
 	logger.info(`[Info] Render Server Starting.`)
-	const serverEntryPath = paths.server.devBuild.path() + '/' + paths.server.output.filename
-	const ignore = [
+	const serverEntryPath: string = paths.server.devBuild.path() + '/' + paths.server.output.filename
+	const ignore: string[] = [
 		...buildConfig.ssr.nodemon.ignore,
 		`./dist/${clientPaths.devBuild.pathTag}`,
 		`./dist/${clientPaths.devBuild.pathTagForSSR}`,

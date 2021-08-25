@@ -1,14 +1,16 @@
+/*
+	生成 CSR 生产包的构建脚本
+ */
 import webpack from 'webpack'
 import rimraf from 'rimraf'
 import prodClientWebpackConfig from '../config/webpack-client.prod.config'
-import { logger, compilerPromise } from './utils/utils'
+import { logger, compilerPromise, ICompilerPromise } from './utils/utils'
 import paths from '../config/webpack.paths'
 
 const clientPaths: { [key: string]: any } = paths.client
-
 const prodClientWebpackCfg: { [key: string]: any } = prodClientWebpackConfig
 
-const rimrafPaths = () => {
+const rimrafPaths = (): void => {
 	try {
 		rimraf.sync(clientPaths.prodBuild.path())
 	} catch (e) {
@@ -16,12 +18,12 @@ const rimrafPaths = () => {
 	}
 }
 
-const handler = async () => {
+const handler = async (): Promise<void> => {
 	logger.info(`[Info] Starting build...`)
 	const startStamp: number = Date.now()
 
 	const clientCompiler: any = webpack(prodClientWebpackCfg)
-	const clientPromise = compilerPromise('client', clientCompiler)
+	const clientPromise: Promise<ICompilerPromise> = compilerPromise('client', clientCompiler)
 
 	clientCompiler.watch({}, (error: any, stats: any) => {
 		if (!error && !stats.hasErrors()) {

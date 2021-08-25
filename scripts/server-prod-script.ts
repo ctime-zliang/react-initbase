@@ -1,14 +1,16 @@
+/*
+	生成仅 Server 生产包的构建脚本
+ */
 import webpack from 'webpack'
 import rimraf from 'rimraf'
 import prodServerWebpackConfig from '../config/webpack-server.prod.config'
 import paths from '../config/webpack.paths'
-import { logger, compilerPromise } from './utils/utils'
+import { logger, compilerPromise, ICompilerPromise } from './utils/utils'
 
 const serverPaths: { [key: string]: any } = paths.server
-
 const prodServerWebpackCfg: { [key: string]: any } = prodServerWebpackConfig
 
-const rimrafPaths = () => {
+const rimrafPaths = (): void => {
 	try {
 		rimraf.sync(serverPaths.prodBuild.path())
 	} catch (e) {
@@ -16,12 +18,12 @@ const rimrafPaths = () => {
 	}
 }
 
-const handler = async () => {
+const handler = async (): Promise<void> => {
 	logger.info(`[Info] Starting build...`)
 	const startStamp: number = Date.now()
 
 	const serverCompiler: any = webpack(prodServerWebpackCfg)
-	const serverPromise = compilerPromise('server', serverCompiler)
+	const serverPromise: Promise<ICompilerPromise> = compilerPromise('server', serverCompiler)
 
 	const serverWatchOptions: { [key: string]: any } = {
 		ignored: /node_modules/,
