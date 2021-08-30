@@ -2,6 +2,8 @@ import React from 'react'
 import { renderRoutes } from '../utils/hoc/render-routes'
 import { createRoutes, filterRoutes, noMatchComponent } from '@/router'
 import { IRouteItem } from '@/router/config'
+/* ... */
+import RouteViewTests from '@/pages/route-view.tests'
 
 function Root(props: any, ctx: any) {
 	const { store } = props
@@ -20,6 +22,7 @@ function Root(props: any, ctx: any) {
 			)}
 		</>
 	)
+	// return <RouteViewTests />
 }
 
 export default Root

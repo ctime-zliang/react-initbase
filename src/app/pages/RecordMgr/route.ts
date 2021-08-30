@@ -9,7 +9,7 @@ import { createReducer } from './store/reducer'
 import { IRouteItem } from 'router/config'
 import { KEYOF_ENTRYLINKLIST_REDUCER } from '@/pages/$EntryLinkList/store/config'
 
-export const RecordMgrList = (store: IStore): IRouteItem => {
+export const RecordMgrListRoute = (store: IStore): IRouteItem => {
 	modulesInjectReducer(store, KEYOF_RECORD_REDUCER, createReducer)
 	return {
 		path: '/record',
@@ -19,7 +19,7 @@ export const RecordMgrList = (store: IStore): IRouteItem => {
 	}
 }
 
-export const RecordMgrDetail = (store: IStore): IRouteItem => {
+export const RecordMgrDetailRoute = (store: IStore): IRouteItem => {
 	modulesInjectReducer(store, KEYOF_RECORD_REDUCER, createReducer)
 	return {
 		path: '/detail/:id',
@@ -32,7 +32,7 @@ export const RecordMgrDetail = (store: IStore): IRouteItem => {
 	}
 }
 
-export const RecordMgrError = (store: IStore): IRouteItem => {
+export const RecordMgrErrorRoute = (store: IStore): IRouteItem => {
 	modulesInjectReducer(store, KEYOF_RECORD_REDUCER, createReducer)
 	return {
 		path: '/*',
