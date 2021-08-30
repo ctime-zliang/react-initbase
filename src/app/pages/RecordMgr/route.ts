@@ -37,6 +37,5 @@ export const RecordMgrError = (store: IStore): IRouteItem => {
 	return {
 		path: '/*',
 		component: ErrorView,
-		asyncStoreKeys: [],
 	}
 }

@@ -5,6 +5,5 @@ export const TestModules = (): IRouteItem => {
 	return {
 		path: '/tests',
 		component: Index,
-		asyncStoreKeys: [],
 	}
 }
