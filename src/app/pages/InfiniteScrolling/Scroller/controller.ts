@@ -1,39 +1,42 @@
 export type Callback = (projectedItems: any[], upperPlaceholderHeight: number, underPlaceholderHeight: number, needAdjustment: boolean) => void
+export type Cache = { index: number; top: number; bottom: number; height: number; needAdjustment?: boolean }
 
 export class ScrollControl {
-	public startIndex = 0
-	public endIndex = 0
-	public anchorItem = { index: 0, offset: 0 }
+	public startIndex: number = 0
+	public endIndex: number = 0
+	public anchorItem: { [key: string]: any } = { index: 0, offset: 0 }
+	public cachedItemRect: any = null
+
+	private items: any = null
+	private scroller: any = null
+	private guesstimatedItemCountPerPage: number
+	private averageHeight: number = 0
+	private displayCount: number = 0
+	private scrollerDom: HTMLDivElement
+	private upperHeight: number = 0
 
 	private callback: Callback
-	private guesstimatedItemCountPerPage: number
-	private displayCount: number
-	private scrollerDom: HTMLDivElement
-	private upperHeight = 0
 
-	constructor(public scroller: any, public items: any[], public averageHeight: number, public cachedItemRect = [] as Cache[]) {
-		this.scrollerDom = scroller.divDom
+	constructor(scroller: any, items: any[], averageHeight: number, cachedItemRect: Cache[] = []) {
+		this.scroller = scroller
+		this.items = items
+		this.averageHeight = averageHeight
+		this.cachedItemRect = cachedItemRect
+		/* ... */
+		this.scrollerDom = scroller.containerElement
 		this.guesstimatedItemCountPerPage = Math.ceil(this.scrollerDom.clientHeight / averageHeight)
 		this.displayCount = this.guesstimatedItemCountPerPage + 3
 		this.endIndex = this.startIndex + this.displayCount - 1
 	}
 
 	public next(items?: any[]) {
-		if (items) this.items = items
-
+		if (items) {
+			this.items = items
+		}
 		const projectedItems = this.items.slice(this.startIndex, this.endIndex + 1)
 		const startItem = this.cachedItemRect[this.startIndex]
-		let upperPlaceholderHeight = 0
-		let needAdjustment = false
-		if (startItem) {
-			// normal
-			upperPlaceholderHeight = startItem.top
-		} else {
-			// there are two case go this brunch：1、resize。2、quickly slipping。
-			upperPlaceholderHeight = this.upperHeight
-			needAdjustment = true
-		}
-
+		const upperPlaceholderHeight = startItem ? startItem.top : this.upperHeight
+		const needAdjustment = startItem ? false : true
 		const cachedItemRectLength = this.cachedItemRect.length
 		const endIndex = cachedItemRectLength === 0 ? this.endIndex : cachedItemRectLength
 		const bottomCountDelta = this.items.length - endIndex
@@ -48,19 +51,17 @@ export class ScrollControl {
 		this.callback(projectedItems, upperPlaceholderHeight, underPlaceholderHeight, needAdjustment)
 	}
 
-	/**
-	 * hands up, viewport down.
-	 */
-	public up = () => {
+	public up() {
 		const scrollTop = this.scrollerDom.scrollTop
 		const anchorItemRect = this.cachedItemRect[this.anchorItem.index]
 		if (scrollTop > anchorItemRect.bottom) {
-			const nextAnchorItem = this.cachedItemRect.find(item => (item ? item.bottom > scrollTop : false))
+			const nextAnchorItem = this.cachedItemRect.find((item: any, index: number) => {
+				return item ? item.bottom > scrollTop : false
+			})
 			if (nextAnchorItem) {
-				const nextAnchorIndex = nextAnchorItem.index
-				this.startIndex = nextAnchorIndex > 2 ? nextAnchorIndex - 3 : 0
+				this.startIndex = nextAnchorItem.index > 2 ? nextAnchorItem.index - 3 : 0
 				this.endIndex = this.startIndex + this.displayCount - 1
-				this.anchorItem.index = nextAnchorIndex
+				this.anchorItem.index = nextAnchorItem.index
 				this.anchorItem.offset = nextAnchorItem.top
 			} else {
 				const cachedItemLength = this.cachedItemRect.length
@@ -75,14 +76,13 @@ export class ScrollControl {
 		}
 	}
 
-	/**
-	 * hands down, viewport up.
-	 */
-	public down = () => {
+	public down() {
 		const scrollTop = this.scrollerDom.scrollTop
 		if (scrollTop < this.anchorItem.offset) {
 			const startItem = this.cachedItemRect[this.startIndex]
-			const nextAnchorItem = this.cachedItemRect.find(item => (item ? item.bottom > scrollTop : false))
+			const nextAnchorItem = this.cachedItemRect.find((item: any, index: number) => {
+				return item ? item.bottom > scrollTop : false
+			})
 			const nextStartIndex = nextAnchorItem.index - 3
 			if (this.cachedItemRect[nextStartIndex > 0 ? nextStartIndex : 0]) {
 				this.startIndex = nextAnchorItem.index > 2 ? nextAnchorItem.index - 3 : 0
