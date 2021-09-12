@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "React Application",
 	"scripts": {
-		"prettier-all": "prettier --write .",
+		"prettier:all": "prettier --write .",
 		"ssr:dev": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.json ts-node scripts/ssr-dev-script",
 		"ssr:prod": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/ssr-prod-script",
 		"server:prodscript": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/server-prod-script",
