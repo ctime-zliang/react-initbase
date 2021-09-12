@@ -18,7 +18,10 @@ export const logger = {
 	},
 }
 
-export const compilerPromise = (name: string, compiler: any, callback: Function = new Function()) => {
+export interface ICompilerPromise {
+	msg: string | null
+}
+export const compilerPromise = (name: string, compiler: any, callback: Function = new Function()): Promise<ICompilerPromise> => {
 	return new Promise((resolve, reject) => {
 		compiler.hooks.compile.tap(name, () => {
 			logger.info(`[Info]: [${name}] Compiling...`)

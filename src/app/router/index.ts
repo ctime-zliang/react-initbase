@@ -1,11 +1,11 @@
 import Layout from '@/pages/Layout'
-import HomeRoute from '@/pages/$Home/route'
-import Error404 from '@/pages/ErrorPage/route'
-import { RecordMgrList, RecordMgrDetail, RecordMgrError } from '@/pages/RecordMgr/route'
-import { EntryLinkList } from '@/pages/$EntryLinkList/route'
-import { CssRenderTest } from '@/pages/CssRenderTest/route'
-import { InfiniteScrolling } from '@/pages/InfiniteScrolling/route'
-import { TestModules } from '@/pages/TestModules/route'
+import { HomeRoute } from '@/pages/$Home/route'
+import { Error404Route } from '@/pages/ErrorPage/route'
+import { RecordMgrListRoute, RecordMgrDetailRoute, RecordMgrErrorRoute } from '@/pages/RecordMgr/route'
+import { EntryLinkListRoute } from '@/pages/$EntryLinkList/route'
+import { CssRenderTestRoute } from '@/pages/CssRenderTest/route'
+import { InfiniteScrollingRoute } from '@/pages/InfiniteScrolling/route'
+import { TestModulesRoute } from '@/pages/TestModules/route'
 import { IRouteItem } from './config'
 import { IStore } from 'store/rootStore'
 
@@ -15,14 +15,14 @@ export const createRoutes = (store: TStore): IRouteItem[] => {
 	return [
 		HomeRoute(),
 		{
-			...RecordMgrList(store),
-			routes: [RecordMgrDetail(store), RecordMgrError(store)],
+			...RecordMgrListRoute(store),
+			routes: [RecordMgrDetailRoute(store), RecordMgrErrorRoute(store)],
 		},
-		CssRenderTest(),
-		EntryLinkList(store),
-		TestModules(),
-		InfiniteScrolling(),
-		Error404(),
+		CssRenderTestRoute(),
+		EntryLinkListRoute(store),
+		TestModulesRoute(),
+		InfiniteScrollingRoute(),
+		Error404Route(),
 	]
 }
 
@@ -44,4 +44,4 @@ export const filterRoutes = (routes: IRouteItem[] = []): IRouteItem[] => {
 	}
 }
 
-export const noMatchComponent = Error404()
+export const noMatchComponent = Error404Route()

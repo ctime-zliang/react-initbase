@@ -1,7 +1,7 @@
 import { IRouteItem } from 'router/config'
 import Home from './'
 
-export default (): IRouteItem => {
+export const HomeRoute = (): IRouteItem => {
 	return {
 		path: '/',
 		exact: true,

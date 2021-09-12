@@ -1,7 +1,7 @@
 import Index from './'
 import { IRouteItem } from 'router/config'
 
-export const CssRenderTest = (): IRouteItem => {
+export const CssRenderTestRoute = (): IRouteItem => {
 	return {
 		path: '/cssrender',
 		component: Index,

@@ -1,17 +1,19 @@
+/*
+	生成 SSR 生产包的构建脚本
+ */
 import webpack from 'webpack'
 import rimraf from 'rimraf'
 import prodClientWebpackConfig from '../config/webpack-client.prod.config'
 import prodServerWebpackConfig from '../config/webpack-server.prod.config'
 import paths from '../config/webpack.paths'
-import { logger, compilerPromise } from './utils/utils'
+import { logger, compilerPromise, ICompilerPromise } from './utils/utils'
 
 const clientPaths: { [key: string]: any } = paths.client
-const serverPaths = paths.server
-
+const serverPaths: { [key: string]: any } = paths.server
 const prodClientWebpackCfg: { [key: string]: any } = prodClientWebpackConfig
 const prodServerWebpackCfg: { [key: string]: any } = prodServerWebpackConfig
 
-const rimrafPaths = () => {
+const rimrafPaths = (): void => {
 	try {
 		rimraf.sync(clientPaths.prodBuild.pathForSSR())
 		rimraf.sync(serverPaths.prodBuild.path())
@@ -20,7 +22,7 @@ const rimrafPaths = () => {
 	}
 }
 
-const handler = async () => {
+const handler = async (): Promise<void> => {
 	logger.info(`[Info] Starting build...`)
 	const startStamp: number = Date.now()
 
@@ -28,10 +30,10 @@ const handler = async () => {
 
 	const clientCompiler: any = webpack(prodClientWebpackCfg)
 	const serverCompiler: any = webpack(prodServerWebpackCfg)
-	const clientPromise = compilerPromise('client', clientCompiler)
-	const serverPromise = compilerPromise('server', serverCompiler)
+	const clientPromise: Promise<ICompilerPromise> = compilerPromise('client', clientCompiler)
+	const serverPromise: Promise<ICompilerPromise> = compilerPromise('server', serverCompiler)
 
-	const serverWatchOptions = {
+	const serverWatchOptions: { [key: string]: any } = {
 		ignored: /node_modules/,
 		stats: prodClientWebpackCfg.stats,
 	}
@@ -44,7 +46,7 @@ const handler = async () => {
 			logger.error(error)
 		}
 		if (stats.hasErrors()) {
-			const info = stats.toJson()
+			const info: any = stats.toJson()
 			info.errors.forEach((item: any) => {
 				logger.error(item)
 			})
@@ -60,9 +62,8 @@ const handler = async () => {
 			logger.error(error)
 		}
 		if (stats && stats.hasErrors()) {
-			const info = stats.toJson()
-			const errors = info.errors[0].split('\n')
-			errors.forEach((item: any) => {
+			const info: any = stats.toJson()
+			info.errors.forEach((item: any) => {
 				logger.error(item)
 			})
 		}
