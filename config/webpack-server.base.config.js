@@ -3,15 +3,11 @@ const paths = require('./webpack.paths')
 const rules = require('./webpack.rules')
 const plugins = require('./webpack.plugins')
 
-const serverPaths = paths.server
-const clientPaths = paths.client
-const commonPlugins = plugins.common
-const serverPlugins = plugins.server
 const webpackConfigBase = {
 	name: 'server',
 	target: 'node',
 	entry: {
-		server: serverPaths.entry.main,
+		server: paths.server.entry.main,
 	},
 	module: {
 		rules: rules('server'),
@@ -21,8 +17,8 @@ const webpackConfigBase = {
 			allowlist: /\.css|less$/,
 		}),
 	],
-	resolve: clientPaths.resolve,
-	plugins: [...commonPlugins, ...serverPlugins.base],
+	resolve: paths.client.resolve,
+	plugins: [...plugins.common],
 	stats: {
 		assets: false,
 		cached: false,

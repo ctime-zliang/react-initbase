@@ -2,20 +2,17 @@ const paths = require('./webpack.paths')
 const rules = require('./webpack.rules')
 const plugins = require('./webpack.plugins')
 
-const clientPaths = paths.client
-const commonPlugins = plugins.common
-const clientPlugins = plugins.client
 const webpackConfigBase = {
 	name: 'client',
 	target: 'web',
 	entry: {
-		client: clientPaths.entry.main,
+		client: paths.client.entry.main,
 	},
-	resolve: clientPaths.resolve,
+	resolve: paths.client.resolve,
 	module: {
 		rules: rules('client'),
 	},
-	plugins: [...commonPlugins, ...clientPlugins.base],
+	plugins: [...plugins.common],
 	stats: {
 		cached: false,
 		cachedAssets: false,

@@ -3,24 +3,18 @@ const paths = require('./webpack.paths')
 
 const clientPaths = paths.client
 module.exports = {
-	client: {
-		base: {
-			splitChunks: {
-				cacheGroups: {
-					commons: {
-						test: /[\\/]node_modules[\\/]/,
-						name: 'vendor',
-						chunks: 'all',
-					},
-					// styles: {
-					// 	name: 'styles',
-					// 	test: /\.css$/,
-					// 	chunks: 'all',
-					// 	enforce: true,
-					// }
+	common: {
+		splitChunks: {
+			cacheGroups: {
+				commons: {
+					test: /[\\/]node_modules[\\/]/,
+					name: 'vendor',
+					chunks: 'all',
 				},
 			},
 		},
+	},
+	client: {
 		devBuild: {
 			minimize: true,
 			minimizer: [],

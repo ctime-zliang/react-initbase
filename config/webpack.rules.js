@@ -15,16 +15,16 @@ const modulesCssOptions = {
 	alias: {},
 }
 
-const jsxLoader = {
-	test: /\.js[x]?$/,
-	exclude: /node_modules/,
-	use: 'happypack/loader?id=happyBabelForJSX',
-}
-const tsxLoader = {
-	test: /\.ts[x]?$/,
-	exclude: /node_modules/,
-	use: 'happypack/loader?id=happyBabelForTSX',
-}
+// const jsxLoader = {
+// 	test: /\.js[x]?$/,
+// 	exclude: /node_modules/,
+// 	use: 'happypack/loader?id=happyBabelForJSX',
+// }
+// const tsxLoader = {
+// 	test: /\.ts[x]?$/,
+// 	exclude: /node_modules/,
+// 	use: 'happypack/loader?id=happyBabelForTSX',
+// }
 const jsxEsbuildLoader = {
 	test: /\.(js|jsx)$/,
 	exclude: /node_modules/,
@@ -208,8 +208,6 @@ module.exports = type => {
 		client: [
 			{
 				oneOf: [
-					// jsxLoader,
-					// tsxLoader,
 					jsxEsbuildLoader,
 					tsxEsbuildLoader,
 					cssLoaderClient,
@@ -224,8 +222,6 @@ module.exports = type => {
 		server: [
 			{
 				oneOf: [
-					// jsxLoader,
-					// tsxLoader,
 					jsxEsbuildLoader,
 					tsxEsbuildLoader,
 					cssLoaderServer,

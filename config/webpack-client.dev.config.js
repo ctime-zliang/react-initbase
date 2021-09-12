@@ -5,21 +5,18 @@ const devServerConfig = require('./webpack.dev-server.config')
 const plugins = require('./webpack.plugins')
 const optimization = require('./webpack.optimization')
 
-const clientPaths = paths.client
-const clientPlugins = plugins.client
-const clientOptimization = optimization.client
 const webpackDevConfig = {
 	mode: 'development',
 	output: {
-		publicPath: clientPaths.devBuild.publicPath,
-		path: clientPaths.devBuild.path(),
-		filename: clientPaths.output.filename,
-		chunkFilename: clientPaths.output.chunkFilename,
+		publicPath: paths.client.devBuild.publicPath,
+		path: paths.client.devBuild.path(),
+		filename: paths.client.output.filename,
+		chunkFilename: paths.client.output.chunkFilename,
 	},
-	plugins: [...clientPlugins.devBuild],
+	plugins: [...plugins.client.devBuild],
 	optimization: {
-		...clientOptimization.base,
-		...clientOptimization.devBuild,
+		...optimization.common,
+		...optimization.client.devBuild,
 	},
 	devtool: 'source-map',
 	devServer: devServerConfig,

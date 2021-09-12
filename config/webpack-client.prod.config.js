@@ -4,21 +4,18 @@ const paths = require('./webpack.paths')
 const plugins = require('./webpack.plugins')
 const optimization = require('./webpack.optimization')
 
-const clientPaths = paths.client
-const clientPlugins = plugins.client
-const clientOptimization = optimization.client
 const webpackProdConfig = {
 	mode: 'production',
 	output: {
-		publicPath: clientPaths.prodBuild.publicPath,
-		path: clientPaths.prodBuild.path(),
-		filename: clientPaths.output.filename,
-		chunkFilename: clientPaths.output.chunkFilename,
+		publicPath: paths.client.prodBuild.publicPath,
+		path: paths.client.prodBuild.path(),
+		filename: paths.client.output.filename,
+		chunkFilename: paths.client.output.chunkFilename,
 	},
-	plugins: [...clientPlugins.prodBuild],
+	plugins: [...plugins.client.prodBuild],
 	optimization: {
-		...clientOptimization.base,
-		...clientOptimization.prodBuild,
+		...optimization.common,
+		...optimization.client.prodBuild,
 	},
 }
 

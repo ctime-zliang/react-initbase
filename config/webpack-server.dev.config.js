@@ -3,18 +3,15 @@ const webpackBaseConfig = require('./webpack-server.base.config')
 const plugins = require('./webpack.plugins')
 const paths = require('./webpack.paths')
 
-const serverPaths = paths.server
-const clientPaths = paths.client
-const serverPlugins = plugins.server
 const webpackProdConfig = {
 	mode: 'development',
 	output: {
-		publicPath: serverPaths.devBuild.publicPath,
-		path: serverPaths.devBuild.path(),
-		filename: serverPaths.output.filename,
+		publicPath: paths.server.devBuild.publicPath,
+		path: paths.server.devBuild.path(),
+		filename: paths.server.output.filename,
 		// libraryTarget: 'commonjs2'
 	},
-	plugins: [...serverPlugins.devBuild],
+	plugins: [...plugins.server.devBuild],
 }
 
 module.exports = merge(webpackBaseConfig, webpackProdConfig)

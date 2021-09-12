@@ -5,8 +5,6 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HappyPack = require('happypack')
-const OS = require('os')
 const { TypedCssModulesPlugin } = require('typed-css-modules-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
@@ -20,7 +18,6 @@ const pathOfClientPathAboutDevBuild = utils.clientOnly() ? clientPaths.devBuild.
 const pathOfClientPathAboutProdBuild = utils.clientOnly() ? clientPaths.prodBuild.path() : clientPaths.prodBuild.pathForSSR()
 const pathOfServerPathAboutDevBuild = serverPaths.devBuild.path()
 const pathOfServerPathAboutProdBuild = serverPaths.prodBuild.path()
-// const HappyThreadPoolCase = HappyPack.ThreadPool({ size: OS.cpus().length })
 
 module.exports = {
 	common: [
@@ -31,38 +28,16 @@ module.exports = {
 			chunkFilename: clientPaths.base.stylesSheetChunkFilename,
 		}),
 		new CaseSensitivePathsPlugin(),
-		// new HappyPack({
-		// 	id: 'happyBabelForJSX',
-		// 	loaders: [
-		// 		{
-		// 			loader: 'babel-loader?cacheDirectory=true',
-		// 		},
-		// 	],
-		// 	threadPool: HappyThreadPoolCase,
-		// 	verbose: true,
-		// }),
-		// new HappyPack({
-		// 	id: 'happyBabelForTSX',
-		// 	loaders: [
-		// 		{
-		// 			loader: 'babel-loader?cacheDirectory=true',
-		// 		},
-		// 	],
-		// 	threadPool: HappyThreadPoolCase,
-		// 	verbose: true,
-		// }),
 		new TypedCssModulesPlugin({
 			globPattern: 'src/**/*.(css|less|sass)',
 		}),
 		new webpack.ProgressPlugin(),
 	],
 	client: {
-		base: [
+		devBuild: [
 			new webpack.DefinePlugin({
 				'process.env.__CLIENT_ONLY__': JSON.stringify(process.argv.includes('client-only=true')),
 			}),
-		],
-		devBuild: [
 			new webpack.DefinePlugin({
 				'process.env.NODE_ENV': JSON.stringify('development'),
 				IS_DEVELOPMETN: true,
@@ -85,6 +60,9 @@ module.exports = {
 			}),
 		].filter(Boolean),
 		prodBuild: [
+			new webpack.DefinePlugin({
+				'process.env.__CLIENT_ONLY__': JSON.stringify(process.argv.includes('client-only=true')),
+			}),
 			new webpack.DefinePlugin({
 				'process.env.NODE_ENV': JSON.stringify('production'),
 				IS_DEVELOPMETN: false,
@@ -111,7 +89,6 @@ module.exports = {
 		],
 	},
 	server: {
-		base: [],
 		devBuild: [
 			new webpack.HotModuleReplacementPlugin(),
 			new CopyWebpackPlugin({
