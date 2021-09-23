@@ -39,11 +39,11 @@ const loadingSVGLoadingMask = withLoading(SVGLoadingMask)
 function HomeRoot(props: any) {
 	const [isShow, setIsShow] = useState<boolean>(false)
 
-	const showView = useCallback(async () => {
+	const showView = async () => {
 		await sleep(500)
 		setIsShow(true)
 		loadingSVGLoadingMask.hide()
-	}, [])
+	}
 
 	useEffect(() => {
 		loadingSVGLoadingMask.show()

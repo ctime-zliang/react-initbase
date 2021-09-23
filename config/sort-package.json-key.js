@@ -19,7 +19,7 @@ const sortKeys = async function (key) {
 					newPkgData[key][item] = sourceKeyObject[item]
 				})
 			fs.writeFileSync(path.join(__dirname, './sort-package.json'), JSON.stringify(newPkgData, null, '\t'))
-			_(`Done!`)
+			_(0)
 		})
 	})
 }

@@ -47,7 +47,7 @@ class Controller extends EventEmitter {
 			try {
 				const res: TResponse = await this._decorator(func).call(this, ctx)
 				res.flush(ctx)
-			} catch (e) {
+			} catch (e: any) {
 				const res: TResponse = new Response()
 				res.setStatus(httpStatus.ServerError.status).setMessage(httpStatus.ServerError.message).flush(ctx)
 				ctx.app.emit('error', e)

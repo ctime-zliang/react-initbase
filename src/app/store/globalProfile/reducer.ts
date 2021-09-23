@@ -1,8 +1,8 @@
 import { ACTION_TYPE, IGProfile } from './config'
-import { IAction } from './config'
+import { IStoreCommonAction } from '../config'
 import { createInitialState } from './store'
 
-const LANGUAGE_TOGGLE_MAP = {
+const LANGUAGE_TOGGLE_MAP: { [key: string]: any } = {
 	zh_cn: 'en_us',
 	en_us: 'zh_cn',
 }
@@ -22,7 +22,7 @@ const actionTypeReducers: { [key: string]: any } = {
 }
 
 export const initialState: IGProfile = Object.freeze(createInitialState())
-export default (state: IGProfile = initialState, action: IAction): IGProfile => {
+export default (state: IGProfile = initialState, action: IStoreCommonAction<ACTION_TYPE>): IGProfile => {
 	const func: any = actionTypeReducers[action.type] || null
 	if (func) {
 		return func(state, action.data)

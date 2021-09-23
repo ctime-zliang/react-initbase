@@ -5,7 +5,7 @@ const clientPaths = paths.client
 const modulesCssOptions = {
 	mode: 'local',
 	modules: true,
-	localIdentName: '[name]_[local]-[hash:base64:5]',
+	localIdentName: '[name]_-[hash:base64:8]',
 	minimize: false,
 	camelCase: false,
 	import: true,

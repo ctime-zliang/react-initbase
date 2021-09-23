@@ -33,7 +33,7 @@ function queryDetailId(url: string) {
 	try {
 		const r = /\/detail\/(.?)\/?/i.exec(url)
 		return r && r instanceof Array && r[r.length - 1] ? r[r.length - 1] : null
-	} catch (e) {
+	} catch (e: any) {
 		return null
 	}
 }

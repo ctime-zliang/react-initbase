@@ -1,5 +1,7 @@
 /* 
-	在部分 Windows 平台上以开发模式运行此中间件时可能存在 Cannot call write after a stream was destroyed 的错误
+	在部分 Windows 平台上以开发模式运行此中间件时可能存在某些不可预料的错误
+		例如:
+			- Cannot call write after a stream was destroyed
 	因此基于 webpack-hot-middleware 源码做了部分修改
  */
 import { parse } from 'url'
@@ -11,10 +13,10 @@ const pathMatch = (url: string, path: string): boolean => {
 		return false
 	}
 }
+
 const createEventStream = (heartbeat: number): { [key: string]: any } => {
 	let clientId: number = 0
 	let clients: { [key: string]: any } = {}
-
 	let everyClient: Function = (fn: Function) => {
 		Object.keys(clients).forEach((id: string | number) => {
 			fn(clients[id])
@@ -92,15 +94,14 @@ const publishStats = (action: any, statsResult: { [key: string]: any }, eventStr
 	const bundles: object[] = extractBundles(stats)
 	bundles.forEach((stats: { [key: string]: any }) => {
 		let name: any | string = stats.name || ''
-
 		// Fallback to compilation name in case of 1 bundle (if it exists)
 		if (bundles.length === 1 && !name && statsResult.compilation) {
 			name = statsResult.compilation.name || ''
 		}
-
 		if (log) {
 			log('webpack built ' + (name ? name + ' ' : '') + stats.hash + ' in ' + stats.time + 'ms')
 		}
+
 		eventStream.publish({
 			name: name,
 			action: action,
@@ -118,12 +119,10 @@ const extractBundles = (stats: { [key: string]: any }): any[] => {
 	if (stats.modules) {
 		return [stats]
 	}
-
 	// Stats has children, multiple bundles
 	if (stats.children && stats.children.length) {
 		return stats.children
 	}
-
 	// Not sure, assume single
 	return [stats]
 }

@@ -20,8 +20,8 @@ export function configureStore(params: IConfigureStoreParams = {}) {
 		typeof (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function' &&
 		(window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ actionsBlacklist: [] })
 	const composeEnhancers = devtools || compose
+	const ccr = createCombineReducers()
 	let store: IStore = () => {}
-	let ccr = createCombineReducers()
 	/* 
 		过滤掉与当前已存在的 reducer 不匹配的 state-key
 	 */

@@ -1,12 +1,12 @@
-const MAX_LENGTH = 9900
-const SPLIT_LINE = `>>> ==================================================`
-const PREFIX_TAG = `DYE_KOALOG|`
-const zeroize = (num: number, width: number) => {
+const MAX_LENGTH: number = 9900
+const SPLIT_LINE: string = `>>> ==================================================`
+const PREFIX_TAG: string = `DYE_KOALOG|`
+const zeroize = (num: number, width: number): string => {
 	const s = String(num)
 	const len = s.length
 	return len >= width ? s : '000000'.slice(len - width) + s
 }
-const getTime = () => {
+const getTime = (): string => {
 	var now = new Date()
 	var HH = zeroize(now.getHours(), 2)
 	var mm = zeroize(now.getMinutes(), 2)
@@ -14,29 +14,29 @@ const getTime = () => {
 	var msec = zeroize(now.getTime() % 1000, 3)
 	return HH + ':' + mm + ':' + ss + ' ' + msec
 }
-const substring = (body: string) => {
+const substring = (body: string): string => {
 	return (body || '').substr(0, MAX_LENGTH)
 }
-const trim = (string: string = '') => {
+const trim = (string: string = ''): string => {
 	if (String.prototype.trim) {
 		return String.prototype.trim.call(string)
 	}
 	return string.replace(/(^\s*)|(\s*$)/g, '')
 }
 
-const debug = (ctx: any, msg: any) => {
+const debug = (ctx: any, msg: any): void => {
 	msg = getTime() + '|DEBUG|' + msg(this as any).log('debug', ctx, msg)
 }
-const info = (ctx: any, msg: any) => {
+const info = (ctx: any, msg: any): void => {
 	msg = getTime() + '|INFO|' + msg(this as any).log('info', ctx, msg)
 }
-const warn = (ctx: any, msg: any) => {
+const warn = (ctx: any, msg: any): void => {
 	msg = getTime() + '|WARN|' + msg(this as any).log('warn', ctx, msg)
 }
-const error = (ctx: any, msg: any) => {
+const error = (ctx: any, msg: any): void => {
 	msg = getTime() + '|ERROR|' + msg(this as any).log('error', ctx, msg)
 }
-const log = (type: string, ctx: any, msg: any) => {
+const log = (type: string, ctx: any, msg: any): void => {
 	msg = type + '|' + msg
 	if (ctx && ctx.request && !ctx._logs) {
 		ctx._logs = []
@@ -45,7 +45,7 @@ const log = (type: string, ctx: any, msg: any) => {
 		ctx._logs.push(msg)
 	}
 }
-const handleDyeLog = (ctx: any, debug: boolean = true) => {
+const handleDyeLog = (ctx: any, debug: boolean = true): void => {
 	ctx._logs = ctx._logs || []
 
 	/* ... */

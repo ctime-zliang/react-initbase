@@ -14,7 +14,7 @@ export default function routerExec(routes: Array<IRoute>) {
 				ctx.routerMatched = true
 				await next()
 				await routeItem.action.call(kRouter, ctx, next)
-			} catch (e) {
+			} catch (e: any) {
 				ctx.app.emit('error', e, ctx)
 			}
 		})

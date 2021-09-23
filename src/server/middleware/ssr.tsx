@@ -7,15 +7,15 @@ import { Provider as ReduxProvider } from 'react-redux'
 import { HelmetProvider } from 'react-helmet-async'
 import { ServerStyleSheet } from 'styled-components'
 import paths from '../../../config/webpack.paths'
-import { getAssetsPathsList } from '../utils/utils'
+import { getAssetsPathsList, IGetAssetsPathsList } from '../utils/utils'
 import layout from '../utils/layout'
 import { IExtendKoaContext } from '../types/koa-context'
 import I18nProvider from '../../app/i18n/I18nProvider'
 import App from '../../app/App'
 
-const helmetContext: any = {}
+const helmetContext: { [key: string]: any } = {}
 const serverRenderer = (params: { [key: string]: any } = {}) => {
-	return async (ctx: IExtendKoaContext, next: Koa.Next) => {
+	return async (ctx: IExtendKoaContext, next: Koa.Next): Promise<void | undefined> => {
 		const stampCollection: { [key: string]: any } = {}
 		if (params.filter(ctx) === true) {
 			await next()
@@ -42,11 +42,11 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 			)
 			;(global.window as any)['__PRELOADED_STATE__'] = null
 			;(global.window as any)['__PRELOADED_RESULT__'] = null
-			const assetsChildPath =
+			const assetsChildPath: string =
 				process.env.NODE_ENV === 'development' ? paths.client.devBuild.pathTagForSSR : paths.client.prodBuild.pathTagForSSR
 			const styles = sheet.getStyleTags()
-			const assets = getAssetsPathsList(path.join(__dirname, `../${assetsChildPath}/manifest.json`))
-			const htmlString = layout({
+			const assets: IGetAssetsPathsList = getAssetsPathsList(path.join(__dirname, `../${assetsChildPath}/manifest.json`))
+			const htmlString: string = layout({
 				styles,
 				state: JSON.stringify(ctx.usedState),
 				initialResult: JSON.stringify(ctx.resultsOfGetInitialProps),
@@ -61,7 +61,7 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 			const v = stampCollection['endServerRender'] - stampCollection['startServerRender']
 			console.log(`=======================>[SSR 渲染耗时] ${v}ms <=======================`)
 			return
-		} catch (e) {
+		} catch (e: any) {
 			params.onError(ctx, e)
 		}
 		await next()

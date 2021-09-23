@@ -47,7 +47,7 @@ export async function fetchList(data: IFetchRecordListRequestBody): Promise<ICom
 		}
 		const list: Array<IRecordMgrItem> = filterList(res.data.list, { ...data })
 		return createDefaultSuccessResponse({ ...res.data, list })
-	} catch (e) {
+	} catch (e: any) {
 		return Promise.reject(createDefaultErrorResponse(-1, '[fetchList] Request Remote Error', null, e))
 	}
 }
@@ -62,7 +62,7 @@ export async function addItem(data: IAddRecordItemRequestBody): Promise<ICommonR
 		}
 		const itemData: IRecordMgrItem = filterList([{ ...res.data }])[0]
 		return createDefaultSuccessResponse({ ...itemData })
-	} catch (e) {
+	} catch (e: any) {
 		return Promise.reject(createDefaultErrorResponse(-1, '[addItem] Request Remote Error', null, e))
 	}
 }
@@ -76,7 +76,7 @@ export async function delItems(data: Array<string>): Promise<ICommonResponse> {
 			return Promise.reject(createDefaultErrorResponse(res.ret, res.msg, res.data, res))
 		}
 		return createDefaultSuccessResponse(res.data)
-	} catch (e) {
+	} catch (e: any) {
 		return Promise.reject(createDefaultErrorResponse(-1, '[delItems] Request Remote Error', null, e))
 	}
 }
@@ -92,7 +92,7 @@ export async function fetchItem(id: string): Promise<ICommonResponse> {
 			return Promise.reject(createDefaultErrorResponse(res.ret, res.msg, res.data, res))
 		}
 		return createDefaultSuccessResponse(res.data)
-	} catch (e) {
+	} catch (e: any) {
 		return Promise.reject(createDefaultErrorResponse(-1, '[fetchItem] Request Remote Error', null, e))
 	}
 }
@@ -106,7 +106,7 @@ export async function updateItem(id: string, data: IAddRecordItemRequestBody): P
 			return Promise.reject(createDefaultErrorResponse(res.ret, res.msg, res.data, res))
 		}
 		return createDefaultSuccessResponse(res.data)
-	} catch (e) {
+	} catch (e: any) {
 		return Promise.reject(createDefaultErrorResponse(-1, '[updateItem] Request Remote Error', null, e))
 	}
 }

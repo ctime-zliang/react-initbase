@@ -2,21 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { Form, Input } from 'antd'
 import { baseConfig, IBaseEditFormDataConfig } from './config'
 
+const FormLayoutConfig: { [key: string]: any } = {
+	labelCol: {
+		style: { width: '100px' },
+	},
+	wrapperCol: {
+		style: { width: 'calc(100% - 100px)' },
+	},
+}
+
 function EditFormRoot(props: IEditFormRootProps) {
 	const { formData, updateFormData, handleSubmitRequest } = props
 	const [addItemForm] = Form.useForm()
-	const [config] = useState({
-		...baseConfig,
-		...props,
-	})
-	const layout: { [key: string]: any } = {
-		labelCol: {
-			style: { width: '100px' },
-		},
-		wrapperCol: {
-			style: { width: 'calc(100% - 100px)' },
-		},
-	}
+	const [config] = useState({ ...baseConfig, ...props })
 
 	const onValuesChange = (changedValues: any, allValues: any) => {
 		updateFormData && updateFormData({ ...allValues })
@@ -31,7 +29,7 @@ function EditFormRoot(props: IEditFormRootProps) {
 	return (
 		<>
 			<Form
-				{...layout}
+				{...FormLayoutConfig}
 				name="basic"
 				form={addItemForm}
 				initialValues={formData}

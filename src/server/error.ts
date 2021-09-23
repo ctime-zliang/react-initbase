@@ -1,16 +1,16 @@
 import { IExtendKoaContext } from './types/koa-context'
 
-const isErrorWithStatus = (error: any) => {
+const isErrorWithStatus = (error: any): boolean => {
 	if (typeof error['status'] == 'number' && error['error'] && error['error']['stack']) {
 		return true
 	}
 	return false
 }
 
-const handleError = (error: any) => {
-	const list = []
-	const statusError = isErrorWithStatus(error)
-	const err = statusError ? error.error : error
+const handleError = (error: any): string => {
+	const list: string[] = []
+	const statusError: boolean = isErrorWithStatus(error)
+	const err: { [key: string]: any } = statusError ? error.error : error
 	if (statusError) {
 		list.push(`=>>[status]${err.status}`)
 	}
@@ -23,6 +23,6 @@ const handleError = (error: any) => {
 	return list.join('\r\n')
 }
 
-export default (error: any, ctx: IExtendKoaContext) => {
+export default (error: any, ctx: IExtendKoaContext): string => {
 	return handleError(error)
 }

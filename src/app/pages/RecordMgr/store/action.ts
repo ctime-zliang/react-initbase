@@ -1,4 +1,5 @@
 import { ICommonResponse } from '@/api/config'
+import { IStoreCommonAction } from '@/store/config'
 import { addItem, fetchItem, delItems, fetchList, IAddRecordItemRequestBody, updateItem, IFetchRecordListRequestBody } from '@/api/record'
 import { ACTION_TYPE } from './config'
 
@@ -11,7 +12,7 @@ export const testAsyncTask = () => {
 }
 
 export const fetchListRequestAction = (params: IFetchRecordListRequestBody) => {
-	return async (dispatch: Function) => {
+	return async (dispatch: (__params: IStoreCommonAction<ACTION_TYPE>) => void) => {
 		try {
 			const res: ICommonResponse = await fetchList(params)
 			dispatch({
@@ -23,25 +24,25 @@ export const fetchListRequestAction = (params: IFetchRecordListRequestBody) => {
 				data: { countTotal: res.data.countTotal || 0 },
 			})
 			return res
-		} catch (e) {
+		} catch (e: any) {
 			return Promise.reject(e)
 		}
 	}
 }
 
 export const addItemRequestAction = (params: IAddRecordItemRequestBody) => {
-	return async (dispatch: Function) => {
+	return async (dispatch: (__params: IStoreCommonAction<ACTION_TYPE>) => void) => {
 		try {
 			const res: ICommonResponse = await addItem(params)
 			return res
-		} catch (e) {
+		} catch (e: any) {
 			return Promise.reject(e)
 		}
 	}
 }
 
 export const deleteItemsRequestAction = (ids: Array<string>) => {
-	return async (dispatch: Function) => {
+	return async (dispatch: (__params: IStoreCommonAction<ACTION_TYPE>) => void) => {
 		try {
 			dispatch({
 				type: ACTION_TYPE.RECORD_SET_ROW_LOADING_STATUS,
@@ -53,7 +54,7 @@ export const deleteItemsRequestAction = (ids: Array<string>) => {
 				data: { ids },
 			})
 			return res
-		} catch (e) {
+		} catch (e: any) {
 			dispatch({
 				type: ACTION_TYPE.RECORD_SET_ROW_LOADING_STATUS,
 				data: { ids, loading: false },
@@ -64,28 +65,28 @@ export const deleteItemsRequestAction = (ids: Array<string>) => {
 }
 
 export const fetchItemRequestAction = (id: string) => {
-	return async (dispatch: Function) => {
+	return async (dispatch: (__params: IStoreCommonAction<ACTION_TYPE>) => void) => {
 		try {
 			const res: ICommonResponse = await fetchItem(id)
 			return res
-		} catch (e) {
+		} catch (e: any) {
 			return Promise.reject(e)
 		}
 	}
 }
 
 export const updateItemRequestAction = (id: string, params: IAddRecordItemRequestBody) => {
-	return async (dispatch: Function) => {
+	return async (dispatch: (__params: IStoreCommonAction<ACTION_TYPE>) => void) => {
 		try {
 			const res: ICommonResponse = await updateItem(id, params)
 			return res
-		} catch (e) {
+		} catch (e: any) {
 			return Promise.reject(e)
 		}
 	}
 }
 
-export const handleToggleRowSelectAction = (selectedKeys: string[]) => {
+export const handleToggleRowSelectAction = (selectedKeys: string[]): IStoreCommonAction<ACTION_TYPE> => {
 	return {
 		type: ACTION_TYPE.RECORD_TOGGLE_SELECT_KEYS,
 		data: { selectedKeys },

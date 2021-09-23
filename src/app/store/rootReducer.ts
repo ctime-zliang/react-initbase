@@ -22,7 +22,8 @@ export function injectReducer(store: IStore, key: string, createReducer: Functio
 		}
 		const reducer = createReducer(__PRELOADED_STATE__[key])
 		store.asyncReducers[key] = reducer
-		store.replaceReducer(createCombineReducers(store.asyncReducers).combinedReducer)
+		const ccr = createCombineReducers(store.asyncReducers)
+		store.replaceReducer(ccr.combinedReducer)
 	}
 	return store
 }

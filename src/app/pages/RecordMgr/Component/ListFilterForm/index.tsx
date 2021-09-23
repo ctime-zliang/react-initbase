@@ -67,7 +67,7 @@ function ListFilterFormRoot(props: IListFilterFormRootProps) {
 				return { ...preProps, confirmLoading: false }
 			})
 			messageTips.success(`Added Success!`)
-		} catch (e) {
+		} catch (e: any) {
 			dialogEditForm.setProps((preProps: any) => {
 				return { ...preProps, confirmLoading: false }
 			})

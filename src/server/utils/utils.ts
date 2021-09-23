@@ -43,7 +43,7 @@ export const getAssetsPathsList = (manifestFileUrl: string): IGetAssetsPathsList
 			}
 		})
 		return result
-	} catch (e) {
+	} catch (e: any) {
 		console.log(e)
 	}
 	return result

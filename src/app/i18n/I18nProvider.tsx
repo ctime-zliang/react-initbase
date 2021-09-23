@@ -16,12 +16,10 @@ i18next
 	.use(i18nextBrowserLanguageDetector)
 	.init({
 		backend: {
-			// for all available options read the backend's repository readme file
 			loadPath: '/locales/{{lng}}/{{ns}}.json',
 			// crossDomain: true
 		},
 		react: {
-			// Must be false until Suspense is supported on the server side
 			useSuspense: false,
 			wait: true,
 		},

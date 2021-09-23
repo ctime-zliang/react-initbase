@@ -68,7 +68,7 @@ class RecordController extends Controller {
 	async fetchList(ctx: IExtendKoaContext, res: TResponse) {
 		try {
 			await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/fetchList`, 'get')
-		} catch (e) {
+		} catch (e: any) {
 			throw e
 		}
 	}
@@ -76,7 +76,7 @@ class RecordController extends Controller {
 	async addItem(ctx: IExtendKoaContext, res: TResponse) {
 		try {
 			await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/addItem`, 'post')
-		} catch (e) {
+		} catch (e: any) {
 			throw e
 		}
 	}
@@ -84,7 +84,7 @@ class RecordController extends Controller {
 	async delItems(ctx: IExtendKoaContext, res: TResponse) {
 		try {
 			await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/delItems`, 'post')
-		} catch (e) {
+		} catch (e: any) {
 			throw e
 		}
 	}
@@ -92,7 +92,7 @@ class RecordController extends Controller {
 	async fetchItem(ctx: IExtendKoaContext, res: TResponse) {
 		try {
 			await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/fetchItem`, 'get')
-		} catch (e) {
+		} catch (e: any) {
 			throw e
 		}
 	}
@@ -100,7 +100,7 @@ class RecordController extends Controller {
 	async updateItem(ctx: IExtendKoaContext, res: TResponse) {
 		try {
 			await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/updateItem`, 'post')
-		} catch (e) {
+		} catch (e: any) {
 			throw e
 		}
 	}

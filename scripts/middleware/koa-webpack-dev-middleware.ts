@@ -1,3 +1,4 @@
+import { ServerResponse } from 'http'
 import koa from 'koa'
 import wbepackDevMiddleware from 'webpack-dev-middleware'
 
@@ -7,16 +8,16 @@ export default (compiler: any, option: { [key: string]: any } = {}) => {
 		await expressMiddleware(
 			ctx.req,
 			{
-				// @ts-ignore
-				end(content: string): void {
+				//@ts-ignore
+				end(content: string): string {
 					ctx.body = content
+					return content
 				},
-				// @ts-ignore
-				setHeader(name: string, value: any): void {
+				setHeader(name: string, value: string | string[]): ServerResponse {
 					ctx.set(name, value)
+					return ctx.res
 				},
-				// @ts-ignore
-				getHeader(contentType: string) {
+				getHeader(contentType: string): undefined {
 					return undefined
 				},
 			},

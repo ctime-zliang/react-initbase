@@ -1,15 +1,6 @@
-export enum ACTION_TYPE {}
-/* ... */
-
-export interface IAction {
-	type: ACTION_TYPE
-	data: any
-}
-
 export const KEYOF_ENTRYLINKLIST_REDUCER = 'ENTRYLINKLIST_REDUCER'
 
-/********************************* *********************************/
-/********************************* *********************************/
+export enum ACTION_TYPE {}
 
 export interface IEntryListItem {
 	path: string
@@ -18,3 +9,7 @@ export interface IEntryListItem {
 export interface IEntryList {
 	list: IEntryListItem[]
 }
+
+/********************************* *********************************/
+/********************************* *********************************/
+/********************************* *********************************/

@@ -1,10 +1,10 @@
 import request from 'request'
 import logger from './simple-logger'
 
-function toString(source: any) {
+const toString = (source: any): string => {
 	try {
 		return JSON.stringify(source)
-	} catch (e) {
+	} catch (e: any) {
 		return String(source)
 	}
 }
@@ -15,12 +15,12 @@ export interface IRquestResponse {
 	response?: any
 	error?: any
 }
-export const getRequest = async (url: string, data: { [key: string]: any } = {}, extra: { [key: string]: any } = {}): Promise<IRquestResponse> => {
+export const getRequest = async (url: string, data: any = {}, extra: any = {}): Promise<IRquestResponse> => {
 	const defaultHeaders = {
 		'content-type': `application/json`,
 	}
 	return new Promise((resolve, reject) => {
-		const option = {
+		const option: { [key: string]: any } = {
 			...extra,
 			url: url,
 			method: `GET`,
@@ -43,12 +43,12 @@ export const getRequest = async (url: string, data: { [key: string]: any } = {},
 		})
 	})
 }
-export const postRequest = async (url: string, data: { [key: string]: any } = {}, extra: { [key: string]: any } = {}): Promise<IRquestResponse> => {
+export const postRequest = async (url: string, data: any = {}, extra: any = {}): Promise<IRquestResponse> => {
 	const defaultHeaders = {
 		'content-type': `application/json`,
 	}
 	return new Promise((resolve, reject) => {
-		const option = {
+		const option: { [key: string]: any } = {
 			...extra,
 			url: url,
 			method: `POST`,

@@ -11,8 +11,8 @@ import interceptor from './interceptor'
 import parameter from './parameter'
 import { IExtendKoaContext } from '../types/koa-context'
 
-const assetsChildPath = process.env.NODE_ENV === 'development' ? paths.client.devBuild.pathTagForSSR : paths.client.prodBuild.pathTagForSSR
-const assetsPath = path.join(__dirname, `../${assetsChildPath}`)
+const assetsChildPath: string = process.env.NODE_ENV === 'development' ? paths.client.devBuild.pathTagForSSR : paths.client.prodBuild.pathTagForSSR
+const assetsPath: string = path.join(__dirname, `../${assetsChildPath}`)
 
 export default (app: Koa) => {
 	app.use(interceptor())
@@ -34,10 +34,10 @@ export default (app: Koa) => {
 	)
 	app.use(
 		ssr({
-			filter(ctx: IExtendKoaContext) {
+			filter(ctx: IExtendKoaContext): boolean {
 				return /^\/api/.test(ctx.url)
 			},
-			onError(ctx: IExtendKoaContext, error: any) {
+			onError(ctx: IExtendKoaContext, error: any): void {
 				ctx.app.emit('error', error, ctx)
 			},
 		})

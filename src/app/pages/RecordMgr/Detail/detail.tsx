@@ -54,7 +54,7 @@ function RecordDetail(props: IRecordDetailProps) {
 			handleUpdateFormData(res.data)
 			setIsSpanShow(false)
 			setIsSubmitBtnDisabled(false)
-		} catch (error) {
+		} catch (error: any) {
 			setIsExists(false)
 			setIsSpanShow(false)
 			messageTips.error(error.msg)
@@ -91,7 +91,7 @@ function RecordDetail(props: IRecordDetailProps) {
 				}
 				history.push(pm)
 			})
-		} catch (error) {
+		} catch (error: any) {
 			messageTips.error(error.msg)
 			setIsSubmitBtnLoading(false)
 		}

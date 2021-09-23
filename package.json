@@ -10,6 +10,7 @@
 		"client:dev": "cross-env NODE_ENV=development webpack server --config ./config/webpack-client.dev.config.js --env client-only=true",
 		"client:prod": "cross-env NODE_ENV=production webpack --config ./config/webpack-client.prod.config.js --env client-only=true",
 		"client:prodscript": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/client-prod-script --env client-only=true",
+		"tsc:check": "tsc --noEmit",
 		"test": "jest"
 	},
 	"author": "",

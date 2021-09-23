@@ -3,7 +3,6 @@ import { IExtendKoaContext } from '../types/koa-context'
 
 export type TResponse = Response
 
-const STATUS_KEYS = Object.keys(httpStatus)
 class Response {
 	data: any
 	msg: string

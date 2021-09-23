@@ -9,7 +9,7 @@ const app: koa = new koa()
 init(app)
 
 app.on('error', (error, ctx: IExtendKoaContext) => {
-	const result = errorHandler(error, ctx)
+	const result: any = errorHandler(error, ctx)
 	console.log(result)
 })
 

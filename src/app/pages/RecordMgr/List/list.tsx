@@ -90,7 +90,7 @@ function RecordList(props: TIRecordListProps) {
 				return { ...pageConfig, countTotal }
 			})
 			setTableLoading(false)
-		} catch (error) {
+		} catch (error: any) {
 			messageTips.error(error.msg)
 			setTableLoading(false)
 		}
@@ -108,7 +108,7 @@ function RecordList(props: TIRecordListProps) {
 			const res = await deleteItemsRequestAction(selectedIdList)
 			messageTips.success(`Deleted Success`)
 			setIsDeleteModelVisible(false)
-		} catch (error) {
+		} catch (error: any) {
 			messageTips.error(error.msg)
 		}
 	}, [])

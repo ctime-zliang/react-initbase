@@ -1,4 +1,4 @@
-import { IEntryList, KEYOF_ENTRYLINKLIST_REDUCER } from './config'
+import { IEntryList } from './config'
 
 export function createInitialState(): IEntryList {
 	return {
