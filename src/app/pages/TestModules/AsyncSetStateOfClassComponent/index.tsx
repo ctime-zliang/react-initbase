@@ -71,7 +71,7 @@ class Compt2 extends React.Component {
 				index: this.state.index + 1,
 			},
 			() => {
-				console.log(`object -1`, this.state.index)
+				console.log(`object 1`, this.state.index)
 			}
 		)
 	}
