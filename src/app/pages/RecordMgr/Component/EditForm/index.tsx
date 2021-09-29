@@ -21,9 +21,7 @@ function EditFormRoot(props: IEditFormRootProps) {
 	}
 
 	useEffect(() => {
-		addItemForm.setFieldsValue({
-			...formData,
-		})
+		addItemForm.setFieldsValue({ ...formData })
 	}, [formData])
 
 	return (

@@ -5,39 +5,16 @@ import { IRecordMgrItem } from '../../store/config'
 import { getQueryValueOfUrl } from '@/utils/utils'
 
 const LocalConfig: any = {
-	isSettedConfig: false,
+	hasInitialed: false,
 	listTableConfig: {},
 }
 function ListTableRoot(props: IListTableRootProps) {
 	const { list, loading, handleToggleRowSelect } = props
 	const [selectedRowKeysList, setSelectedRowKeysList] = useState<string[]>([])
 
-	const linkDetail = useCallback((e, itemData: IRecordMgrItem) => {
-		e.preventDefault()
-		const pageIndex = +getQueryValueOfUrl('pageIndex')
-		const pageSize = +getQueryValueOfUrl('pageSize')
-		const keywords = decodeURI(getQueryValueOfUrl('keywords') || '')
-		let str = ``
-		let hasFlag = false
-		if (pageIndex) {
-			str += `?pi=${pageIndex}`
-			hasFlag = true
-		}
-		if (pageSize) {
-			str += `${hasFlag ? '&' : '?'}ps=${pageSize}`
-			hasFlag = true
-		}
-		if (keywords) {
-			str += `${hasFlag ? '&' : '?'}wd=${keywords}`
-			hasFlag = true
-		}
-		const url = `/record/detail/${itemData.id}${str}`
-		window.open(url)
-	}, [])
-
-	if (!LocalConfig.isSettedConfig) {
-		LocalConfig.isSettedConfig = true
-		LocalConfig.listTableConfig.columns = listTableConfig.columns({ ...props, linkDetail })
+	if (!LocalConfig.hasInitialed) {
+		LocalConfig.hasInitialed = true
+		LocalConfig.listTableConfig.columns = listTableConfig.columns({ ...props })
 		LocalConfig.listTableConfig.table = listTableConfig.table({})
 	}
 

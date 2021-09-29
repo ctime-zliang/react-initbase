@@ -12,7 +12,7 @@ const Container = styled.div`
 
 function Extra(props: IExtraProps) {
 	const testMobxStore: ITestMobxStoreClass = props.testMobxStore
-	const changeStamp = () => {
+	const changeStamp = (): void => {
 		testMobxStore.modifyStamp(new Date().getTime())
 	}
 	return (

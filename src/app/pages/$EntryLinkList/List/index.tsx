@@ -25,8 +25,8 @@ function ListRoot(props: any) {
 							size="small"
 							bordered
 							dataSource={list}
-							renderItem={(item: IEntryListItem, index) => {
-								const number = (++index, index) <= 9 ? '0' + index : index
+							renderItem={(item: IEntryListItem, index: number) => {
+								const number: string = (++index, index) <= 9 ? '0' + index : String(index)
 								return (
 									<List.Item className="entry-linklist" style={{ justifyContent: 'flex-start' }}>
 										<span style={{ paddingRight: '6px' }}>{number}.</span>

@@ -9,18 +9,21 @@ import { baseFormConfig } from '../../List/config'
 import formStyles from './index.module.css'
 import './index.css'
 
+/*
+	将表单组件的声明式调用修改为命令式调用
+ */
 const dialogEditForm = withDialog(EditForm)
 
 function ListFilterFormRoot(props: IListFilterFormRootProps) {
 	const { keywordsValue, handleKeywordsEnterAction, handleKeywordsChangeAction, handleRefreshAction, handleAddItem, onDialogEditFormClosed } = props
 	const { t } = useTranslation()
-	let hasSubmitedItem = false
+	let hasSubmitedItem: boolean = false
 
-	const handleSearch = ($evte: any) => {
+	const handleSearch = ($evte: any): void => {
 		handleKeywordsEnterAction($evte)
 	}
 
-	const showDialogEditForm = () => {
+	const showDialogEditForm = (): void => {
 		dialogEditForm.open({
 			title: 'Add Item',
 			width: '55%',
@@ -48,11 +51,11 @@ function ListFilterFormRoot(props: IListFilterFormRootProps) {
 		})
 	}
 
-	const submitItemData = async (formData: IBaseEditFormDataConfig) => {
+	const submitItemData = async (formData: IBaseEditFormDataConfig): Promise<{ [key: string]: any } | undefined> => {
 		try {
 			if (!formData.title.trim()) {
 				messageTips.error(`Title Empty`)
-				return false
+				return
 			}
 			hasSubmitedItem = true
 			dialogEditForm.setProps((preProps: any) => {

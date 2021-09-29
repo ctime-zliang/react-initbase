@@ -43,14 +43,14 @@ function RecordList(props: TIRecordListProps) {
 	const propsListReference = useRef<any>(null as any)
 	propsListReference.current = list
 
-	const handleSearch = useCallback(async () => {
+	const handleSearch = useCallback((): void => {
 		history.push({
 			pathname: location.pathname,
 			search: createSearchString(1, +pageConfigReference.current.pageSize, formConfigReference.current.keywords),
 		})
 	}, [])
 
-	const handleFresh = useCallback(async () => {
+	const handleFresh = useCallback((): void => {
 		history.push({
 			pathname: location.pathname,
 			search: createSearchString(
@@ -61,20 +61,20 @@ function RecordList(props: TIRecordListProps) {
 		})
 	}, [])
 
-	const handleModifyFormInput = useCallback($evte => {
-		const value = $evte.target.value
+	const handleModifyFormInput = useCallback(($evte: any): void => {
+		const value = $evte.currentTarget.value
 		setFormConfig((formConfig: IBaseFormConfig) => {
 			return { ...formConfig, keywords: value }
 		})
 	}, [])
 
-	const onDialogEditFormClosed = useCallback((hasSubmitedItem: boolean) => {
+	const onDialogEditFormClosed = useCallback((hasSubmitedItem: boolean): void => {
 		if (hasSubmitedItem) {
 			fetchTableData({ ...pageConfigReference.current, ...formConfigReference.current })
 		}
 	}, [])
 
-	const onPaginationChange = useCallback((pageIndex: number, pageSize: number | undefined) => {
+	const onPaginationChange = useCallback((pageIndex: number, pageSize: number | undefined): void => {
 		history.push({
 			pathname: location.pathname,
 			search: createSearchString(pageIndex, +(pageSize || basePageConfig.pageSize), formConfigReference.current.keywords),
@@ -96,7 +96,7 @@ function RecordList(props: TIRecordListProps) {
 		}
 	}, [])
 
-	const deleteRowData = useCallback(async () => {
+	const deleteRowData = useCallback(async (): Promise<void> => {
 		const selectedIdList: string[] = propsListReference.current
 			.filter((item: IRecordMgrItem, index: number) => {
 				return item.isChecked

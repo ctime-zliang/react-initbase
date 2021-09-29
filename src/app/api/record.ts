@@ -36,7 +36,7 @@ function filterList(list: Array<IRecordMgrItem>, params: { [key: string]: any } 
 }
 
 export const fetchListUrl: string = `${remoteRequestUrlPrefix}/record/fetchList`
-export async function fetchList(data: IFetchRecordListRequestBody): Promise<ICommonResponse> {
+export async function fetchList(data: IFetchRecordListRequestBody): Promise<ICommonResponse<IRecordMgrItem[]>> {
 	try {
 		const axiosResponse = await axios.get(fetchListUrl, {
 			params: { ...data },
@@ -45,7 +45,7 @@ export async function fetchList(data: IFetchRecordListRequestBody): Promise<ICom
 		if (res.ret !== 0) {
 			return Promise.reject(createDefaultErrorResponse(res.ret, res.msg, res.data, res))
 		}
-		const list: Array<IRecordMgrItem> = filterList(res.data.list, { ...data })
+		const list: IRecordMgrItem[] = filterList(res.data.list, { ...data })
 		return createDefaultSuccessResponse({ ...res.data, list })
 	} catch (e: any) {
 		return Promise.reject(createDefaultErrorResponse(-1, '[fetchList] Request Remote Error', null, e))
@@ -53,10 +53,10 @@ export async function fetchList(data: IFetchRecordListRequestBody): Promise<ICom
 }
 
 export const addItemUrl: string = `${remoteRequestUrlPrefix}/record/addItem`
-export async function addItem(data: IAddRecordItemRequestBody): Promise<ICommonResponse> {
+export async function addItem(data: IAddRecordItemRequestBody): Promise<ICommonResponse<IRecordMgrItem>> {
 	try {
 		const axiosResponse = await axios.post(addItemUrl, { ...data })
-		const res: ICommonResponse = axiosResponse.data
+		const res: ICommonResponse<any> = axiosResponse.data
 		if (res.ret !== 0) {
 			return Promise.reject(createDefaultErrorResponse(res.ret, res.msg, res.data, res))
 		}
@@ -68,7 +68,7 @@ export async function addItem(data: IAddRecordItemRequestBody): Promise<ICommonR
 }
 
 export const delItemsUrl: string = `${remoteRequestUrlPrefix}/record/delItems`
-export async function delItems(data: Array<string>): Promise<ICommonResponse> {
+export async function delItems(data: Array<string>): Promise<ICommonResponse<any>> {
 	try {
 		const axiosResponse = await axios.post(delItemsUrl, { ids: data })
 		const res: ICommonResponse = axiosResponse.data
@@ -82,7 +82,7 @@ export async function delItems(data: Array<string>): Promise<ICommonResponse> {
 }
 
 export const fetchItemUrl: string = `${remoteRequestUrlPrefix}/record/fetchItem`
-export async function fetchItem(id: string): Promise<ICommonResponse> {
+export async function fetchItem(id: string): Promise<ICommonResponse<IRecordMgrItem>> {
 	try {
 		const axiosResponse = await axios.get(fetchItemUrl, {
 			params: { id },
@@ -98,7 +98,7 @@ export async function fetchItem(id: string): Promise<ICommonResponse> {
 }
 
 export const updateItemUrl: string = `${remoteRequestUrlPrefix}/record/updateItem`
-export async function updateItem(id: string, data: IAddRecordItemRequestBody): Promise<ICommonResponse> {
+export async function updateItem(id: string, data: IAddRecordItemRequestBody): Promise<ICommonResponse<any>> {
 	try {
 		const axiosResponse = await axios.post(updateItemUrl, { id, ...data })
 		const res: ICommonResponse = axiosResponse.data

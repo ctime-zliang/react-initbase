@@ -8,7 +8,7 @@ interface IListItem {
 	content: string
 }
 
-export async function fetchList(): Promise<ICommonResponse> {
+export async function fetchList(): Promise<ICommonResponse<IListItem[]>> {
 	const len: number = 10
 	const list: IListItem[] = []
 	for (let i = 0; i < len; i++) {

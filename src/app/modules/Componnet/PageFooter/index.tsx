@@ -37,7 +37,5 @@ export default connect(
 			...state[KEYOF_G_PROFILE_REDUCER],
 		}
 	},
-	{
-		...actions,
-	}
+	{ ...actions }
 )(PageFooterRoot)

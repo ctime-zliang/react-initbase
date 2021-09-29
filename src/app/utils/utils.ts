@@ -1,6 +1,6 @@
 import { ICommonResponse } from '@/api/config'
 
-export function createDefaultErrorResponse(ret: number = -1, msg: string = '', data: any = null, __remote: any = null): ICommonResponse {
+export function createDefaultErrorResponse(ret: number = -1, msg: string = '', data: any = null, __remote: any = null): ICommonResponse<any> {
 	return {
 		ret,
 		msg,
@@ -9,7 +9,7 @@ export function createDefaultErrorResponse(ret: number = -1, msg: string = '', d
 	}
 }
 
-export function createDefaultSuccessResponse(data: any = null, ret: number = 0, msg: string = '', __remote: any = null): ICommonResponse {
+export function createDefaultSuccessResponse(data: any = null, ret: number = 0, msg: string = '', __remote: any = null): ICommonResponse<any> {
 	return {
 		ret,
 		msg,
@@ -25,12 +25,12 @@ export async function sleep(delay: number = 1000) {
 }
 
 export function getQueryValueOfUrl(name: string): string {
-	let r = window.location.search.substr(1).match(new RegExp('(^|&)' + name + '=([^&]*)(&|$)'))
+	let r: string[] | null = window.location.search.substr(1).match(new RegExp('(^|&)' + name + '=([^&]*)(&|$)'))
 	return r != null ? unescape(r[2]) : ''
 }
 
-export function formatDates(date = new Date(), format: string = 'yyyy-MM-dd HH:ii:ss') {
-	let o: any = {
+export function formatDates(date = new Date(), format: string = 'yyyy-MM-dd HH:ii:ss'): string {
+	let o: { [key: string]: any } = {
 		'M+': date.getMonth() + 1,
 		'd+': date.getDate(),
 		'H+': date.getHours(),

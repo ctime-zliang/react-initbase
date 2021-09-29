@@ -34,7 +34,7 @@ function RecordDetail(props: IRecordDetailProps) {
 	const [itemId, setItemId] = useState<string | number | null>(null)
 	/* ... */
 	const urlParams: { [key: string]: any } = match.params
-	const id = urlParams && urlParams.id ? urlParams.id : null
+	const id: string | null = urlParams && urlParams.id ? urlParams.id : null
 	/* ... */
 	const initialData = props.title ? { data: filteredFormData } : null
 	const { data, error } = useItemDetail(id, initialData)
@@ -46,50 +46,29 @@ function RecordDetail(props: IRecordDetailProps) {
 		setFormData(filterFormData(paramsFormData))
 	}
 
-	const fetchItemData = async (id: string) => {
-		try {
-			setIsExists(true)
-			setIsSpanShow(true)
-			const res = await fetchItemRequestAction(id)
-			handleUpdateFormData(res.data)
-			setIsSpanShow(false)
-			setIsSubmitBtnDisabled(false)
-		} catch (error: any) {
-			setIsExists(false)
-			setIsSpanShow(false)
-			messageTips.error(error.msg)
-			setErrMessage(error.msg)
-		}
-	}
+	// const fetchItemData = async (id: string) => {
+	// 	try {
+	// 		setIsExists(true)
+	// 		setIsSpanShow(true)
+	// 		const res = await fetchItemRequestAction(id)
+	// 		handleUpdateFormData(res.data)
+	// 		setIsSpanShow(false)
+	// 		setIsSubmitBtnDisabled(false)
+	// 	} catch (error: any) {
+	// 		setIsExists(false)
+	// 		setIsSpanShow(false)
+	// 		messageTips.error(error.msg)
+	// 		setErrMessage(error.msg)
+	// 	}
+	// }
 	const submitItemData = async () => {
 		try {
 			setIsSubmitBtnLoading(true)
 			const res = await updateItemRequestAction(itemId, formData)
 			setIsSubmitBtnLoading(false)
 			messageTips.success(`Updated Success`)
-			window.setTimeout(() => {
-				const pageIndex = +getQueryValueOfUrl('pi')
-				const pageSize = +getQueryValueOfUrl('ps')
-				const keywords = decodeURI(getQueryValueOfUrl('wd') || '')
-				let str = ``
-				let hasFlag = false
-				if (pageIndex) {
-					str += `?pageIndex=${pageIndex}`
-					hasFlag = true
-				}
-				if (pageSize) {
-					str += `${hasFlag ? '&' : '?'}pageSize=${pageSize}`
-					hasFlag = true
-				}
-				if (keywords) {
-					str += `${hasFlag ? '&' : '?'}keywords=${keywords}`
-					hasFlag = true
-				}
-				const pm = {
-					pathname: '/record',
-					search: str,
-				}
-				history.push(pm)
+			history.push({
+				pathname: '/record',
 			})
 		} catch (error: any) {
 			messageTips.error(error.msg)

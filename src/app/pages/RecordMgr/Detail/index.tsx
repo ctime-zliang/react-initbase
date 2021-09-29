@@ -29,15 +29,15 @@ function RecordDetailRoot(props: any) {
 	)
 }
 
-function queryDetailId(url: string) {
+function queryDetailId(url: string): string | null {
 	try {
-		const r = /\/detail\/(.?)\/?/i.exec(url)
+		const r: string[] | null = /\/detail\/(.?)\/?/i.exec(url)
 		return r && r instanceof Array && r[r.length - 1] ? r[r.length - 1] : null
 	} catch (e: any) {
 		return null
 	}
 }
-export const getInitialProps = async (store: any, ctx: any) => {
+export const getInitialProps = async (store: any, ctx: any): Promise<{ [key: string]: any } | undefined> => {
 	const id: string | null = queryDetailId(ctx.request.url)
 	if (!id) {
 		return

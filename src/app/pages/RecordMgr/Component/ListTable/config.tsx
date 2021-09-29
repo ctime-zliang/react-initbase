@@ -84,13 +84,7 @@ export const listTableConfig = {
 								[delete]
 							</Button>
 							<span style={{ padding: '0 5px' }}>/</span>
-							<Link
-								to={{ pathname: `/record/detail/${itemData.id}` }}
-								target="_blank"
-								onClick={e => {
-									profile.linkDetail(e, itemData)
-								}}
-							>
+							<Link to={{ pathname: `/record/detail/${itemData.id}` }} target="_blank">
 								[detail]
 							</Link>
 						</>

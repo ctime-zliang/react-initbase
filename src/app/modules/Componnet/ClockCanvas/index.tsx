@@ -15,7 +15,7 @@ function ClockCanvasRoot() {
 	const canvsElementReference = useRef<any>(null as any)
 	const canvasWidth: number = 400
 	const canvasHeight: number = 400
-	const renderClock = () => {
+	const renderClock = (): void => {
 		clockReference.current = new Clock(canvsElementReference.current, {
 			canvasWidth,
 			canvasHeight,

@@ -1,6 +1,7 @@
-export interface ICommonResponse {
+export interface ICommonResponse<T = any> {
 	ret: number
 	msg: string
-	data: any
+	data: T | any
+	remote?: any
 	[key: string]: any
 }

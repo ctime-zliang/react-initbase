@@ -3,7 +3,7 @@ import { renderRoutes } from '../utils/hoc/render-routes'
 import { createRoutes, filterRoutes, noMatchComponent } from '@/router'
 import { IRouteItem } from '@/router/config'
 /* ... */
-import RouteViewTests from '@/pages/route-view.tests'
+// import RouteViewTests from '@/pages/__route-view.tests'
 
 function Root(props: any, ctx: any) {
 	const { store } = props

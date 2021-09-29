@@ -116,7 +116,7 @@ SVGLoadingMaskRoot.defaultProps = {
 }
 interface ISVGLoadingMaskRootProps {
 	isHide: boolean
-	onHideEnd: Function
+	onHideEnd: () => void
 }
 
 export default React.memo(SVGLoadingMaskRoot)

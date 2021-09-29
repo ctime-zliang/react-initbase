@@ -15,7 +15,7 @@ function RecordListRoot(props: any) {
 }
 
 export const getInitialProps = async (store: any, ctx: any) => {
-	const query = ctx.request.query || {}
+	const query: { [key: string]: any } = ctx.request.query || {}
 	const handler = fetchListRequestAction({
 		keywords: query.keywords || '',
 		pageIndex: query.pageIndex,

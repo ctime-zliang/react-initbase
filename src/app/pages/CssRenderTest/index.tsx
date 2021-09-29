@@ -4,7 +4,7 @@ import { Typography, Button } from 'antd'
 import { CssRender } from 'css-render'
 
 const { c } = CssRender() // create a css-render instance
-const { Title, Paragraph, Text, Link } = Typography
+const { Title, Paragraph } = Typography
 const Container = styled.section`
 	width: 100%;
 	padding: 30px 30px;
@@ -21,20 +21,19 @@ const themeToggleMap = {
 		color: `green`,
 	},
 }
-const removeCssRenderStyle = (id: string) => {
-	const styleElement = document.head.querySelector(`[cssr-id="${id}"]`)
+const removeCssRenderStyle = (id: string): void => {
+	const styleElement: HTMLElement | null = document.head.querySelector(`[cssr-id="${id}"]`)
 	if (!styleElement) {
 		return
 	}
-	// @ts-ignore
-	styleElement.parentElement.removeChild(styleElement)
+	;(styleElement.parentElement as HTMLElement).removeChild(styleElement)
 }
 
 function CssRenderTestRoot(props: any) {
-	const rootClassName = 'content-container'
+	const rootClassName: string = 'content-container'
 	const cssRender = useCallback(styleProps => {
 		const styleId = `style-css-render`
-		const style = c(
+		const style: { [key: string]: any } = c(
 			`.${rootClassName}`,
 			({ context, props }) => {
 				props = props || {}
@@ -56,7 +55,7 @@ function CssRenderTestRoot(props: any) {
 		removeCssRenderStyle(styleId)
 		style.mount({ id: styleId, props: { ...styleProps } })
 	}, [])
-	const toggle = useCallback((tag: string) => {
+	const toggle = useCallback((tag: string): { [key: string]: any } | undefined => {
 		const styleObj = (themeToggleMap as any)[tag]
 		if (!styleObj) {
 			return

@@ -2,7 +2,7 @@ import React from 'react'
 import useSWR from 'swr'
 import { fetchItem, fetchItemUrl } from '@/api/record'
 
-export function useItemDetail(id: string, initialData: any = {}) {
+export function useItemDetail(id: string | null, initialData: any = {}) {
 	const profile: { [key: string]: any } = {
 		shouldRetryOnError: false,
 		errorRetryCount: 3,
