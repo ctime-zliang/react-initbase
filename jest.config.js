@@ -51,7 +51,12 @@ const testRule = () => {
 	let testPathIgnorePatterns = []
 	let testRegex = undefined
 	if (utils.puppeteerOnly() || utils.puppeteerCustomOnly()) {
-		testPathIgnorePatterns = [TEST_PATH_IGNORE_PATTERNS[0], TEST_PATH_IGNORE_PATTERNS[1], 'tests']
+		testPathIgnorePatterns = [
+			'dist',
+			'node_modules',
+			/* ... */
+			'tests',
+		]
 		testRegex = './e2e/.*\\.(test|spec)\\.(js|jsx)?$'
 	} else {
 		testPathIgnorePatterns = [...TEST_PATH_IGNORE_PATTERNS]
@@ -96,6 +101,7 @@ const coverage = () => {
 			'config',
 			/* ... */
 			'src/types',
+			/* ... */
 			'src/client',
 			'src/client/types',
 			'src/server',
