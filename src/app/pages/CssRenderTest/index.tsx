@@ -27,7 +27,7 @@ const removeCssRenderStyle = (id: string): void => {
 		return
 	}
 	if (styleElement && styleElement.parentElement) {
-		(styleElement.parentElement as HTMLElement).removeChild(styleElement)
+		styleElement.parentElement.removeChild(styleElement)
 	}
 }
 
