@@ -10,27 +10,30 @@ React application, supports **SSR Isomorphic Render** and **Client-Side Render**
 
 ### Features
 
--   React 17
+-   React
     -   SSR [√]
     -   CSR [√]
--   React-Router 5
+-   React-Router
     -   Fractal [√]
     -   Centralized [√]
--   Redux 4
+-   Redux
 
     -   Fractal [√]
     -   Centralized [√]
 
--   Webpack 5
--   Babel 7
--   antd 4
--   mobx
--   koa 2
--   i18n
--   axios
--   jest & testing-library
+-   Webpack
+-   Babel
+-   Antd
+-   Mobx
+-   Koa
+-   I18n
+-   Axios
+-   Jest & Testing-Library
+-   Puppeteer
+-   Eslint
+-   Prettier
 -   HRM & Hot-Reload
--   DEY-log & chalk
+-   DEY-log & Chalk
 -   Typescript
 -   PostCSS
 -   Less
@@ -45,31 +48,3 @@ React application, supports **SSR Isomorphic Render** and **Client-Side Render**
 ```
 git clone https://github.com/ctime-zliang/react-initbase
 ```
-
-### Usage
-
-base scripts cmd
-
--   prettier-all
-
-    _Formatting codes by [prettier]_
-
--   ssr:devscript
-
-    _Run the project as SSR in development_
-
--   ssr:prodscript
-
-    _Build the project as SSR in production_
-
--   server:prodscript
-
-    _Build server side of SSR in production_
-
--   client:dev
-
-    _Run the project as CSR in development_
-
--   client:prod
-
-    _Build the project as CSR in production_
