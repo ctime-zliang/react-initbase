@@ -1,4 +1,4 @@
-import MainController from '../../app/controller/main'
+import MainController from '@server/app/controller/main'
 
 const prefixUrl: string = `/api`
 

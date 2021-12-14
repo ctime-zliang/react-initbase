@@ -1,9 +1,8 @@
-import { getRequest, IRquestResponse, postRequest } from '../../lib/request'
-import Controller from '../../lib/Controller'
-import { TResponse } from '../../lib/Response'
-import httpStatus from '../../lib/httpStatus'
-import { IExtendKoaContext } from '../../types/koa-context'
-import { sleep } from '../../utils/utils'
+import { getRequest, IRquestResponse, postRequest } from '@/server/lib/requests'
+import Controller from '@server/lib/Controller'
+import { TResponse } from '@server/lib/Response'
+import httpStatus from '@server/lib/httpStatus'
+import { IExtendKoaContext } from '@server/types/koa-context'
 
 const remotePrefixUrl: string = `http://127.0.0.1:12001`
 const remoteCookie: string = `LOGIN_AUTH_TAG=${String(Date.now())}`
@@ -66,43 +65,23 @@ class RecordController extends Controller {
 	}
 
 	async fetchList(ctx: IExtendKoaContext, res: TResponse) {
-		try {
-			await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/fetchList`, 'get')
-		} catch (e: any) {
-			throw e
-		}
+		await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/fetchList`, 'get')
 	}
 
 	async addItem(ctx: IExtendKoaContext, res: TResponse) {
-		try {
-			await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/addItem`, 'post')
-		} catch (e: any) {
-			throw e
-		}
+		await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/addItem`, 'post')
 	}
 
 	async delItems(ctx: IExtendKoaContext, res: TResponse) {
-		try {
-			await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/delItems`, 'post')
-		} catch (e: any) {
-			throw e
-		}
+		await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/delItems`, 'post')
 	}
 
 	async fetchItem(ctx: IExtendKoaContext, res: TResponse) {
-		try {
-			await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/fetchItem`, 'get')
-		} catch (e: any) {
-			throw e
-		}
+		await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/fetchItem`, 'get')
 	}
 
 	async updateItem(ctx: IExtendKoaContext, res: TResponse) {
-		try {
-			await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/updateItem`, 'post')
-		} catch (e: any) {
-			throw e
-		}
+		await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/updateItem`, 'post')
 	}
 }
 

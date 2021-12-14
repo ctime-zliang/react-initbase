@@ -1,7 +1,7 @@
 import { ACTION_TYPE, IRecordMgr, IRecordMgrItem } from './config'
-import { findResults, IFindResults } from '@/utils/utils'
+import { findResults, IFindResults } from '@app/utils/utils'
 import { createInitialState } from './store'
-import { IStoreCommonAction } from '@/store/config'
+import { IStoreCommonAction } from '@app/store/config'
 
 const actionTypeReducers: { [key: string]: Function } = {
 	[ACTION_TYPE.RECORD_MODIFY_LIST](state: IRecordMgr, actionData: any): IRecordMgr {

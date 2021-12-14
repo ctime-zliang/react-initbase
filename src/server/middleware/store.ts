@@ -1,10 +1,10 @@
 import Koa from 'koa'
-import { configureStore } from '../../app/store/rootStore'
-import { KEYOF_G_PROFILE_REDUCER, SERVER_RENDER } from '../../app/store/globalProfile/config'
-import { createInitialState as createGProfileInitialState } from '../../app/store/globalProfile/store'
-import { createRoutes, filterRoutes } from '../../app/router'
+import { configureStore } from '@app/store/rootStore'
+import { KEYOF_G_PROFILE_REDUCER, SERVER_RENDER } from '@app/store/globalProfile/config'
+import { createInitialState as createGProfileInitialState } from '@app/store/globalProfile/store'
+import { createRoutes, filterRoutes } from '@app/router'
 import { matchRoutes } from 'react-router-config'
-import { IExtendKoaContext } from '../types/koa-context'
+import { IExtendKoaContext } from '@server/types/koa-context'
 
 export default (params: { [key: string]: any } = {}) => {
 	return async (ctx: IExtendKoaContext, next: Koa.Next) => {

@@ -1,6 +1,6 @@
-import { ICommonResponse } from '@/api/config'
-import { IStoreCommonAction } from '@/store/config'
-import { addItem, fetchItem, delItems, fetchList, IAddRecordItemRequestBody, updateItem, IFetchRecordListRequestBody } from '@/api/record'
+import { ICommonResponse } from '@app/api/config'
+import { IStoreCommonAction } from '@app/store/config'
+import { addItem, fetchItem, delItems, fetchList, IAddRecordItemRequestBody, updateItem, IFetchRecordListRequestBody } from '@app/api/record'
 import { ACTION_TYPE } from './config'
 
 export const testAsyncTask = () => {

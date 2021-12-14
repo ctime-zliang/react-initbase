@@ -9,9 +9,9 @@ import ListFilterForm from '../Component/ListFilterForm'
 import { basePageConfig, IBasePageConfig, baseFormConfig, IBaseFormConfig } from './config'
 import * as actions from '../store/action'
 import { createSearchString } from './utils'
-import { getQueryValueOfUrl } from '@/utils/utils'
+import { getQueryValueOfUrl } from '@app/utils/utils'
 import { KEYOF_RECORD_REDUCER, IRecordMgrItem } from '../store/config'
-import { IGProfile, KEYOF_G_PROFILE_REDUCER, SERVER_RENDER } from '@/store/globalProfile/config'
+import { IGProfile, KEYOF_G_PROFILE_REDUCER, SERVER_RENDER } from '@app/store/globalProfile/config'
 import styles from './index.module.less'
 
 const { Content } = Layout

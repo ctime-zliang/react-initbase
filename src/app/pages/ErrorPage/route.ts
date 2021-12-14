@@ -1,4 +1,4 @@
-import { IRouteItem } from '@/router/config'
+import { IRouteItem } from '@app/router/config'
 import Error404 from './404'
 
 export const Error404Route = (): IRouteItem => {

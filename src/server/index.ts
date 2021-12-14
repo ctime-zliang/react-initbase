@@ -1,12 +1,12 @@
-import { getLocalIP } from './utils/utils'
-import app from './app'
-import envConfig from './config/env.export'
-import logger from './lib/simple-logger'
+import { getLocalIP } from '@server/utils/utils'
+import app from '@server/app'
+import envConfig from '@server/config/env.export'
+import logger from '@server/lib/simple-logger'
 
 const isDev: boolean = process.env.NODE_ENV === 'development'
-const handler = app.callback()
+const handler: any = app.callback()
 
-const startServer = (host: string = '127.0.0.1', port: number = 0, tag: string = 'Locale') => {
+const startServer = (host: string = '127.0.0.1', port: number = 0, tag: string = 'Locale'): void => {
 	const server: any = app.listen(port, host, async () => {
 		const addressInfo = server.address()
 		logger.trace(`App.running - ${tag} - http://${addressInfo.address}:${addressInfo.port}`)
@@ -20,10 +20,8 @@ const startServer = (host: string = '127.0.0.1', port: number = 0, tag: string =
 
 	通常情况下无需开启局域网服务
  */
-if (true) {
-	startServer(envConfig?.host, envConfig?.port, 'Locale')
-	const localIP: string | null = getLocalIP()
-	// localIP && startServer(localIP, envConfig?.port, 'Net Work')
-}
+startServer(envConfig?.host, envConfig?.port, 'Locale')
+const localIP: string | null = getLocalIP()
+// localIP && startServer(localIP as string, envConfig?.port, 'Net Work')
 
 export default handler

@@ -26,7 +26,9 @@ const removeCssRenderStyle = (id: string): void => {
 	if (!styleElement) {
 		return
 	}
-	;(styleElement.parentElement as HTMLElement).removeChild(styleElement)
+	if (styleElement && styleElement.parentElement) {
+		;(styleElement.parentElement as HTMLElement).removeChild(styleElement)
+	}
 }
 
 function CssRenderTestRoot(props: any) {
@@ -35,7 +37,10 @@ function CssRenderTestRoot(props: any) {
 		const styleId = `style-css-render`
 		const style: { [key: string]: any } = c(
 			`.${rootClassName}`,
-			({ context, props }) => {
+			/*
+				callback({ context, props }) 
+			 */
+			({ props }) => {
 				props = props || {}
 				return {
 					margin: 0,

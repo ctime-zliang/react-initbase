@@ -1,7 +1,7 @@
 import React from 'react'
 import { renderRoutes } from '../utils/hoc/render-routes'
-import { createRoutes, filterRoutes, noMatchComponent } from '@/router'
-import { IRouteItem } from '@/router/config'
+import { createRoutes, filterRoutes, noMatchComponent } from '@app/router'
+import { IRouteItem } from '@app/router/config'
 /* ... */
 // import RouteViewTests from '@/pages/__route-view.tests'
 

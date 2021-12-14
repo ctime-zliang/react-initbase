@@ -1,7 +1,7 @@
 import EventEmitter from 'events'
-import Response, { TResponse } from './Response'
-import httpStatus from './httpStatus'
-import { IExtendKoaContext } from '../types/koa-context'
+import Response, { TResponse } from '@server/lib/Response'
+import httpStatus from '@server/lib/httpStatus'
+import { IExtendKoaContext } from '@server/types/koa-context'
 
 type TController = Controller
 

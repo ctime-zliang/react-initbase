@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { createDefaultSuccessResponse } from '@/utils/utils'
+import { createDefaultSuccessResponse } from '@app/utils/utils'
 import { ICommonResponse } from './config'
 
 interface IListItem {

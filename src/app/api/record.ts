@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { createDefaultErrorResponse, createDefaultSuccessResponse } from '../utils/utils'
+import { createDefaultErrorResponse, createDefaultSuccessResponse } from '@app/utils/utils'
 import { BaseConfig } from '../config/config'
 import { ICommonResponse } from './config'
-import { IRecordMgrItem } from '@/pages/RecordMgr/store/config'
+import { IRecordMgrItem } from '@app/pages/RecordMgr/store/config'
 
 axios.defaults.withCredentials = true
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'

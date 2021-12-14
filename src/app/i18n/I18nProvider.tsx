@@ -4,7 +4,7 @@ import i18nextXHRBackend from 'i18next-xhr-backend'
 import i18nextBrowserLanguageDetector from 'i18next-browser-languagedetector'
 import { I18nextProvider } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { getLanguageSet } from '@/store/globalProfile/selectors'
+import { getLanguageSet } from '@app/store/globalProfile/selectors'
 
 /* ... */
 import zhCN from './locales/zh_cn/translation.json'
@@ -48,14 +48,14 @@ export const i18Next = i18next
 /************************************ ************************************/
 
 function I18nProvider(props: any) {
-	const { __CLIENT_ONLY__, children } = props
+	const { CLIENT_ONLY, children } = props
 	const languageSet: string = useSelector(getLanguageSet)
 	const [isInitial, setIsInitial] = useState<boolean>(true)
 	console.log(`I18nProvider 🌙🌙🌙`, props, languageSet)
 	useEffect(() => {
 		i18next.changeLanguage(languageSet)
 	}, [languageSet])
-	if (isInitial && !__CLIENT_ONLY__) {
+	if (isInitial && !CLIENT_ONLY) {
 		setIsInitial(false)
 		i18next.changeLanguage(languageSet)
 	}

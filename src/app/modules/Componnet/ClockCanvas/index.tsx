@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import Clock from '@/utils/clock.canvas'
+import Clock from '@app/utils/clock.canvas'
 
 const Container = styled.section`
 	display: flex;

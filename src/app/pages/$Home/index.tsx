@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { withLoading } from '@/utils/hoc/with-loading'
-import PageHeader from '@/modules/Componnet/PageHeader'
-import PageFooter from '@/modules/Componnet/PageFooter'
-import ClockCanvas from '@/modules/Componnet/ClockCanvas'
-import SVGLoadingMask from '@/modules/Componnet/SVGLoadingMask'
+import { withLoading } from '@app/utils/hoc/with-loading'
+import PageHeader from '@app/modules/Componnet/PageHeader'
+import PageFooter from '@app/modules/Componnet/PageFooter'
+import ClockCanvas from '@app/modules/Componnet/ClockCanvas'
+import SVGLoadingMask from '@app/modules/Componnet/SVGLoadingMask'
 import LinkCompt from './link'
 import Abstract from './abstract'
-import { sleep } from '@/utils/utils'
+import { sleep } from '@app/utils/utils'
 
 const HomeContainer = styled.section`
 	width: 100%;

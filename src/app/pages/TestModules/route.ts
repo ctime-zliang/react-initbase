@@ -1,5 +1,5 @@
 import Index from './'
-import { IRouteItem } from 'router/config'
+import { IRouteItem } from '@app/router/config'
 
 export const TestModulesRoute = (): IRouteItem => {
 	return {

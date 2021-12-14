@@ -155,9 +155,11 @@ export class InfiniteScroller extends React.Component<ScrollerProps> {
 							}
 						}
 					} else {
-						;(this.containerElement.style as any)['-webkit-overflow-scrolling'] = 'auto'
+						//@ts-ignore
+						this.containerElement.style['-webkit-overflow-scrolling'] = 'auto'
 						this.containerElement.scrollTop = scrollTop - finalHeight
-						;(this.containerElement.style as any)['-webkit-overflow-scrolling'] = 'touch'
+						//@ts-ignore
+						this.containerElement.style['-webkit-overflow-scrolling'] = 'touch'
 					}
 					this.scroller.anchorItem = {
 						index: this.scroller.startIndex + 3,

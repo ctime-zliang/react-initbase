@@ -6,12 +6,12 @@ import { renderToString } from 'react-dom/server'
 import { Provider as ReduxProvider } from 'react-redux'
 import { HelmetProvider } from 'react-helmet-async'
 import { ServerStyleSheet } from 'styled-components'
-import paths from '../../../config/webpack.paths'
-import { getAssetsPathsList, IGetAssetsPathsList } from '../utils/utils'
-import layout from '../utils/layout'
-import { IExtendKoaContext } from '../types/koa-context'
-import I18nProvider from '../../app/i18n/I18nProvider'
-import App from '../../app/App'
+import paths from '../../../config/webpack/webpack.paths'
+import { getAssetsPathsList, IGetAssetsPathsList } from '@server/utils/utils'
+import layout from '@server/utils/layout'
+import { IExtendKoaContext } from '@server/types/koa-context'
+import I18nProvider from '@app/i18n/I18nProvider'
+import App from '@app/App'
 
 const helmetContext: { [key: string]: any } = {}
 const serverRenderer = (params: { [key: string]: any } = {}) => {
@@ -22,8 +22,8 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 			return
 		}
 		try {
-			;(global.window as any)['__PRELOADED_STATE__'] = ctx.usedState
-			;(global.window as any)['__PRELOADED_RESULT__'] = ctx.resultsOfGetInitialProps
+			global.window['__PRELOADED_STATE__'] = ctx.usedState
+			global.window['__PRELOADED_RESULT__'] = ctx.resultsOfGetInitialProps
 			stampCollection['startServerRender'] = new Date().getTime()
 			const sheet = new ServerStyleSheet()
 			const store = ctx.serverStore

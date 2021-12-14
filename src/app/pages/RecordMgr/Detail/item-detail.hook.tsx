@@ -1,6 +1,6 @@
 import React from 'react'
 import useSWR from 'swr'
-import { fetchItem, fetchItemUrl } from '@/api/record'
+import { fetchItem, fetchItemUrl } from '@app/api/record'
 
 export function useItemDetail(id: string | null, initialData: any = {}) {
 	const profile: { [key: string]: any } = {

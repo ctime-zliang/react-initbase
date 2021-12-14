@@ -1,6 +1,6 @@
-import Controller from '../../lib/Controller'
-import { TResponse } from '../../lib/Response'
-import { IExtendKoaContext } from '../../types/koa-context'
+import Controller from '@server/lib/Controller'
+import { TResponse } from '@server/lib/Response'
+import { IExtendKoaContext } from '@server/types/koa-context'
 
 class RtestController extends Controller {
 	constructor() {

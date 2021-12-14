@@ -2,11 +2,11 @@ import React from 'react'
 import { Provider } from 'mobx-react'
 import { Helmet } from 'react-helmet-async'
 import { configure } from 'mobx'
-import { testMobxStore } from '@/store/__mobx/testStore'
+import { testMobxStore } from '@app/store/__mobx/testStore'
 import RecordDetail from './detail'
 import Extra from './extra'
-import { useWindowResult } from '@/utils/hooks/use.window-result'
-import { fetchItem } from '@/api/record'
+import { useWindowResult } from '@app/utils/hooks/use.window-result'
+import { fetchItem } from '@app/api/record'
 
 configure({ enforceActions: 'always' })
 

@@ -1,7 +1,7 @@
 import React from 'react'
-import PageContent from '@/modules/Componnet/PageContent'
-import PageHeader from '@/modules/Componnet/PageHeader'
-import PageFooter from '@/modules/Componnet/PageFooter'
+import PageContent from '@app/modules/Componnet/PageContent'
+import PageHeader from '@app/modules/Componnet/PageHeader'
+import PageFooter from '@app/modules/Componnet/PageFooter'
 
 function Layout(props: any) {
 	console.log(`Layout ☆☆☆`, props)

@@ -79,7 +79,7 @@ export class ScrollControl {
 	public down() {
 		const scrollTop = this.scrollerDom.scrollTop
 		if (scrollTop < this.anchorItem.offset) {
-			const startItem = this.cachedItemRect[this.startIndex]
+			// const startItem = this.cachedItemRect[this.startIndex]
 			const nextAnchorItem = this.cachedItemRect.find((item: any, index: number) => {
 				return item ? item.bottom > scrollTop : false
 			})

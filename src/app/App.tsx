@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import Root from './pages/Root'
 import favicon from './asserts/images/log.jpg'

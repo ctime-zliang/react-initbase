@@ -8,12 +8,12 @@ import { configureStore } from '../app/store/rootStore'
 import App from '../app/App'
 
 let store: any = null
-if (process.env.__CLIENT_ONLY__) {
+if (process.env.CLIENT_ONLY) {
 	store = configureStore()
 	ReactDOM.render(
 		<Provider store={store}>
 			<BrowserRouter>
-				<I18nProvider __CLIENT_ONLY__={process.env.__CLIENT_ONLY__}>
+				<I18nProvider CLIENT_ONLY={process.env.CLIENT_ONLY}>
 					<HelmetProvider>
 						<App store={store} />
 					</HelmetProvider>
@@ -24,14 +24,14 @@ if (process.env.__CLIENT_ONLY__) {
 	)
 } else {
 	store =
-		(window as any).__store ||
+		(window as any).__store__ ||
 		configureStore({
 			initialState: window.__PRELOADED_STATE__ || {},
 		})
 	hydrate(
 		<Provider store={store}>
 			<BrowserRouter>
-				<I18nProvider __CLIENT_ONLY__={process.env.__CLIENT_ONLY__}>
+				<I18nProvider CLIENT_ONLY={process.env.CLIENT_ONLY}>
 					<HelmetProvider>
 						<App store={store} />
 					</HelmetProvider>
@@ -42,9 +42,9 @@ if (process.env.__CLIENT_ONLY__) {
 	)
 }
 
-Object.defineProperty(window, '__store', {
+Object.defineProperty(window, '__store__', {
 	value: store,
 })
-Object.defineProperty(window, '__env', {
+Object.defineProperty(window, '__env__', {
 	value: process.env.NODE_ENV,
 })

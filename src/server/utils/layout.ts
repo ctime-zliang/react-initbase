@@ -1,5 +1,4 @@
-/* ... */
-export default ({ css, cssCommons, js, jsCommons, state, initialResult, content, styles, helmet }: any) => {
+export default ({ css, cssCommons, js, jsCommons, state, initialResult, content, styles, helmet }: any): string => {
 	initialResult = initialResult || JSON.stringify({})
 	let _css: string[] = Array.from(new Set(css)) as string[]
 	let _js: string[] = Array.from(new Set(js)) as string[]

@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Layout, Button } from 'antd'
 import './index.less'
-import { IGProfile, KEYOF_G_PROFILE_REDUCER } from '@/store/globalProfile/config'
-import * as actions from '@/store/globalProfile/action'
-import logoImage from '@/asserts/images/log.jpg'
+import { IGProfile, KEYOF_G_PROFILE_REDUCER } from '@app/store/globalProfile/config'
+import * as actions from '@app/store/globalProfile/action'
+import logoImage from '@app/asserts/images/log.jpg'
 import { RouteComponentProps } from 'react-router'
 
 const { Header } = Layout

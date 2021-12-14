@@ -1,6 +1,5 @@
-import koa from 'koa'
-import Response, { TResponse } from '../lib/Response'
-import { IExtendKoaContext } from '../types/koa-context'
+import Response, { TResponse } from '@server/lib/Response'
+import { IExtendKoaContext } from '@server/types/koa-context'
 
 export default {
 	'404': async (ctx: IExtendKoaContext): Promise<null> => {

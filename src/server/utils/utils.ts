@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-export async function sleep(delay: number = 1000) {
+export async function sleep(delay: number = 1000): Promise<any> {
 	return new Promise((_, reject) => {
 		setTimeout(_, delay)
 	})
@@ -23,8 +23,8 @@ export const getAssetsPathsList = (manifestFileUrl: string): IGetAssetsPathsList
 		if (!fs.existsSync(manifestFileUrl)) {
 			throw new Error(`manifest file is not exist!`)
 		}
-		const content = JSON.parse(fs.readFileSync(manifestFileUrl, 'utf-8'))
-		Object.keys(content).forEach((item: string | any, index: number): void => {
+		const content: string = JSON.parse(fs.readFileSync(manifestFileUrl, 'utf-8'))
+		Object.keys(content).forEach((item: string | any): void => {
 			if (/.css$/i.test(item)) {
 				if (/\.vendor./i.test(content[item])) {
 					result.cssCommons.push(content[item])

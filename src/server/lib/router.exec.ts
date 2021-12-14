@@ -1,6 +1,6 @@
 import koa from 'koa'
 import koaRouter from 'koa-router'
-import { IRoute } from '../types/route'
+import { IRoute } from '@server/types/route'
 
 type TMethods = 'get' | 'post'
 

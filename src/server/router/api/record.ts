@@ -1,4 +1,4 @@
-import RecordController from '../../app/controller/record'
+import RecordController from '@server/app/controller/record'
 
 const prefixUrl: string = `/api/record`
 

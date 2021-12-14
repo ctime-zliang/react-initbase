@@ -1,4 +1,4 @@
-import { IRouteItem } from 'router/config'
+import { IRouteItem } from '@app/router/config'
 import Home from './'
 
 export const HomeRoute = (): IRouteItem => {

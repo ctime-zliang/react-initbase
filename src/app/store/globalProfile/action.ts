@@ -1,4 +1,4 @@
-import { IStoreCommonAction } from '@/store/config'
+import { IStoreCommonAction } from '@app/store/config'
 import { ACTION_TYPE } from './config'
 
 export const updateGRunId = () => {

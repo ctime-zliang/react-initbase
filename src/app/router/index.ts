@@ -1,13 +1,13 @@
-import Layout from '@/pages/Layout'
-import { HomeRoute } from '@/pages/$Home/route'
-import { Error404Route } from '@/pages/ErrorPage/route'
-import { RecordMgrListRoute, RecordMgrDetailRoute, RecordMgrErrorRoute } from '@/pages/RecordMgr/route'
-import { EntryLinkListRoute } from '@/pages/$EntryLinkList/route'
-import { CssRenderTestRoute } from '@/pages/CssRenderTest/route'
-import { InfiniteScrollingRoute } from '@/pages/InfiniteScrolling/route'
-import { TestModulesRoute } from '@/pages/TestModules/route'
+import Layout from '@app/pages/Layout'
+import { HomeRoute } from '@app/pages/$Home/route'
+import { Error404Route } from '@app/pages/ErrorPage/route'
+import { RecordMgrListRoute, RecordMgrDetailRoute, RecordMgrErrorRoute } from '@app/pages/RecordMgr/route'
+import { EntryLinkListRoute } from '@app/pages/$EntryLinkList/route'
+import { CssRenderTestRoute } from '@app/pages/CssRenderTest/route'
+import { InfiniteScrollingRoute } from '@app/pages/InfiniteScrolling/route'
+import { TestModulesRoute } from '@app/pages/TestModules/route'
 import { IRouteItem } from './config'
-import { IStore } from 'store/rootStore'
+import { IStore } from '@app/store/rootStore'
 
 type TStore = IStore | any
 

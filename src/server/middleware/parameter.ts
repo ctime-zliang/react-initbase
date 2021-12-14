@@ -1,5 +1,5 @@
 import koa from 'koa'
-import { IExtendKoaContext } from '../types/koa-context'
+import { IExtendKoaContext } from '@server/types/koa-context'
 
 export default () => {
 	return async (ctx: IExtendKoaContext, next: koa.Next): Promise<void> => {

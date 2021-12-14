@@ -1,5 +1,5 @@
 import httpStatus from './httpStatus'
-import { IExtendKoaContext } from '../types/koa-context'
+import { IExtendKoaContext } from '@server/types/koa-context'
 
 export type TResponse = Response
 

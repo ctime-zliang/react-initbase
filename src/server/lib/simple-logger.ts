@@ -1,4 +1,4 @@
-import { formatDates } from '../utils/utils'
+import { formatDates } from '@server/utils/utils'
 
 const TYPE: { [key: string]: any } = {
 	TRACE: 'TRACE',

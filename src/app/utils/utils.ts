@@ -1,4 +1,4 @@
-import { ICommonResponse } from '@/api/config'
+import { ICommonResponse } from '@app/api/config'
 
 export function createDefaultErrorResponse(ret: number = -1, msg: string = '', data: any = null, __remote: any = null): ICommonResponse<any> {
 	return {
