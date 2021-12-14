@@ -3,4 +3,4 @@
 
 npm run prettier:check-all
 npm run tsc:check
-npm run eslint:fix-src
+npm run eslint:check-src
