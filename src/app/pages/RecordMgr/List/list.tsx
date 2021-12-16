@@ -35,53 +35,42 @@ function RecordList(props: TIRecordListProps) {
 	const [tableLoading, setTableLoading] = useState<boolean>(false)
 	const [isDeleteModalVisible, setIsDeleteModelVisible] = useState<boolean>(false)
 	const [deleteModalTargetTitle, setDeleteModalTargetTitle] = useState<string | undefined>('')
-	/* ... */
-	const pageConfigReference = useRef<any>(null as any)
-	pageConfigReference.current = pageConfig
-	const formConfigReference = useRef<any>(null as any)
-	formConfigReference.current = formConfig
-	const propsListReference = useRef<any>(null as any)
-	propsListReference.current = list
 
-	const handleSearch = useCallback((): void => {
+	const handleSearch = (): void => {
 		history.push({
 			pathname: location.pathname,
-			search: createSearchString(1, +pageConfigReference.current.pageSize, formConfigReference.current.keywords),
+			search: createSearchString(1, +pageConfig.pageSize, formConfig.keywords),
 		})
-	}, [])
+	}
 
-	const handleFresh = useCallback((): void => {
+	const handleFresh = (): void => {
 		history.push({
 			pathname: location.pathname,
-			search: createSearchString(
-				+pageConfigReference.current.pageIndex,
-				+pageConfigReference.current.pageSize,
-				formConfigReference.current.keywords
-			),
+			search: createSearchString(+pageConfig.pageIndex, +pageConfig.pageSize, formConfig.keywords),
 		})
-	}, [])
+	}
 
-	const handleModifyFormInput = useCallback(($evte: any): void => {
+	const handleModifyFormInput = ($evte: any): void => {
 		const value = $evte.currentTarget.value
 		setFormConfig((formConfig: IBaseFormConfig) => {
 			return { ...formConfig, keywords: value }
 		})
-	}, [])
+	}
 
-	const onDialogEditFormClosed = useCallback((hasSubmitedItem: boolean): void => {
+	const onDialogEditFormClosed = (hasSubmitedItem: boolean): void => {
 		if (hasSubmitedItem) {
-			fetchTableData({ ...pageConfigReference.current, ...formConfigReference.current })
+			fetchTableData({ ...pageConfig, ...formConfig })
 		}
-	}, [])
+	}
 
-	const onPaginationChange = useCallback((pageIndex: number, pageSize: number | undefined): void => {
+	const onPaginationChange = (pageIndex: number, pageSize: number | undefined): void => {
 		history.push({
 			pathname: location.pathname,
-			search: createSearchString(pageIndex, +(pageSize || basePageConfig.pageSize), formConfigReference.current.keywords),
+			search: createSearchString(pageIndex, +(pageSize || basePageConfig.pageSize), formConfig.keywords),
 		})
-	}, [])
+	}
 
-	const fetchTableData = useCallback(async params => {
+	const fetchTableData = async (params: any) => {
 		setTableLoading(true)
 		try {
 			const res = await fetchListRequestAction(params)
@@ -94,10 +83,10 @@ function RecordList(props: TIRecordListProps) {
 			messageTips.error(error.msg)
 			setTableLoading(false)
 		}
-	}, [])
+	}
 
-	const deleteRowData = useCallback(async (): Promise<void> => {
-		const selectedIdList: string[] = propsListReference.current
+	const deleteRowData = async (): Promise<void> => {
+		const selectedIdList: string[] = list
 			.filter((item: IRecordMgrItem, index: number) => {
 				return item.isChecked
 			})
@@ -111,12 +100,12 @@ function RecordList(props: TIRecordListProps) {
 		} catch (error: any) {
 			messageTips.error(error.msg)
 		}
-	}, [])
+	}
 
-	const handleDeleteItem = useCallback((itemData: IRecordMgrItem) => {
+	const handleDeleteItem = (itemData: IRecordMgrItem) => {
 		handleToggleRowSelectAction([itemData.key])
 		setIsDeleteModelVisible(true)
-	}, [])
+	}
 
 	useEffect(() => {
 		const pageIndex = +getQueryValueOfUrl('pageIndex') || pageConfig.pageIndex

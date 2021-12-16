@@ -12,7 +12,7 @@ module.exports = () => {
 			require('postcss-preset-env'),
 			require('postcss-custom-properties'),
 			require('postcss-assets'),
-			require('./config/webpack/user-postcss-plugins/postcss-hex-2-rgba'),
+			// require('./config/webpack/user-postcss-plugins/postcss-hex-2-rgba'),
 		],
 	}
 }

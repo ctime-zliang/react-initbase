@@ -19,6 +19,9 @@ const webpackConfigBase = {
 	resolve: paths.common.resolve,
 	plugins: [...plugins.common],
 	optimization: { ...optimization.common },
+	performance: {
+		hints: `warning`,
+	},
 	stats: stats(`client`),
 }
 
