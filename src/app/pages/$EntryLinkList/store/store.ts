@@ -19,6 +19,14 @@ export function createInitialState(): IEntryList {
 				path: `/inf-scroll`,
 				title: 'Infinite Scrolling',
 			},
+			{
+				path: `/2d-geometry-canvas`,
+				title: '2D Geometry Canvas',
+			},
+			{
+				path: `/3d-geometry-canvas`,
+				title: '3D Geometry Canvas',
+			},
 		],
 	}
 }

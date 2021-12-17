@@ -1,10 +1,15 @@
 const path = require('path')
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 
 module.exports = {
 	common: {
 		// minimize: true,
 		minimizer: [
+			new ESBuildMinifyPlugin({
+				target: `es2018`,
+				minify: true,
+			}),
 			new UglifyjsWebpackPlugin({
 				/* 
 					test: 匹配需要压缩的文件
