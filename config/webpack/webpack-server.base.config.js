@@ -1,9 +1,9 @@
-const nodeExternals = require('webpack-node-externals')
-const paths = require('./webpack.paths')
-const rules = require('./webpack.rules')
-const plugins = require('./webpack.plugins')
-const optimization = require('./webpack.optimization')
-const stats = require('./webpack.stats')
+const webpackPaths = require('./webpack.paths')
+const webpackRules = require('./webpack.rules')
+const webpackPlugins = require('./webpack.plugins')
+const webpackOptimization = require('./webpack.optimization')
+const webpackStats = require('./webpack.stats')
+const webpackExternals = require('./webpack.externals')
 
 const webpackConfigBase = {
 	name: `server`,
@@ -12,20 +12,16 @@ const webpackConfigBase = {
 		type: `filesystem`,
 	},
 	entry: {
-		server: paths.server.entry.main,
+		server: webpackPaths.server.entry.main,
 	},
 	module: {
-		rules: rules(`server`),
+		rules: webpackRules(`server`),
 	},
-	resolve: paths.common.resolve,
-	plugins: [...plugins.common],
-	// optimization: { ...optimization.common },
-	stats: stats(`server`),
-	externals: [
-		nodeExternals({
-			allowlist: /\.css|less|.sass$/,
-		}),
-	],
+	resolve: webpackPaths.common.resolve,
+	plugins: [...webpackPlugins.common],
+	// optimization: { ...webpackOptimization.common },
+	stats: webpackStats(`server`),
+	externals: webpackExternals(`server`),
 }
 
 module.exports = webpackConfigBase

@@ -24,10 +24,6 @@ const handler = async (): Promise<void> => {
 	const clientPromise: Promise<ICompilerPromise> = compilerPromise('client', clientCompiler)
 
 	clientCompiler.watch({}, (error: any, stats: any) => {
-		if (!error && !stats.hasErrors()) {
-			logger.error(stats.toString(prodClientWebpackCfg.stats))
-			return
-		}
 		if (error) {
 			logger.error(error)
 		}

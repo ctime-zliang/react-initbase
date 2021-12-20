@@ -9,13 +9,13 @@ const { TypedCssModulesPlugin } = require('typed-css-modules-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const { ESBuildPlugin } = require('esbuild-loader')
-const paths = require('./webpack.paths')
+const webpackPaths = require('./webpack.paths')
 const utils = require('../utils')
 
-const pathOfClientPathAboutDevBuild = utils.clientOnly() ? paths.client.devBuild.path() : paths.client.devBuild.pathForSSR()
-const pathOfClientPathAboutProdBuild = utils.clientOnly() ? paths.client.prodBuild.path() : paths.client.prodBuild.pathForSSR()
-const pathOfServerPathAboutDevBuild = paths.server.devBuild.path()
-const pathOfServerPathAboutProdBuild = paths.server.prodBuild.path()
+const pathOfClientPathAboutDevBuild = utils.clientOnly() ? webpackPaths.client.devBuild.path() : webpackPaths.client.devBuild.pathForSSR()
+const pathOfClientPathAboutProdBuild = utils.clientOnly() ? webpackPaths.client.prodBuild.path() : webpackPaths.client.prodBuild.pathForSSR()
+const pathOfServerPathAboutDevBuild = webpackPaths.server.devBuild.path()
+const pathOfServerPathAboutProdBuild = webpackPaths.server.prodBuild.path()
 
 const htmlWebpackPluginOptions = {
 	title: `React Application`,
@@ -40,8 +40,8 @@ module.exports = {
 		new ESBuildPlugin(),
 		new MiniCssExtractPlugin({
 			...miniCssExtractPluginOptions,
-			filename: paths.common.cssExtract.filename,
-			chunkFilename: paths.common.cssExtract.stylesSheetChunkFilename,
+			filename: webpackPaths.common.cssExtract.filename,
+			chunkFilename: webpackPaths.common.cssExtract.stylesSheetChunkFilename,
 		}),
 		new CaseSensitivePathsPlugin(),
 		new TypedCssModulesPlugin({
@@ -61,14 +61,14 @@ module.exports = {
 			utils.clientOnly() &&
 				new HtmlWebpackPlugin({
 					...htmlWebpackPluginOptions,
-					filename: paths.client.devBuild.htmlWebpackPluginFilename,
-					template: paths.client.devBuild.htmlWebpackPluginTemplate,
+					filename: webpackPaths.client.devBuild.htmlWebpackPluginFilename,
+					template: webpackPaths.client.devBuild.htmlWebpackPluginTemplate,
 				}),
 			new webpack.HotModuleReplacementPlugin(),
 			new CopyWebpackPlugin({
 				patterns: [
 					{
-						from: paths.common.i18n.locales,
+						from: webpackPaths.common.i18n.locales,
 						to: path.join(pathOfClientPathAboutDevBuild, '/locales'),
 					},
 				],
@@ -80,8 +80,8 @@ module.exports = {
 			}),
 			new HtmlWebpackPlugin({
 				...htmlWebpackPluginOptions,
-				filename: paths.client.prodBuild.htmlWebpackPluginFilename,
-				template: paths.client.prodBuild.htmlWebpackPluginTemplate,
+				filename: webpackPaths.client.prodBuild.htmlWebpackPluginFilename,
+				template: webpackPaths.client.prodBuild.htmlWebpackPluginTemplate,
 			}),
 			new BundleAnalyzerPlugin({
 				analyzerPort: 0,
@@ -89,7 +89,7 @@ module.exports = {
 			new CopyWebpackPlugin({
 				patterns: [
 					{
-						from: paths.common.i18n.locales,
+						from: webpackPaths.common.i18n.locales,
 						to: path.join(pathOfClientPathAboutProdBuild, 'locales'),
 						globOptions: {
 							ignore: ['*.missing.json'],
@@ -108,7 +108,7 @@ module.exports = {
 			new CopyWebpackPlugin({
 				patterns: [
 					{
-						from: paths.common.i18n.locales,
+						from: webpackPaths.common.i18n.locales,
 						to: path.join(pathOfServerPathAboutDevBuild, 'locales'),
 						globOptions: {
 							ignore: ['*.missing.json'],
@@ -124,7 +124,7 @@ module.exports = {
 			new CopyWebpackPlugin({
 				patterns: [
 					{
-						from: paths.common.i18n.locales,
+						from: webpackPaths.common.i18n.locales,
 						to: path.join(pathOfServerPathAboutProdBuild, 'locales'),
 						globOptions: {
 							ignore: ['*.missing.json'],

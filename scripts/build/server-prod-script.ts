@@ -27,10 +27,6 @@ const handler = async (): Promise<void> => {
 		ignored: /node_modules/,
 	}
 	serverCompiler.watch(serverWatchOptions, (error: any, stats: any) => {
-		if (!error && !stats.hasErrors()) {
-			logger.error(stats.toString(prodServerWebpackCfg.stats))
-			return
-		}
 		if (error) {
 			logger.error(error)
 		}

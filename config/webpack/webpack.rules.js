@@ -1,6 +1,6 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const paths = require('./webpack.paths')
+const webpackPaths = require('./webpack.paths')
 
 const cssLoaderOptions = {
 	esModule: false,
@@ -275,8 +275,8 @@ const clientImageLoader = {
 	options: {
 		limit: 8192,
 		esModule: false,
-		outputPath: paths.common.loader.imagesOutputPath,
-		name: paths.common.loader.imagesFilename,
+		outputPath: webpackPaths.common.loader.imagesOutputPath,
+		name: webpackPaths.common.loader.imagesFilename,
 	},
 }
 
@@ -286,8 +286,8 @@ const serverImageLoader = {
 	options: {
 		limit: 8192,
 		esModule: false,
-		outputPath: paths.common.loader.imagesOutputPath,
-		name: paths.common.loader.imagesFilename,
+		outputPath: webpackPaths.common.loader.imagesOutputPath,
+		name: webpackPaths.common.loader.imagesFilename,
 	},
 }
 
@@ -297,8 +297,8 @@ const clientFileLoader = {
 	options: {
 		limit: 8192,
 		esModule: false,
-		outputPath: paths.common.loader.fileOutputPath,
-		name: paths.common.loader.filename,
+		outputPath: webpackPaths.common.loader.fileOutputPath,
+		name: webpackPaths.common.loader.filename,
 	},
 }
 
@@ -308,8 +308,8 @@ const serverFileLoader = {
 	options: {
 		limit: 8192,
 		esModule: false,
-		outputPath: paths.common.loader.fileOutputPath,
-		name: paths.common.loader.filename,
+		outputPath: webpackPaths.common.loader.fileOutputPath,
+		name: webpackPaths.common.loader.filename,
 	},
 }
 
