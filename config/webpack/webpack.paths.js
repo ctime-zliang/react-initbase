@@ -1,5 +1,6 @@
 const path = require('path')
 const utils = require('../utils')
+const webpackDevServerConfig = require('./webpack.dev-server.config')
 
 module.exports = {
 	common: {
@@ -36,30 +37,31 @@ module.exports = {
 			chunkFilename: `srcipts/chunks.[name].[chunkhash:8].js`, // 异步导入(import)模块被打包后的文件路径定义
 		},
 		devBuild: {
-			publicPath: '/',
-			pathTag: 'client-dev',
 			htmlWebpackPluginFilename: `./index.html`,
 			htmlWebpackPluginTemplate: utils.resolveDirectory(`./src/app/template/index.ejs`),
 			/* ... */
+			publicPath: `${webpackDevServerConfig.devConfig.ptotocol}://${webpackDevServerConfig.devConfig.host}:${webpackDevServerConfig.devConfig.port}/`,
+			pathTag: 'client-dev',
 			path() {
 				return utils.resolveDirectory(`./dist/${this.pathTag}`)
 			},
 			/* ... */
+			publicPathForSSR: `/`,
 			pathTagForSSR: 'ssr-client-dev',
 			pathForSSR() {
 				return utils.resolveDirectory(`./dist/${this.pathTagForSSR}`)
 			},
 		},
 		prodBuild: {
-			publicPath: '/',
 			htmlWebpackPluginFilename: `./index.html`,
 			htmlWebpackPluginTemplate: utils.resolveDirectory(`./src/app/template/index.ejs`),
 			/* ... */
+			publicPath: '/',
 			pathTag: 'client-prod',
 			path() {
 				return utils.resolveDirectory(`./dist/${this.pathTag}`)
 			},
-			/* ... */
+			publicPathForSSR: '/',
 			pathTagForSSR: 'ssr-client-prod',
 			pathForSSR() {
 				return utils.resolveDirectory(`./dist/${this.pathTagForSSR}`)
@@ -75,7 +77,6 @@ module.exports = {
 		},
 		devBuild: {
 			publicPath: '/',
-			/* ... */
 			pathTag: 'ssr-server-dev',
 			path() {
 				return utils.resolveDirectory(`./dist/${this.pathTag}`)
@@ -83,7 +84,6 @@ module.exports = {
 		},
 		prodBuild: {
 			publicPath: '/',
-			/* ... */
 			pathTag: 'ssr-server-prod',
 			path() {
 				return utils.resolveDirectory(`./dist/${this.pathTag}`)

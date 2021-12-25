@@ -14,7 +14,7 @@ const webpackDevConfig = {
 	},
 	plugins: [...webpackPlugins.client.devBuild],
 	devtool: 'source-map',
-	devServer: webpackDevServerConfig,
+	devServer: webpackDevServerConfig.devServer,
 }
 
 module.exports = merge(webpackBaseConfig, webpackDevConfig)

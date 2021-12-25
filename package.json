@@ -16,10 +16,8 @@
 		"jest:puppeteer-custom": "cross-env NODE_ENV=test jest --puppeteer=true --user-custom=true",
 		"ssr:dev": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.json ts-node scripts/build/ssr-dev-script",
 		"ssr:prod": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/build/ssr-prod-script",
-		"server:prodscript": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/build/server-prod-script",
 		"client:dev": "cross-env NODE_ENV=development webpack server --config ./config/webpack/webpack-client.dev.config.js --env --client-only=true",
-		"client:prod": "cross-env NODE_ENV=production webpack --config ./config/webpack/webpack-client.prod.config.js --env --client-only=true",
-		"client:prodscript": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.json ts-node scripts/build/client-prod-script --env --client-only=true"
+		"client:prod": "cross-env NODE_ENV=production webpack --config ./config/webpack/webpack-client.prod.config.js --env --client-only=true"
 	},
 	"author": "",
 	"license": "ISC",

@@ -54,6 +54,7 @@ const handler = async (app: koa): Promise<void> => {
 	logger.info(`Starting build...`)
 	const startStamp: number = Date.now()
 
+	devClientWebpackCfg.output.publicPath = paths.client.devBuild.publicPathForSSR
 	devClientWebpackCfg.output.path = paths.client.devBuild.pathForSSR()
 	devClientWebpackCfg.entry.client = [
 		`webpack-hot-middleware/client?path=http://${serverBuildHost}:${serverBuildPort}/__webpack_hmr&timeout=10000&reload=true`,

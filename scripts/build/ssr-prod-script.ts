@@ -23,6 +23,7 @@ const handler = async (): Promise<void> => {
 	logger.info(`Starting build...`)
 	const startStamp: number = Date.now()
 
+	prodClientWebpackCfg.output.publicPath = paths.client.prodBuild.publicPathForSSR
 	prodClientWebpackCfg.output.path = paths.client.prodBuild.pathForSSR()
 
 	const clientCompiler: any = webpack(prodClientWebpackCfg)
