@@ -18,7 +18,7 @@ const webpackConfigBase = {
 		rules: webpackRules(`server`),
 	},
 	resolve: webpackPaths.common.resolve,
-	plugins: [...webpackPlugins.common],
+	plugins: [...webpackPlugins.common()],
 	// optimization: { ...webpackOptimization.common },
 	stats: webpackStats(`server`),
 	externals: webpackExternals(`server`),

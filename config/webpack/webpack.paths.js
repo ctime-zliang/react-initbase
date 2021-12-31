@@ -61,6 +61,7 @@ module.exports = {
 			path() {
 				return utils.resolveDirectory(`./dist/${this.pathTag}`)
 			},
+			/* ... */
 			publicPathForSSR: '/',
 			pathTagForSSR: 'ssr-client-prod',
 			pathForSSR() {

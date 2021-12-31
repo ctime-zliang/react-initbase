@@ -35,103 +35,113 @@ const miniCssExtractPluginOptions = {
 }
 
 module.exports = {
-	common: [
-		new WebpackManifestPlugin({ fileName: 'manifest.json' }),
-		new ESBuildPlugin(),
-		new MiniCssExtractPlugin({
-			...miniCssExtractPluginOptions,
-			filename: webpackPaths.common.cssExtract.filename,
-			chunkFilename: webpackPaths.common.cssExtract.stylesSheetChunkFilename,
-		}),
-		new CaseSensitivePathsPlugin(),
-		new TypedCssModulesPlugin({
-			globPattern: 'src/**/*.(css|less|sass)',
-		}),
-		new webpack.ProgressPlugin(),
-		new webpack.DefinePlugin({
-			'process.env.CLIENT_ONLY': JSON.stringify(utils.clientOnly()),
-		}),
-	],
-	client: {
-		devBuild: [
-			new webpack.DefinePlugin({
-				'process.env.NODE_ENV': JSON.stringify('development'),
+	common() {
+		return [
+			new WebpackManifestPlugin({ fileName: 'manifest.json' }),
+			new ESBuildPlugin(),
+			new MiniCssExtractPlugin({
+				...miniCssExtractPluginOptions,
+				filename: webpackPaths.common.cssExtract.filename,
+				chunkFilename: webpackPaths.common.cssExtract.stylesSheetChunkFilename,
 			}),
-			new ReactRefreshPlugin(),
-			utils.clientOnly() &&
+			new CaseSensitivePathsPlugin(),
+			new TypedCssModulesPlugin({
+				globPattern: 'src/**/*.(css|less|sass)',
+			}),
+			new webpack.ProgressPlugin(),
+			new webpack.DefinePlugin({
+				'process.env.CLIENT_ONLY': JSON.stringify(utils.clientOnly()),
+			}),
+		]
+	},
+	client: {
+		devBuild() {
+			return [
+				new webpack.DefinePlugin({
+					'process.env.NODE_ENV': JSON.stringify('development'),
+				}),
+				new ReactRefreshPlugin(),
+				utils.clientOnly() &&
+					new HtmlWebpackPlugin({
+						...htmlWebpackPluginOptions,
+						filename: webpackPaths.client.devBuild.htmlWebpackPluginFilename,
+						template: webpackPaths.client.devBuild.htmlWebpackPluginTemplate,
+					}),
+				new webpack.HotModuleReplacementPlugin(),
+				new CopyWebpackPlugin({
+					patterns: [
+						{
+							from: webpackPaths.common.i18n.locales,
+							to: path.join(pathOfClientPathAboutDevBuild, '/locales'),
+						},
+					],
+				}),
+			].filter(Boolean)
+		},
+		prodBuild() {
+			return [
+				new webpack.DefinePlugin({
+					'process.env.NODE_ENV': JSON.stringify('production'),
+				}),
 				new HtmlWebpackPlugin({
 					...htmlWebpackPluginOptions,
-					filename: webpackPaths.client.devBuild.htmlWebpackPluginFilename,
-					template: webpackPaths.client.devBuild.htmlWebpackPluginTemplate,
+					filename: webpackPaths.client.prodBuild.htmlWebpackPluginFilename,
+					template: webpackPaths.client.prodBuild.htmlWebpackPluginTemplate,
 				}),
-			new webpack.HotModuleReplacementPlugin(),
-			new CopyWebpackPlugin({
-				patterns: [
-					{
-						from: webpackPaths.common.i18n.locales,
-						to: path.join(pathOfClientPathAboutDevBuild, '/locales'),
-					},
-				],
-			}),
-		].filter(Boolean),
-		prodBuild: [
-			new webpack.DefinePlugin({
-				'process.env.NODE_ENV': JSON.stringify('production'),
-			}),
-			new HtmlWebpackPlugin({
-				...htmlWebpackPluginOptions,
-				filename: webpackPaths.client.prodBuild.htmlWebpackPluginFilename,
-				template: webpackPaths.client.prodBuild.htmlWebpackPluginTemplate,
-			}),
-			new BundleAnalyzerPlugin({
-				analyzerPort: 0,
-			}),
-			new CopyWebpackPlugin({
-				patterns: [
-					{
-						from: webpackPaths.common.i18n.locales,
-						to: path.join(pathOfClientPathAboutProdBuild, 'locales'),
-						globOptions: {
-							ignore: ['*.missing.json'],
+				new BundleAnalyzerPlugin({
+					analyzerPort: 0,
+				}),
+				new CopyWebpackPlugin({
+					patterns: [
+						{
+							from: webpackPaths.common.i18n.locales,
+							to: path.join(pathOfClientPathAboutProdBuild, 'locales'),
+							globOptions: {
+								ignore: ['*.missing.json'],
+							},
 						},
-					},
-				],
-			}),
-		].filter(Boolean),
+					],
+				}),
+			].filter(Boolean)
+		},
 	},
 	server: {
-		devBuild: [
-			new webpack.DefinePlugin({
-				'process.env.NODE_ENV': JSON.stringify('development'),
-			}),
-			new webpack.HotModuleReplacementPlugin(),
-			new CopyWebpackPlugin({
-				patterns: [
-					{
-						from: webpackPaths.common.i18n.locales,
-						to: path.join(pathOfServerPathAboutDevBuild, 'locales'),
-						globOptions: {
-							ignore: ['*.missing.json'],
+		devBuild() {
+			return [
+				new webpack.DefinePlugin({
+					'process.env.NODE_ENV': JSON.stringify('development'),
+				}),
+				new webpack.HotModuleReplacementPlugin(),
+				new CopyWebpackPlugin({
+					patterns: [
+						{
+							from: webpackPaths.common.i18n.locales,
+							to: path.join(pathOfServerPathAboutDevBuild, 'locales'),
+							globOptions: {
+								ignore: ['*.missing.json'],
+							},
 						},
-					},
-				],
-			}),
-		],
-		prodBuild: [
-			new webpack.DefinePlugin({
-				'process.env.NODE_ENV': JSON.stringify('production'),
-			}),
-			new CopyWebpackPlugin({
-				patterns: [
-					{
-						from: webpackPaths.common.i18n.locales,
-						to: path.join(pathOfServerPathAboutProdBuild, 'locales'),
-						globOptions: {
-							ignore: ['*.missing.json'],
+					],
+				}),
+			]
+		},
+		prodBuild() {
+			return [
+				new webpack.DefinePlugin({
+					'process.env.NODE_ENV': JSON.stringify('production'),
+				}),
+				new CopyWebpackPlugin({
+					patterns: [
+						{
+							from: webpackPaths.common.i18n.locales,
+							to: path.join(pathOfServerPathAboutProdBuild, 'locales'),
+							globOptions: {
+								ignore: ['*.missing.json'],
+							},
 						},
-					},
-				],
-			}),
-		],
+					],
+				}),
+			]
+		},
 	},
 }

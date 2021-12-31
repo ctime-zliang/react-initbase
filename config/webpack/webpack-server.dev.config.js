@@ -1,5 +1,5 @@
 const { merge } = require('webpack-merge')
-const webpackBaseConfig = require('./webpack-server.base.config')
+const webpackInitConfig = require('./webpack-server.init.config')
 const webpackPlugins = require('./webpack.plugins')
 const webpackPaths = require('./webpack.paths')
 
@@ -11,7 +11,7 @@ const webpackProdConfig = {
 		filename: webpackPaths.server.output.filename,
 		chunkFilename: webpackPaths.server.output.chunkFilename,
 	},
-	plugins: [...webpackPlugins.server.devBuild],
+	plugins: [...webpackPlugins.server.devBuild()],
 }
 
-module.exports = merge(webpackBaseConfig, webpackProdConfig)
+module.exports = merge(webpackInitConfig, webpackProdConfig)

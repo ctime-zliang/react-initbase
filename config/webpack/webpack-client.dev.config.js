@@ -1,5 +1,5 @@
 const { merge } = require('webpack-merge')
-const webpackBaseConfig = require('./webpack-client.base.config')
+const webpackInitConfig = require('./webpack-client.init.config')
 const webpackPaths = require('./webpack.paths')
 const webpackPlugins = require('./webpack.plugins')
 const webpackDevServerConfig = require('./webpack.dev-server.config')
@@ -12,9 +12,9 @@ const webpackDevConfig = {
 		filename: webpackPaths.client.output.filename,
 		chunkFilename: webpackPaths.client.output.chunkFilename,
 	},
-	plugins: [...webpackPlugins.client.devBuild],
+	plugins: [...webpackPlugins.client.devBuild()],
 	devtool: 'source-map',
 	devServer: webpackDevServerConfig.devServer,
 }
 
-module.exports = merge(webpackBaseConfig, webpackDevConfig)
+module.exports = merge(webpackInitConfig, webpackDevConfig)
