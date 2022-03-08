@@ -4,8 +4,8 @@ export function createInitialState(): IEntryList {
 	return {
 		list: [
 			{
-				path: `/tests`,
-				title: 'Tests Modules',
+				path: `/testpage`,
+				title: 'Test Page',
 			},
 			{
 				path: `/record`,

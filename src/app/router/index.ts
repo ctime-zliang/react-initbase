@@ -5,7 +5,7 @@ import { RecordMgrListRoute, RecordMgrDetailRoute, RecordMgrErrorRoute } from '@
 import { EntryLinkListRoute } from '@app/pages/$EntryLinkList/route'
 import { CssRenderTestRoute } from '@app/pages/CssRenderTest/route'
 import { InfiniteScrollingRoute } from '@app/pages/InfiniteScrolling/route'
-import { TestModulesRoute } from '@app/pages/TestModules/route'
+import { TestPageRoute } from '@/app/pages/TestPage/route'
 import { IRouteItem } from './config'
 import { IStore } from '@app/store/rootStore'
 
@@ -20,7 +20,7 @@ export const createRoutes = (store: TStore): IRouteItem[] => {
 		},
 		CssRenderTestRoute(),
 		EntryLinkListRoute(store),
-		TestModulesRoute(),
+		TestPageRoute(),
 		InfiniteScrollingRoute(),
 		Error404Route(),
 	]

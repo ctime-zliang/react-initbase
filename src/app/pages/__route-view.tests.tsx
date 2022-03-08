@@ -9,7 +9,7 @@ import RecordMgrError from '@app/pages/RecordMgr/Error'
 import EntryLinkList from '@app/pages/$EntryLinkList/List'
 import CssRenderTest from '@app/pages/CssRenderTest'
 import InfiniteScrolling from '@app/pages/InfiniteScrolling'
-import TestModules from '@app/pages/TestModules'
+import TestPage from '@/app/pages/TestPage'
 
 export default () => {
 	return (
@@ -42,7 +42,7 @@ export default () => {
 				render={routerProps => {
 					return (
 						<Layout {...routerProps}>
-							<TestModules {...routerProps} />
+							<TestPage {...routerProps} />
 						</Layout>
 					)
 				}}

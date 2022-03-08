@@ -2,7 +2,7 @@ import React from 'react'
 import { Parent } from './ReactForwardRef'
 import { Wrapper } from './AsyncSetStateOfClassComponent'
 
-function TestsRoot(props: any) {
+function TestPageRoot(props: any) {
 	return (
 		<>
 			<Wrapper />
@@ -10,4 +10,4 @@ function TestsRoot(props: any) {
 	)
 }
 
-export default React.memo(TestsRoot)
+export default React.memo(TestPageRoot)
