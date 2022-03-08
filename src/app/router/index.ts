@@ -6,8 +6,6 @@ import { EntryLinkListRoute } from '@app/pages/$EntryLinkList/route'
 import { CssRenderTestRoute } from '@app/pages/CssRenderTest/route'
 import { InfiniteScrollingRoute } from '@app/pages/InfiniteScrolling/route'
 import { TestModulesRoute } from '@app/pages/TestModules/route'
-import { D2GeometryCanvasRoute } from '@app/pages/2DGeometryCanvas/route'
-import { D3GeometryCanvasRoute } from '@app/pages/3DGeometryCanvas/route'
 import { IRouteItem } from './config'
 import { IStore } from '@app/store/rootStore'
 
@@ -24,8 +22,6 @@ export const createRoutes = (store: TStore): IRouteItem[] => {
 		EntryLinkListRoute(store),
 		TestModulesRoute(),
 		InfiniteScrollingRoute(),
-		D2GeometryCanvasRoute(),
-		D3GeometryCanvasRoute(),
 		Error404Route(),
 	]
 }
