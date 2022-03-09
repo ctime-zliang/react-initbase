@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect'
-import { IGProfile, KEYOF_G_PROFILE_REDUCER } from './config'
+import { TGProfile, KEYOF_G_PROFILE_REDUCER } from './config'
 
 const profile = (state: any): any => {
 	return state[KEYOF_G_PROFILE_REDUCER]
 }
 
-export const getLanguageSet = createSelector([profile], (profile: IGProfile): string => {
+export const getLanguageSet = createSelector([profile], (profile: TGProfile): string => {
 	return profile.g_languageSet
 })

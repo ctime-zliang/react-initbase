@@ -1,15 +1,15 @@
-export interface IBaseEditFormDataConfig {
+export type TBaseEditFormDataConfig = {
 	title: string
 	content: string
 	extra: string
 }
-export const baseEditFormDataConfig: IBaseEditFormDataConfig = {
+export const baseEditFormDataConfig: TBaseEditFormDataConfig = {
 	title: ``,
 	content: ``,
 	extra: ``,
 }
 
-export interface IBaseConfig {
+export type TBaseConfig = {
 	contentInputElementHeight: number
 }
 export const baseConfig = {

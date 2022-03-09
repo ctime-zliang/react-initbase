@@ -1,12 +1,12 @@
 import { action, computed, observable, makeObservable } from 'mobx'
 
-export interface ITestMobxStoreClass {
-	baseData: ITestMobxStoreBaseData
+export type TTestMobxStoreClass = {
+	baseData: TTestMobxStoreBaseData
 	count: number
 	getStamp: () => number
 	modifyStamp: (value: number) => void
 }
-export interface ITestMobxStoreBaseData {
+export type TTestMobxStoreBaseData = {
 	index: number
 	stamp: number
 }
@@ -16,7 +16,7 @@ class TestMobxStoreClass {
 		makeObservable(this)
 	}
 
-	@observable baseData: ITestMobxStoreBaseData = {
+	@observable baseData: TTestMobxStoreBaseData = {
 		index: 0,
 		stamp: new Date().getTime(),
 	}

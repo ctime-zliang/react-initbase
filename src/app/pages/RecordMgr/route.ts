@@ -1,15 +1,15 @@
 import { modulesInjectReducer } from '@app/store/rootReducer'
-import { IStore } from '@app/store/rootStore'
+import { TStore } from '@app/store/rootStore'
 import List, { getInitialProps as ListGetInitialProps } from './List'
 import Detail, { getInitialProps as DetailGetInitialProps } from './Detail'
 import ErrorView from './Error'
 import { asyncComponent } from '@app/utils/hoc/async-component'
 import { KEYOF_RECORD_REDUCER } from './store/config'
 import { createReducer } from './store/reducer'
-import { IRouteItem } from '@app/router/config'
+import { TRouteItem } from '@app/router/config'
 import { KEYOF_ENTRYLINKLIST_REDUCER } from '@app/pages/$EntryLinkList/store/config'
 
-export const RecordMgrListRoute = (store: IStore): IRouteItem => {
+export const RecordMgrListRoute = (store: TStore): TRouteItem => {
 	modulesInjectReducer(store, KEYOF_RECORD_REDUCER, createReducer)
 	return {
 		path: '/record',
@@ -19,7 +19,7 @@ export const RecordMgrListRoute = (store: IStore): IRouteItem => {
 	}
 }
 
-export const RecordMgrDetailRoute = (store: IStore): IRouteItem => {
+export const RecordMgrDetailRoute = (store: TStore): TRouteItem => {
 	modulesInjectReducer(store, KEYOF_RECORD_REDUCER, createReducer)
 	return {
 		path: '/detail/:id',
@@ -32,7 +32,7 @@ export const RecordMgrDetailRoute = (store: IStore): IRouteItem => {
 	}
 }
 
-export const RecordMgrErrorRoute = (store: IStore): IRouteItem => {
+export const RecordMgrErrorRoute = (store: TStore): TRouteItem => {
 	modulesInjectReducer(store, KEYOF_RECORD_REDUCER, createReducer)
 	return {
 		path: '/*',

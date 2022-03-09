@@ -1,4 +1,4 @@
-export interface IStoreCommonAction<T> {
+export type TStoreCommonAction<T> = {
 	type: T
 	data: any
 }

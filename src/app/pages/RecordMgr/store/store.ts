@@ -1,6 +1,6 @@
-import { IRecordMgr } from './config'
+import { TRecordMgr } from './config'
 
-export function createInitialState(): IRecordMgr {
+export function createInitialState(): TRecordMgr {
 	return {
 		list: [],
 		countTotal: 0,

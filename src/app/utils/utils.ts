@@ -1,6 +1,6 @@
-import { ICommonResponse } from '@app/api/config'
+import { TCommonResponse } from '@app/api/config'
 
-export function createDefaultErrorResponse(ret: number = -1, msg: string = '', data: any = null, __remote: any = null): ICommonResponse<any> {
+export function createDefaultErrorResponse(ret: number = -1, msg: string = '', data: any = null, __remote: any = null): TCommonResponse<any> {
 	return {
 		ret,
 		msg,
@@ -9,7 +9,7 @@ export function createDefaultErrorResponse(ret: number = -1, msg: string = '', d
 	}
 }
 
-export function createDefaultSuccessResponse(data: any = null, ret: number = 0, msg: string = '', __remote: any = null): ICommonResponse<any> {
+export function createDefaultSuccessResponse(data: any = null, ret: number = 0, msg: string = '', __remote: any = null): TCommonResponse<any> {
 	return {
 		ret,
 		msg,
@@ -51,11 +51,11 @@ export function formatDates(date = new Date(), format: string = 'yyyy-MM-dd HH:i
 	return format
 }
 
-export interface IFindResults {
+export type TFindResults = {
 	index: number
 	data: any
 }
-export function findResults(list: any, key: string, value: any): IFindResults {
+export function findResults(list: any, key: string, value: any): TFindResults {
 	const res = { index: -1, data: {} }
 	const len = list.length
 	if (len <= 0) {

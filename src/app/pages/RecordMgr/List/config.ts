@@ -1,4 +1,4 @@
-export interface IBasePageConfig {
+export type TBasePageConfig = {
 	pageIndex: number
 	pageSize: number
 	countTotal?: number
@@ -9,7 +9,7 @@ export const basePageConfig = {
 	countTotal: 0,
 }
 
-export interface IBaseFormConfig {
+export type TBaseFormConfig = {
 	keywords: string
 }
 export const baseFormConfig = {

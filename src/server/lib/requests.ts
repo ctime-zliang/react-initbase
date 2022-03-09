@@ -9,13 +9,13 @@ const toString = (source: any): string => {
 	}
 }
 
-export interface IRquestResponse {
+export type TRquestResponse = {
 	ret: number
 	data: any
 	response?: any
 	error?: any
 }
-export const getRequest = async (url: string, data: any = {}, extra: any = {}): Promise<IRquestResponse> => {
+export const getRequest = async (url: string, data: any = {}, extra: any = {}): Promise<TRquestResponse> => {
 	const defaultHeaders = {
 		'content-type': `application/json`,
 	}
@@ -43,7 +43,7 @@ export const getRequest = async (url: string, data: any = {}, extra: any = {}): 
 		})
 	})
 }
-export const postRequest = async (url: string, data: any = {}, extra: any = {}): Promise<IRquestResponse> => {
+export const postRequest = async (url: string, data: any = {}, extra: any = {}): Promise<TRquestResponse> => {
 	const defaultHeaders = {
 		'content-type': `application/json`,
 	}

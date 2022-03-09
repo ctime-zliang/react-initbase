@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { connect } from 'react-redux'
 import { Layout, List } from 'antd'
 import { Link } from 'react-router-dom'
-import { IEntryListItem, KEYOF_ENTRYLINKLIST_REDUCER } from '../store/config'
+import { TEntryListItem, KEYOF_ENTRYLINKLIST_REDUCER } from '../store/config'
 import styles from './index.module.less'
 
 const { Content } = Layout
@@ -25,7 +25,7 @@ function ListRoot(props: any) {
 							size="small"
 							bordered
 							dataSource={list}
-							renderItem={(item: IEntryListItem, index: number) => {
+							renderItem={(item: TEntryListItem, index: number) => {
 								const number: string = (++index, index) <= 9 ? '0' + index : String(index)
 								return (
 									<List.Item className="entry-linklist" style={{ justifyContent: 'flex-start' }}>

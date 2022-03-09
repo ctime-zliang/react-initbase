@@ -6,12 +6,12 @@ import { EntryLinkListRoute } from '@app/pages/$EntryLinkList/route'
 import { CssRenderTestRoute } from '@app/pages/CssRenderTest/route'
 import { InfiniteScrollingRoute } from '@app/pages/InfiniteScrolling/route'
 import { TestPageRoute } from '@/app/pages/TestPage/route'
-import { IRouteItem } from './config'
-import { IStore } from '@app/store/rootStore'
+import { TRouteItem } from './config'
+import { TStore } from '@app/store/rootStore'
 
-type TStore = IStore | any
+type TStoreLocal = TStore | any
 
-export const createRoutes = (store: TStore): IRouteItem[] => {
+export const createRoutes = (store: TStoreLocal): TRouteItem[] => {
 	return [
 		HomeRoute(),
 		{
@@ -26,13 +26,13 @@ export const createRoutes = (store: TStore): IRouteItem[] => {
 	]
 }
 
-export const filterRoutes = (routes: IRouteItem[] = []): IRouteItem[] => {
+export const filterRoutes = (routes: TRouteItem[] = []): TRouteItem[] => {
 	return exec(routes, ``), routes
 
-	function exec(routes: IRouteItem[] = [], prefixPath: string = '') {
+	function exec(routes: TRouteItem[] = [], prefixPath: string = '') {
 		let path = ``
 		for (let i = 0; i < routes.length; i++) {
-			const routeItem: IRouteItem = routes[i]
+			const routeItem: TRouteItem = routes[i]
 			// @ts-ignore
 			if (routeItem.routes && routeItem.routes.length) {
 				exec(routeItem.routes, routeItem.path)

@@ -1,6 +1,6 @@
-import { IEntryList } from './config'
+import { TEntryList } from './config'
 
-export function createInitialState(): IEntryList {
+export function createInitialState(): TEntryList {
 	return {
 		list: [
 			{

@@ -1,16 +1,16 @@
-import { getRequest, IRquestResponse, postRequest } from '@/server/lib/requests'
+import { getRequest, TRquestResponse, postRequest } from '@/server/lib/requests'
 import Controller from '@server/lib/Controller'
 import { TResponse } from '@server/lib/Response'
 import httpStatus from '@server/lib/httpStatus'
-import { IExtendKoaContext } from '@server/types/koa-context'
+import { TExtendKoaContext } from '@server/types/koa-context'
 
 const remotePrefixUrl: string = `http://127.0.0.1:12001`
 const remoteCookie: string = `LOGIN_AUTH_TAG=${String(Date.now())}`
 
-const commonPenetratRequest = async (ctx: IExtendKoaContext, res: TResponse, url: string, methods: string = 'get') => {
+const commonPenetratRequest = async (ctx: TExtendKoaContext, res: TResponse, url: string, methods: string = 'get') => {
 	const fn = methods.toLocaleLowerCase() == 'get' ? getRequest : postRequest
 	// await sleep(1000)
-	const remoteRes: IRquestResponse = await fn(
+	const remoteRes: TRquestResponse = await fn(
 		url,
 		{ ...ctx.requestParams },
 		{
@@ -64,23 +64,23 @@ class RecordController extends Controller {
 		})
 	}
 
-	async fetchList(ctx: IExtendKoaContext, res: TResponse) {
+	async fetchList(ctx: TExtendKoaContext, res: TResponse) {
 		await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/fetchList`, 'get')
 	}
 
-	async addItem(ctx: IExtendKoaContext, res: TResponse) {
+	async addItem(ctx: TExtendKoaContext, res: TResponse) {
 		await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/addItem`, 'post')
 	}
 
-	async delItems(ctx: IExtendKoaContext, res: TResponse) {
+	async delItems(ctx: TExtendKoaContext, res: TResponse) {
 		await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/delItems`, 'post')
 	}
 
-	async fetchItem(ctx: IExtendKoaContext, res: TResponse) {
+	async fetchItem(ctx: TExtendKoaContext, res: TResponse) {
 		await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/fetchItem`, 'get')
 	}
 
-	async updateItem(ctx: IExtendKoaContext, res: TResponse) {
+	async updateItem(ctx: TExtendKoaContext, res: TResponse) {
 		await commonPenetratRequest(ctx, res, `${remotePrefixUrl}/record/updateItem`, 'post')
 	}
 }

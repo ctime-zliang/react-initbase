@@ -1,5 +1,5 @@
 import httpStatus from './httpStatus'
-import { IExtendKoaContext } from '@server/types/koa-context'
+import { TExtendKoaContext } from '@server/types/koa-context'
 
 export type TResponse = Response
 
@@ -42,7 +42,7 @@ class Response {
 		return this
 	}
 
-	flush(ctx: IExtendKoaContext): TResponse {
+	flush(ctx: TExtendKoaContext): TResponse {
 		if (this.status === httpStatus.Ok.status) {
 			ctx.status = httpStatus.Ok.status
 			ctx.body = JSON.stringify({

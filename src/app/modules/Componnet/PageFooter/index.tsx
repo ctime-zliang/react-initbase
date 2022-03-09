@@ -2,13 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Layout } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { IGProfile, KEYOF_G_PROFILE_REDUCER } from '@app/store/globalProfile/config'
+import { TGProfile, KEYOF_G_PROFILE_REDUCER } from '@app/store/globalProfile/config'
 import * as actions from '@app/store/globalProfile/action'
 import { RouteComponentProps } from 'react-router'
 import './index.less'
 
 const { Footer } = Layout
-function PageFooterRoot(props: IPageFooterRootProps) {
+function PageFooterRoot(props: TPageFooterRootProps) {
 	const { t } = useTranslation()
 	const { isSetPageFooterHidder } = props
 	if (isSetPageFooterHidder) {
@@ -25,10 +25,11 @@ function PageFooterRoot(props: IPageFooterRootProps) {
 PageFooterRoot.defaultProps = {
 	isSetPageFooterHidder: false,
 }
-interface IPageFooterRootProps extends RouteComponentProps, IGProfile {
+type TPageFooterRootProps = {
 	isSetPageFooterHidder: boolean
 	[key: string]: any
-}
+} & RouteComponentProps &
+	TGProfile
 
 export default connect(
 	(state: { [key: string]: any } = {}, ownProps) => {

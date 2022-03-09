@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { IStore } from './rootStore'
+import { TStore } from './rootStore'
 import profileReducer from './globalProfile/reducer'
 import { KEYOF_G_PROFILE_REDUCER } from './globalProfile/config'
 
@@ -14,7 +14,7 @@ export function createCombineReducers(asyncReducers: { [key: string]: any } = {}
 	}
 }
 
-export function injectReducer(store: IStore, key: string, createReducer: Function) {
+export function injectReducer(store: TStore, key: string, createReducer: Function) {
 	if (store.asyncReducers && store.replaceReducer) {
 		let __PRELOADED_STATE__: { [key: string]: any } = {}
 		if (typeof window !== 'undefined' && window.__PRELOADED_STATE__) {
@@ -28,7 +28,7 @@ export function injectReducer(store: IStore, key: string, createReducer: Functio
 	return store
 }
 
-export function modulesInjectReducer(store: IStore, key: string, createReducer: Function) {
+export function modulesInjectReducer(store: TStore, key: string, createReducer: Function) {
 	const concernedStoreKeys = Object.keys(store.asyncReducers || {})
 	if (concernedStoreKeys.includes(key)) {
 		return store

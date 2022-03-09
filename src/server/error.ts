@@ -1,4 +1,4 @@
-import { IExtendKoaContext } from '@server/types/koa-context'
+import { TExtendKoaContext } from '@server/types/koa-context'
 
 const isErrorWithStatus = (error: any): boolean => {
 	if (typeof error['status'] == 'number' && error['error'] && error['error']['stack']) {
@@ -23,6 +23,6 @@ const handleError = (error: any): string => {
 	return list.join('\r\n')
 }
 
-export default (error: any, ctx: IExtendKoaContext): string => {
+export default (error: any, ctx: TExtendKoaContext): string => {
 	return handleError(error)
 }

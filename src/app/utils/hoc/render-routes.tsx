@@ -1,8 +1,8 @@
 import React from 'react'
-import { IRouteItem } from '../../router/config'
+import { TRouteItem } from '../../router/config'
 import { Route, Redirect, Switch, RouteComponentProps } from 'react-router-dom'
 
-function createSpecRoute(route: IRouteItem, profile: any, outerProps: any) {
+function createSpecRoute(route: TRouteItem, profile: any, outerProps: any) {
 	let SpecComponent: any = null
 	if (route.noMatch) {
 		SpecComponent = route.noMatch
@@ -22,8 +22,8 @@ function createSpecRoute(route: IRouteItem, profile: any, outerProps: any) {
 	}
 	return null
 }
-function createRouteComponentList(routes: IRouteItem[], profile: any, outerProps: any) {
-	return routes.map((route: IRouteItem, index: number) => {
+function createRouteComponentList(routes: TRouteItem[], profile: any, outerProps: any) {
+	return routes.map((route: TRouteItem, index: number) => {
 		return (
 			<Route
 				key={route.path}
@@ -59,6 +59,6 @@ function createRouteComponentList(routes: IRouteItem[], profile: any, outerProps
 	})
 }
 
-export function renderRoutes(routes: IRouteItem[], profile: any, outerProps: any) {
+export function renderRoutes(routes: TRouteItem[], profile: any, outerProps: any) {
 	return <Switch>{createRouteComponentList(routes, profile, outerProps)}</Switch>
 }

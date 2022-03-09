@@ -1,7 +1,7 @@
 import Index from './'
-import { IRouteItem } from '@app/router/config'
+import { TRouteItem } from '@app/router/config'
 
-export const InfiniteScrollingRoute = (): IRouteItem => {
+export const InfiniteScrollingRoute = (): TRouteItem => {
 	return {
 		path: '/inf-scroll',
 		component: Index,

@@ -2,18 +2,18 @@ import { createStore, StoreCreator, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import { createCombineReducers } from './rootReducer'
 
-interface IConfigureStoreParams {
+type TConfigureStoreParams = {
 	initialState?: any
 	middleware?: any[]
 }
 
-export interface IStore extends StoreCreator {
+export type TStore = {
 	syncInitialState?: any
 	asyncReducers?: any
 	replaceReducer?: Function
-}
+} & StoreCreator
 
-export function configureStore(params: IConfigureStoreParams = {}) {
+export function configureStore(params: TConfigureStoreParams = {}) {
 	const { initialState, middleware } = params
 	const devtools =
 		typeof window !== 'undefined' &&
@@ -21,7 +21,7 @@ export function configureStore(params: IConfigureStoreParams = {}) {
 		(window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ actionsBlacklist: [] })
 	const composeEnhancers = devtools || compose
 	const ccr = createCombineReducers()
-	let store: IStore = () => {}
+	let store: TStore = () => {}
 	/* 
 		过滤掉与当前已存在的 reducer 不匹配的 state-key
 	 */

@@ -4,10 +4,10 @@ import { KEYOF_G_PROFILE_REDUCER, SERVER_RENDER } from '@app/store/globalProfile
 import { createInitialState as createGProfileInitialState } from '@app/store/globalProfile/store'
 import { createRoutes, filterRoutes } from '@app/router'
 import { matchRoutes } from 'react-router-config'
-import { IExtendKoaContext } from '@server/types/koa-context'
+import { TExtendKoaContext } from '@server/types/koa-context'
 
 export default (params: { [key: string]: any } = {}) => {
-	return async (ctx: IExtendKoaContext, next: Koa.Next) => {
+	return async (ctx: TExtendKoaContext, next: Koa.Next) => {
 		if (params.filter(ctx) === true) {
 			await next()
 			return

@@ -7,15 +7,15 @@ import { Provider as ReduxProvider } from 'react-redux'
 import { HelmetProvider } from 'react-helmet-async'
 import { ServerStyleSheet } from 'styled-components'
 import paths from '../../../config/webpack/webpack.paths'
-import { getAssetsPathsList, IGetAssetsPathsList } from '@server/utils/utils'
+import { getAssetsPathsList, TGetAssetsPathsList } from '@server/utils/utils'
 import layout from '@server/utils/layout'
-import { IExtendKoaContext } from '@server/types/koa-context'
+import { TExtendKoaContext } from '@server/types/koa-context'
 import I18nProvider from '@app/i18n/I18nProvider'
 import App from '@app/App'
 
 const helmetContext: { [key: string]: any } = {}
 const serverRenderer = (params: { [key: string]: any } = {}) => {
-	return async (ctx: IExtendKoaContext, next: Koa.Next): Promise<void | undefined> => {
+	return async (ctx: TExtendKoaContext, next: Koa.Next): Promise<void | undefined> => {
 		const stampCollection: { [key: string]: any } = {}
 		if (params.filter(ctx) === true) {
 			await next()
@@ -45,7 +45,7 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 			const assetsChildPath: string =
 				process.env.NODE_ENV === 'development' ? paths.client.devBuild.pathTagForSSR : paths.client.prodBuild.pathTagForSSR
 			const styles = sheet.getStyleTags()
-			const assets: IGetAssetsPathsList = getAssetsPathsList(path.join(__dirname, `../${assetsChildPath}/manifest.json`))
+			const assets: TGetAssetsPathsList = getAssetsPathsList(path.join(__dirname, `../${assetsChildPath}/manifest.json`))
 			const htmlString: string = layout({
 				styles,
 				state: JSON.stringify(ctx.usedState),

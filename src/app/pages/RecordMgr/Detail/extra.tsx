@@ -3,15 +3,15 @@ import styled from 'styled-components'
 import { Alert, Button } from 'antd'
 import { RouteComponentProps } from 'react-router'
 import { inject, observer } from 'mobx-react'
-import { ITestMobxStoreClass } from '@app/store/__mobx/testStore'
+import { TTestMobxStoreClass } from '@app/store/__mobx/testStore'
 
 const Container = styled.div`
 	padding: 25px 65px;
 	display: flex;
 `
 
-function Extra(props: IExtraProps) {
-	const testMobxStore: ITestMobxStoreClass = props.testMobxStore
+function Extra(props: TExtraProps) {
+	const testMobxStore: TTestMobxStoreClass = props.testMobxStore
 	const changeStamp = (): void => {
 		testMobxStore.modifyStamp(new Date().getTime())
 	}
@@ -24,9 +24,9 @@ function Extra(props: IExtraProps) {
 		</Container>
 	)
 }
-interface IExtraProps extends RouteComponentProps {
-	testMobxStore: ITestMobxStoreClass
+type TExtraProps = {
+	testMobxStore: TTestMobxStoreClass
 	[key: string]: any
-}
+} & RouteComponentProps
 
 export default inject('testMobxStore')(observer(Extra))

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from 'antd'
 import styled from 'styled-components'
-import { IRecordMgrItem } from '../../store/config'
+import { TRecordMgrItem } from '../../store/config'
 import { Link } from 'react-router-dom'
 
 const Container = styled.div`
@@ -69,7 +69,7 @@ export const listTableConfig = {
 				title: 'Action',
 				dataIndex: 'key',
 				width: '20%',
-				render(value: string, itemData: IRecordMgrItem, index: number) {
+				render(value: string, itemData: TRecordMgrItem, index: number) {
 					return (
 						<>
 							<Button

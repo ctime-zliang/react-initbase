@@ -21,7 +21,7 @@ const MaskContent = styled.div`
 	align-content: center;
 `
 
-function SVGLoadingMaskRoot(props: ISVGLoadingMaskRootProps) {
+function SVGLoadingMaskRoot(props: TSVGLoadingMaskRootProps) {
 	const { isHide, onHideEnd } = props
 	const contentElementReference = useRef<any>(null as any)
 
@@ -114,7 +114,7 @@ function SVGLoadingMaskRoot(props: ISVGLoadingMaskRootProps) {
 SVGLoadingMaskRoot.defaultProps = {
 	isHide: false,
 }
-interface ISVGLoadingMaskRootProps {
+type TSVGLoadingMaskRootProps = {
 	isHide: boolean
 	onHideEnd: () => void
 }

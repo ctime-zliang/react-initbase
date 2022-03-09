@@ -1,7 +1,7 @@
 import Index from '.'
-import { IRouteItem } from '@app/router/config'
+import { TRouteItem } from '@app/router/config'
 
-export const TestPageRoute = (): IRouteItem => {
+export const TestPageRoute = (): TRouteItem => {
 	return {
 		path: '/testpage',
 		component: Index,

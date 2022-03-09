@@ -1,4 +1,4 @@
-export interface ICommonResponse<T = any> {
+export type TCommonResponse<T = any> = {
 	ret: number
 	msg: string
 	data: T | any

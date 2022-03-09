@@ -4,7 +4,7 @@ import { message as messageTips } from 'antd'
 import { Spin, Button, Alert } from 'antd'
 import * as actions from '../store/action'
 import EditForm from '@app/pages/RecordMgr/Component/EditForm'
-import { baseEditFormDataConfig, IBaseEditFormDataConfig } from '../Component/EditForm/config'
+import { baseEditFormDataConfig, TBaseEditFormDataConfig } from '../Component/EditForm/config'
 import { RouteComponentProps } from 'react-router'
 import { useItemDetail } from './item-detail.hook'
 import styles from './index.module.less'
@@ -12,19 +12,19 @@ import styles from './index.module.less'
 /*
 	从 sourceData 中过滤出指定的 key 集合并组成新的数据对象并返回
  */
-const filterFormData = (sourceData: IBaseEditFormDataConfig): IBaseEditFormDataConfig | any => {
-	const copyFormData: IBaseEditFormDataConfig | any = JSON.parse(JSON.stringify(sourceData))
-	// const copyFormData: IBaseEditFormDataConfig | any = {}
+const filterFormData = (sourceData: TBaseEditFormDataConfig): TBaseEditFormDataConfig | any => {
+	const copyFormData: TBaseEditFormDataConfig | any = JSON.parse(JSON.stringify(sourceData))
+	// const copyFormData: TBaseEditFormDataConfig | any = {}
 	Object.keys(baseEditFormDataConfig).forEach((item: string, index: number): void => {
-		copyFormData[item as keyof IBaseEditFormDataConfig] = sourceData[item as keyof IBaseEditFormDataConfig]
+		copyFormData[item as keyof TBaseEditFormDataConfig] = sourceData[item as keyof TBaseEditFormDataConfig]
 	})
 	return copyFormData
 }
 
-function RecordDetail(props: IRecordDetailProps) {
+function RecordDetail(props: TRecordDetailProps) {
 	const { match, history, fetchItemRequestAction, updateItemRequestAction } = props
 	const filteredFormData = filterFormData({ ...baseEditFormDataConfig, ...props })
-	const [formData, setFormData] = useState<IBaseEditFormDataConfig>(filterFormData({ ...baseEditFormDataConfig, ...props }))
+	const [formData, setFormData] = useState<TBaseEditFormDataConfig>(filterFormData({ ...baseEditFormDataConfig, ...props }))
 	const [isExists, setIsExists] = useState<boolean>(true)
 	const [isSpinShow, setIsSpanShow] = useState<boolean>(true)
 	const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState<boolean>(true)
@@ -38,10 +38,10 @@ function RecordDetail(props: IRecordDetailProps) {
 	const initialData = props.title ? { data: filteredFormData } : null
 	const { data, error } = useItemDetail(id, initialData)
 
-	const handleUpdateFormData = (paramsFormData: IBaseEditFormDataConfig) => {
+	const handleUpdateFormData = (paramsFormData: TBaseEditFormDataConfig) => {
 		setFormData({ ...filterFormData(paramsFormData) })
 	}
-	const updateFormData = (paramsFormData: IBaseEditFormDataConfig) => {
+	const updateFormData = (paramsFormData: TBaseEditFormDataConfig) => {
 		setFormData(filterFormData(paramsFormData))
 	}
 
@@ -116,11 +116,11 @@ function RecordDetail(props: IRecordDetailProps) {
 	)
 }
 RecordDetail.defaultProps = {}
-interface IRecordDetailProps extends RouteComponentProps {
+type TRecordDetailProps = {
 	fetchItemRequestAction: Function
 	updateItemRequestAction: Function
 	[key: string]: any
-}
+} & RouteComponentProps
 
 export default connect(
 	(state: { [key: string]: any } = {}, ownProps) => {

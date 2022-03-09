@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Table } from 'antd'
 import { listTableConfig } from './config'
-import { IRecordMgrItem } from '../../store/config'
+import { TRecordMgrItem } from '../../store/config'
 
 const LocalConfig: any = {
 	hasInitialed: false,
 	listTableConfig: {},
 }
-function ListTableRoot(props: IListTableRootProps) {
+function ListTableRoot(props: TListTableRootProps) {
 	const { list, loading, handleToggleRowSelect } = props
 	const [selectedRowKeysList, setSelectedRowKeysList] = useState<string[]>([])
 
@@ -19,10 +19,10 @@ function ListTableRoot(props: IListTableRootProps) {
 
 	useEffect(() => {
 		const selectedList: string[] = list
-			.filter((item: IRecordMgrItem, index: number) => {
+			.filter((item: TRecordMgrItem, index: number) => {
 				return item.isChecked && typeof item.key != 'undefined' && item.key != ''
 			})
-			.map((item: IRecordMgrItem, index: number) => {
+			.map((item: TRecordMgrItem, index: number) => {
 				return item.key || ''
 			})
 		setSelectedRowKeysList(selectedList as Array<never>)
@@ -48,8 +48,8 @@ ListTableRoot.defaultProps = {
 	list: [],
 	loading: true,
 }
-interface IListTableRootProps {
-	list: Array<IRecordMgrItem>
+type TListTableRootProps = {
+	list: Array<TRecordMgrItem>
 	loading: boolean
 	handleDeleteItem: Function
 	handleToggleRowSelect: Function

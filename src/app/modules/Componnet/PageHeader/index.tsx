@@ -2,13 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Layout, Button } from 'antd'
 import './index.less'
-import { IGProfile, KEYOF_G_PROFILE_REDUCER } from '@app/store/globalProfile/config'
+import { TGProfile, KEYOF_G_PROFILE_REDUCER } from '@app/store/globalProfile/config'
 import * as actions from '@app/store/globalProfile/action'
 import logoImage from '@app/asserts/images/log.jpg'
 import { RouteComponentProps } from 'react-router'
 
 const { Header } = Layout
-function PageHeaderRoot(props: IPageHeaderRootProps) {
+function PageHeaderRoot(props: TPageHeaderRootProps) {
 	const { g_languageSet, g_globalId, updateGLanguageSet } = props
 	const { isSetPageHeaderHidder } = props
 	if (isSetPageHeaderHidder) {
@@ -38,10 +38,11 @@ function PageHeaderRoot(props: IPageHeaderRootProps) {
 PageHeaderRoot.defaultProps = {
 	isSetPageHeaderHidder: false,
 }
-interface IPageHeaderRootProps extends RouteComponentProps, IGProfile {
+type TPageHeaderRootProps = {
 	isSetPageHeaderHidder: boolean
 	[key: string]: any
-}
+} & RouteComponentProps &
+	TGProfile
 
 export default connect(
 	(state: { [key: string]: any } = {}, ownProps) => {

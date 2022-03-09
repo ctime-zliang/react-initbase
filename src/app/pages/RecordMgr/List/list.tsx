@@ -6,17 +6,17 @@ import { message as messageTips } from 'antd'
 import { useTranslation } from 'react-i18next'
 import ListTable from '../Component/ListTable'
 import ListFilterForm from '../Component/ListFilterForm'
-import { basePageConfig, IBasePageConfig, baseFormConfig, IBaseFormConfig } from './config'
+import { basePageConfig, TBasePageConfig, baseFormConfig, TBaseFormConfig } from './config'
 import * as actions from '../store/action'
 import { createSearchString } from './utils'
 import { getQueryValueOfUrl } from '@app/utils/utils'
-import { KEYOF_RECORD_REDUCER, IRecordMgrItem } from '../store/config'
-import { IGProfile, KEYOF_G_PROFILE_REDUCER, SERVER_RENDER } from '@app/store/globalProfile/config'
+import { KEYOF_RECORD_REDUCER, TRecordMgrItem } from '../store/config'
+import { TGProfile, KEYOF_G_PROFILE_REDUCER, SERVER_RENDER } from '@app/store/globalProfile/config'
 import styles from './index.module.less'
 
 const { Content } = Layout
 
-function RecordList(props: TIRecordListProps) {
+function RecordList(props: TRecordListProps) {
 	// console.log(`RecordList.props ❤❤❤`, props)
 	const {
 		g_RENDER_WAY,
@@ -52,7 +52,7 @@ function RecordList(props: TIRecordListProps) {
 
 	const handleModifyFormInput = ($evte: any): void => {
 		const value = $evte.currentTarget.value
-		setFormConfig((formConfig: IBaseFormConfig) => {
+		setFormConfig((formConfig: TBaseFormConfig) => {
 			return { ...formConfig, keywords: value }
 		})
 	}
@@ -75,7 +75,7 @@ function RecordList(props: TIRecordListProps) {
 		try {
 			const res = await fetchListRequestAction(params)
 			const countTotal = typeof res.data.countTotal !== 'undefined' ? res.data.countTotal : pageConfig.countTotal
-			setPageConfig((pageConfig: IBasePageConfig) => {
+			setPageConfig((pageConfig: TBasePageConfig) => {
 				return { ...pageConfig, countTotal }
 			})
 			setTableLoading(false)
@@ -87,10 +87,10 @@ function RecordList(props: TIRecordListProps) {
 
 	const deleteRowData = async (): Promise<void> => {
 		const selectedIdList: string[] = list
-			.filter((item: IRecordMgrItem, index: number) => {
+			.filter((item: TRecordMgrItem, index: number) => {
 				return item.isChecked
 			})
-			.map((item: IRecordMgrItem, index: number) => {
+			.map((item: TRecordMgrItem, index: number) => {
 				return item.id
 			})
 		try {
@@ -102,7 +102,7 @@ function RecordList(props: TIRecordListProps) {
 		}
 	}
 
-	const handleDeleteItem = (itemData: IRecordMgrItem) => {
+	const handleDeleteItem = (itemData: TRecordMgrItem) => {
 		handleToggleRowSelectAction([itemData.key])
 		setIsDeleteModelVisible(true)
 	}
@@ -120,7 +120,7 @@ function RecordList(props: TIRecordListProps) {
 		if (!isDeleteModalVisible) {
 			return
 		}
-		const selectedList: Array<IRecordMgrItem> = list.filter((item: IRecordMgrItem, index: number) => {
+		const selectedList: Array<TRecordMgrItem> = list.filter((item: TRecordMgrItem, index: number) => {
 			return item.isChecked
 		})
 		setDeleteModalTargetTitle(selectedList.length ? selectedList[0].title : '')
@@ -181,16 +181,17 @@ function RecordList(props: TIRecordListProps) {
 		</>
 	)
 }
-interface IRecordListProps extends RouteComponentProps, IGProfile {
-	list: Array<IRecordMgrItem>
+type TRecordListProps = {
+	list: Array<TRecordMgrItem>
 	handleToggleRowSelectAction: Function
 	deleteItemsRequestAction: Function
 	fetchListRequestAction: Function
 	addItemRequestAction: Function
 	[key: string]: any
-}
+} & RouteComponentProps &
+	TGProfile
 type TExpand<T> = T extends infer O ? { [K in keyof O]: O[K] } : never
-type TIRecordListProps = TExpand<IRecordListProps>
+type TIRecordListProps = TExpand<TRecordListProps>
 
 export default connect(
 	(state: { [key: string]: any } = {}, ownProps) => {

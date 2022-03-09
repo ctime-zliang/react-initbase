@@ -1,7 +1,7 @@
-import { IRouteItem } from '@app/router/config'
+import { TRouteItem } from '@app/router/config'
 import Error404 from './404'
 
-export const Error404Route = (): IRouteItem => {
+export const Error404Route = (): TRouteItem => {
 	return {
 		path: '*',
 		exact: true,

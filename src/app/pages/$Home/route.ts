@@ -1,7 +1,7 @@
-import { IRouteItem } from '@app/router/config'
+import { TRouteItem } from '@app/router/config'
 import Home from './'
 
-export const HomeRoute = (): IRouteItem => {
+export const HomeRoute = (): TRouteItem => {
 	return {
 		path: '/',
 		exact: true,

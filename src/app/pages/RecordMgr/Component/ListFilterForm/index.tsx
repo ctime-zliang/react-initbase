@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import EditForm from '../EditForm'
 import { message as messageTips } from 'antd'
 import { withDialog } from '@app/utils/hoc/with-dialog'
-import { baseEditFormDataConfig, IBaseEditFormDataConfig } from '../EditForm/config'
+import { baseEditFormDataConfig, TBaseEditFormDataConfig } from '../EditForm/config'
 import { baseFormConfig } from '../../List/config'
 import formStyles from './index.module.css'
 import './index.css'
@@ -14,7 +14,7 @@ import './index.css'
  */
 const dialogEditForm = withDialog(EditForm)
 
-function ListFilterFormRoot(props: IListFilterFormRootProps) {
+function ListFilterFormRoot(props: TListFilterFormRootProps) {
 	const { keywordsValue, handleKeywordsEnterAction, handleKeywordsChangeAction, handleRefreshAction, handleAddItem, onDialogEditFormClosed } = props
 	const { t } = useTranslation()
 	let hasSubmitedItem: boolean = false
@@ -29,7 +29,7 @@ function ListFilterFormRoot(props: IListFilterFormRootProps) {
 			width: '55%',
 			confirmLoading: false,
 			onOk() {
-				const { formData }: { formData: IBaseEditFormDataConfig } = dialogEditForm.getData()
+				const { formData }: { formData: TBaseEditFormDataConfig } = dialogEditForm.getData()
 				submitItemData(formData)
 			},
 			onCancel() {
@@ -44,14 +44,14 @@ function ListFilterFormRoot(props: IListFilterFormRootProps) {
 					dialogEditForm.setData({ formData: { ...data } })
 				},
 				async handleSubmitRequest() {
-					const { formData }: { formData: IBaseEditFormDataConfig } = dialogEditForm.getData()
+					const { formData }: { formData: TBaseEditFormDataConfig } = dialogEditForm.getData()
 					submitItemData(formData)
 				},
 			},
 		})
 	}
 
-	const submitItemData = async (formData: IBaseEditFormDataConfig): Promise<{ [key: string]: any } | undefined> => {
+	const submitItemData = async (formData: TBaseEditFormDataConfig): Promise<{ [key: string]: any } | undefined> => {
 		try {
 			if (!formData.title.trim()) {
 				messageTips.error(`Title Empty`)
@@ -63,7 +63,7 @@ function ListFilterFormRoot(props: IListFilterFormRootProps) {
 			})
 			await handleAddItem(formData)
 			Object.keys(formData).forEach((item: string, index: number): void => {
-				formData[item as keyof IBaseEditFormDataConfig] = ''
+				formData[item as keyof TBaseEditFormDataConfig] = ''
 			})
 			dialogEditForm.setData({ formData })
 			dialogEditForm.setProps((preProps: any) => {
@@ -113,7 +113,7 @@ function ListFilterFormRoot(props: IListFilterFormRootProps) {
 ListFilterFormRoot.defaultProps = {
 	keywordsValue: baseFormConfig.keywords,
 }
-interface IListFilterFormRootProps {
+type TListFilterFormRootProps = {
 	keywordsValue: string
 	handleKeywordsEnterAction: React.KeyboardEventHandler
 	handleKeywordsChangeAction: React.ChangeEventHandler

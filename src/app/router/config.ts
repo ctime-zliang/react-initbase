@@ -1,12 +1,12 @@
 import React from 'react'
 
-export interface IRouteItem {
+export type TRouteItem = {
 	path: string
 	component: React.ReactElement | React.FC | any
 	layout?: React.ReactElement | React.FC | any
 	render?: (...r: any[]) => {}
 	requiresAuth?: boolean
-	routes?: IRouteItem[]
+	routes?: TRouteItem[]
 	exact?: boolean
 	noMatch?: boolean
 	strict?: boolean

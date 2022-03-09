@@ -8,7 +8,7 @@ export enum ACTION_TYPE {
 	RECORD_MODIFY_COUNTTOTAL = 'RECORD_MODIFY_COUNTTOTAL',
 }
 
-export interface IRecordMgrItem {
+export type TRecordMgrItem = {
 	isChecked: boolean
 	id: string
 	title: string
@@ -18,8 +18,8 @@ export interface IRecordMgrItem {
 	key?: string
 	isLoading?: boolean
 }
-export interface IRecordMgr {
-	list: IRecordMgrItem[]
+export type TRecordMgr = {
+	list: TRecordMgrItem[]
 	countTotal: number
 }
 

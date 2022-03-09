@@ -1,7 +1,7 @@
 import EventEmitter from 'events'
 import Response, { TResponse } from '@server/lib/Response'
 import httpStatus from '@server/lib/httpStatus'
-import { IExtendKoaContext } from '@server/types/koa-context'
+import { TExtendKoaContext } from '@server/types/koa-context'
 
 type TController = Controller
 
@@ -19,7 +19,7 @@ class Controller extends EventEmitter {
 	}
 
 	_decorator(fn: Function) {
-		return async (ctx: IExtendKoaContext) => {
+		return async (ctx: TExtendKoaContext) => {
 			const res = new Response()
 			/* 设置 Res 的初始状态 */
 			res.setStatus(httpStatus.Ok.status).setMessage('').setRetCode(0).setData(null)
@@ -38,7 +38,7 @@ class Controller extends EventEmitter {
 		if (typeof func !== 'function') {
 			throw new ReferenceError(`${this.options.controllerName} ${actionName} action non-existent`)
 		}
-		return async (ctx: IExtendKoaContext) => {
+		return async (ctx: TExtendKoaContext) => {
 			ctx.controller = {
 				...this.options,
 				actionName,

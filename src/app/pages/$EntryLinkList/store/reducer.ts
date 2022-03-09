@@ -1,15 +1,15 @@
-import { IEntryList } from './config'
-import { IStoreCommonAction } from '@app/store/config'
+import { TEntryList } from './config'
+import { TStoreCommonAction } from '@app/store/config'
 import { createInitialState } from './store'
 
 const actionTypeReducers: { [key: string]: Function } = {
 	/* ... */
 }
 
-export const initialState: IEntryList = Object.freeze(createInitialState())
-export const createReducer = (initState: IEntryList): ((initState: IEntryList) => IEntryList) => {
+export const initialState: TEntryList = Object.freeze(createInitialState())
+export const createReducer = (initState: TEntryList): ((initState: TEntryList) => TEntryList) => {
 	initState = initState || initialState
-	return (state: IEntryList = initState, action: IStoreCommonAction<IEntryList> | any = {}): IEntryList => {
+	return (state: TEntryList = initState, action: TStoreCommonAction<TEntryList> | any = {}): TEntryList => {
 		const func: any = actionTypeReducers[action.type] || null
 		if (func) {
 			return func(state, action.data)

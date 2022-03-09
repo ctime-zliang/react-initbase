@@ -1,6 +1,6 @@
 import koa from 'koa'
 
-export interface IExtendKoaContext extends koa.Context {
+export type TExtendKoaContext = {
 	routerMatched: boolean
 	status: number
 	requestParams: any
@@ -11,4 +11,4 @@ export interface IExtendKoaContext extends koa.Context {
 	concernedStoreKeys?: string[]
 	resultsOfGetInitialProps?: any
 	[key: string]: any
-}
+} & koa.Context

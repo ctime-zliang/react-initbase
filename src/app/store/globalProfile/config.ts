@@ -5,7 +5,7 @@ export enum ACTION_TYPE {
 	PROFILE_MODIFY_LUNGAUGES = 'PROFILE_MODIFY_LUNGAUGES',
 }
 
-export interface IGProfile {
+export type TGProfile = {
 	g_RENDER_WAY: string
 	g_globalId: string
 	g_languageSet: string

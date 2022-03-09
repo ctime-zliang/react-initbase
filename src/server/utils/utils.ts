@@ -6,14 +6,14 @@ export async function sleep(delay: number = 1000): Promise<any> {
 	})
 }
 
-export interface IGetAssetsPathsList {
+export type TGetAssetsPathsList = {
 	css: string[]
 	cssCommons: string[]
 	js: string[]
 	jsCommons: string[]
 }
-export const getAssetsPathsList = (manifestFileUrl: string): IGetAssetsPathsList => {
-	const result: IGetAssetsPathsList = {
+export const getAssetsPathsList = (manifestFileUrl: string): TGetAssetsPathsList => {
+	const result: TGetAssetsPathsList = {
 		css: [],
 		cssCommons: [],
 		js: [],

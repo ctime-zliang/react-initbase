@@ -9,7 +9,7 @@ import dyeLog from '@server/middleware/dyelog'
 import store from '@server/middleware/store'
 import interceptor from '@server/middleware/interceptor'
 import parameter from '@server/middleware/parameter'
-import { IExtendKoaContext } from '@server/types/koa-context'
+import { TExtendKoaContext } from '@server/types/koa-context'
 
 const assetsChildPath: string = process.env.NODE_ENV === 'development' ? paths.client.devBuild.pathTagForSSR : paths.client.prodBuild.pathTagForSSR
 const assetsPath: string = path.join(__dirname, `../${assetsChildPath}`)
@@ -27,17 +27,17 @@ export default (app: Koa) => {
 	router(app)
 	app.use(
 		store({
-			filter(ctx: IExtendKoaContext) {
+			filter(ctx: TExtendKoaContext) {
 				return /^\/api/.test(ctx.url)
 			},
 		})
 	)
 	app.use(
 		ssr({
-			filter(ctx: IExtendKoaContext): boolean {
+			filter(ctx: TExtendKoaContext): boolean {
 				return /^\/api/.test(ctx.url)
 			},
-			onError(ctx: IExtendKoaContext, error: any): void {
+			onError(ctx: TExtendKoaContext, error: any): void {
 				ctx.app.emit('error', error, ctx)
 			},
 		})

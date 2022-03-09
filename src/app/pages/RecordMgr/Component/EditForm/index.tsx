@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Form, Input } from 'antd'
-import { baseConfig, IBaseEditFormDataConfig } from './config'
+import { baseConfig, TBaseEditFormDataConfig } from './config'
 
 const FormLayoutConfig: { [key: string]: any } = {
 	labelCol: {
@@ -11,7 +11,7 @@ const FormLayoutConfig: { [key: string]: any } = {
 	},
 }
 
-function EditFormRoot(props: IEditFormRootProps) {
+function EditFormRoot(props: TEditFormRootProps) {
 	const { formData, updateFormData, handleSubmitRequest } = props
 	const [addItemForm] = Form.useForm()
 	const [config] = useState({ ...baseConfig, ...props })
@@ -51,9 +51,9 @@ EditFormRoot.defaultProps = {
 	contentInputElementHeight: baseConfig.contentInputElementHeight,
 	formData: {},
 }
-interface IEditFormRootProps {
+type TEditFormRootProps = {
 	contentInputElementHeight?: number
-	formData: IBaseEditFormDataConfig
+	formData: TBaseEditFormDataConfig
 	updateFormData: Function
 	handleSubmitRequest?: React.KeyboardEventHandler
 }
