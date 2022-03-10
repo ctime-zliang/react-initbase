@@ -7,7 +7,7 @@ import { asyncComponent } from '@app/utils/hoc/async-component'
 import { KEYOF_RECORD_REDUCER } from './store/config'
 import { createReducer } from './store/reducer'
 import { TRouteItem } from '@app/router/config'
-import { KEYOF_ENTRYLINKLIST_REDUCER } from '@app/pages/$EntryLinkList/store/config'
+import { KEYOF_ENTRYLINKLIST_REDUCER } from '@/app/pages/EntryLinkList/store/config'
 
 export const RecordMgrListRoute = (store: TStore): TRouteItem => {
 	modulesInjectReducer(store, KEYOF_RECORD_REDUCER, createReducer)
