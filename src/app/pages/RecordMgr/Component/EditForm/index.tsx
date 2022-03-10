@@ -1,15 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Form, Input } from 'antd'
-import { baseConfig, TBaseEditFormDataConfig } from './config'
-
-const FormLayoutConfig: { [key: string]: any } = {
-	labelCol: {
-		style: { width: '100px' },
-	},
-	wrapperCol: {
-		style: { width: 'calc(100% - 100px)' },
-	},
-}
+import { baseConfig, formLayoutConfig, TBaseEditFormDataConfig } from './config'
 
 function EditFormRoot(props: TEditFormRootProps) {
 	const { formData, updateFormData, handleSubmitRequest } = props
@@ -27,7 +18,7 @@ function EditFormRoot(props: TEditFormRootProps) {
 	return (
 		<>
 			<Form
-				{...FormLayoutConfig}
+				{...formLayoutConfig}
 				name="basic"
 				form={addItemForm}
 				initialValues={formData}
