@@ -1,6 +1,6 @@
 import Controller from '@server/lib/Controller'
 import { TResponse } from '@server/lib/Response'
-import { TExtendKoaContext } from '@server/types/koa-context'
+import { TExtendKoaContext } from '@/server/types/koaContext'
 
 class RtestController extends Controller {
 	constructor() {
@@ -9,18 +9,11 @@ class RtestController extends Controller {
 		})
 	}
 
-	async rtest(ctx: TExtendKoaContext, res: TResponse) {
+	async rtest(ctx: TExtendKoaContext, res: TResponse): Promise<void> {
 		const query: { [key: string]: any } = ctx.query
 		res.setData({
 			...query,
 			controllerKey: 'Key inserted by Controller',
-		})
-	}
-
-	async imglist(ctx: TExtendKoaContext, res: TResponse) {
-		const query: { [key: string]: any } = ctx.query
-		res.setData({
-			...query,
 		})
 	}
 }

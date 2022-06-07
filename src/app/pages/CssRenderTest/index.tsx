@@ -10,7 +10,7 @@ const Container = styled.section`
 	padding: 30px 30px;
 `
 
-const themeToggleMap = {
+const themeToggleMap: { [key: string]: any } = {
 	theme1: {
 		color: `red`,
 	},
@@ -33,7 +33,7 @@ const removeCssRenderStyle = (id: string): void => {
 
 function CssRenderTestRoot(props: any) {
 	const rootClassName: string = 'content-container'
-	const cssRender = useCallback(styleProps => {
+	const cssRender = useCallback((styleProps: { [key: string]: any }): void => {
 		const styleId = `style-css-render`
 		const style: { [key: string]: any } = c(
 			`.${rootClassName}`,
@@ -60,7 +60,7 @@ function CssRenderTestRoot(props: any) {
 		removeCssRenderStyle(styleId)
 		style.mount({ id: styleId, props: { ...styleProps } })
 	}, [])
-	const toggle = useCallback((tag: string): { [key: string]: any } | undefined => {
+	const toggle = useCallback((tag: string): void => {
 		const styleObj = (themeToggleMap as any)[tag]
 		if (!styleObj) {
 			return

@@ -1,5 +1,5 @@
 import httpStatus from './httpStatus'
-import { TExtendKoaContext } from '@server/types/koa-context'
+import { TExtendKoaContext } from '@/server/types/koaContext'
 
 export type TResponse = Response
 
@@ -37,7 +37,7 @@ class Response {
 		return this
 	}
 
-	setKeepJSON(toggle = false): TResponse {
+	setKeepJSON(toggle: boolean = false): TResponse {
 		this._keepJSON = toggle
 		return this
 	}

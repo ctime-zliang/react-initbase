@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { RouteComponentProps } from 'react-router'
 import { connect } from 'react-redux'
 import { Layout, Row, Pagination, Modal } from 'antd'
 import { message as messageTips } from 'antd'
 import { useTranslation } from 'react-i18next'
 import ListTable from '../Component/ListTable'
-import ListFilterForm from '../Component/ListFilterForm'
-import { basePageConfig, TBasePageConfig, baseFormConfig, TBaseFormConfig } from './config'
+import { basePageConfig } from './config'
 import * as actions from '../store/action'
 import { createSearchString } from './utils'
 import { getQueryValueOfUrl } from '@app/utils/utils'
-import { KEYOF_RECORD_REDUCER, TRecordMgrItem } from '../store/config'
+import { KEYOF_RECORD_REDUCER } from '../store/config'
+import { TRecordMgrItem } from '../store/types'
 import { TGProfile, KEYOF_G_PROFILE_REDUCER, SERVER_RENDER } from '@app/store/globalProfile/config'
 import styles from './index.module.less'
+import { TBasePageConfig } from './types'
 
 const { Content } = Layout
 
@@ -31,42 +32,14 @@ function RecordList(props: TRecordListProps) {
 	} = props
 	const { t } = useTranslation()
 	const [pageConfig, setPageConfig] = useState(basePageConfig)
-	const [formConfig, setFormConfig] = useState(baseFormConfig)
 	const [tableLoading, setTableLoading] = useState<boolean>(false)
 	const [isDeleteModalVisible, setIsDeleteModelVisible] = useState<boolean>(false)
 	const [deleteModalTargetTitle, setDeleteModalTargetTitle] = useState<string | undefined>('')
 
-	const handleSearch = (): void => {
-		history.push({
-			pathname: location.pathname,
-			search: createSearchString(1, +pageConfig.pageSize, formConfig.keywords),
-		})
-	}
-
-	const handleFresh = (): void => {
-		history.push({
-			pathname: location.pathname,
-			search: createSearchString(+pageConfig.pageIndex, +pageConfig.pageSize, formConfig.keywords),
-		})
-	}
-
-	const handleModifyFormInput = ($evte: any): void => {
-		const value = $evte.currentTarget.value
-		setFormConfig((formConfig: TBaseFormConfig) => {
-			return { ...formConfig, keywords: value }
-		})
-	}
-
-	const onDialogEditFormClosed = (hasSubmitedItem: boolean): void => {
-		if (hasSubmitedItem) {
-			fetchTableData({ ...pageConfig, ...formConfig })
-		}
-	}
-
 	const onPaginationChange = (pageIndex: number, pageSize: number | undefined): void => {
 		history.push({
 			pathname: location.pathname,
-			search: createSearchString(pageIndex, +(pageSize || basePageConfig.pageSize), formConfig.keywords),
+			search: createSearchString(pageIndex, +(pageSize || basePageConfig.pageSize)),
 		})
 	}
 
@@ -87,10 +60,10 @@ function RecordList(props: TRecordListProps) {
 
 	const deleteRowData = async (): Promise<void> => {
 		const selectedIdList: string[] = list
-			.filter((item: TRecordMgrItem, index: number) => {
+			.filter((item: TRecordMgrItem) => {
 				return item.isChecked
 			})
-			.map((item: TRecordMgrItem, index: number) => {
+			.map((item: TRecordMgrItem) => {
 				return item.id
 			})
 		try {
@@ -112,7 +85,6 @@ function RecordList(props: TRecordListProps) {
 		const pageSize = +getQueryValueOfUrl('pageSize') || pageConfig.pageSize
 		const keywords = decodeURI(getQueryValueOfUrl('keywords') || '')
 		setPageConfig({ ...pageConfig, pageSize, pageIndex, countTotal })
-		setFormConfig({ ...formConfig, keywords })
 		fetchTableData({ pageIndex, pageSize, keywords })
 	}, [location])
 
@@ -130,16 +102,6 @@ function RecordList(props: TRecordListProps) {
 		<>
 			<section className={styles['list-container']}>
 				<section className={styles['list-wrapper']}>
-					<div className={styles['list-header']}>
-						<ListFilterForm
-							onDialogEditFormClosed={onDialogEditFormClosed}
-							handleAddItem={addItemRequestAction}
-							keywordsValue={formConfig.keywords}
-							handleKeywordsEnterAction={handleSearch}
-							handleKeywordsChangeAction={handleModifyFormInput}
-							handleRefreshAction={handleFresh}
-						/>
-					</div>
 					<Content>
 						<ListTable
 							handleDeleteItem={handleDeleteItem}
@@ -194,7 +156,7 @@ type TExpand<T> = T extends infer O ? { [K in keyof O]: O[K] } : never
 type TIRecordListProps = TExpand<TRecordListProps>
 
 export default connect(
-	(state: { [key: string]: any } = {}, ownProps) => {
+	(state: { [key: string]: any } = {}, ownProps: { [key: string]: any } = {}): void => {
 		return {
 			...ownProps,
 			...(state[KEYOF_RECORD_REDUCER] || {}),

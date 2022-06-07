@@ -1,5 +1,5 @@
 import { ACTION_TYPE, TGProfile } from './config'
-import { TStoreCommonAction } from '../config'
+import { TStoreCommonAction } from '../types'
 import { createInitialState } from './store'
 
 const LANGUAGE_TOGGLE_MAP: { [key: string]: any } = {

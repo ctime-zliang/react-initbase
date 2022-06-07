@@ -3,7 +3,7 @@
  */
 
 import React, { useEffect, useImperativeHandle, useState, useRef, useMemo, useCallback } from 'react'
-import { useReactive } from '@app/utils/hooks/use.reactive'
+import { useReactive } from '@/app/utils/hooks/useReactive'
 
 export function Parent() {
 	const [count, setCount] = useState(0)

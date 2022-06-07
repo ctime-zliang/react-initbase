@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table } from 'antd'
 import { listTableConfig } from './config'
-import { TRecordMgrItem } from '../../store/config'
+import { TRecordMgrItem } from '../../store/types'
 
 const LocalConfig: any = {
 	hasInitialed: false,
@@ -19,10 +19,10 @@ function ListTableRoot(props: TListTableRootProps) {
 
 	useEffect(() => {
 		const selectedList: string[] = list
-			.filter((item: TRecordMgrItem, index: number) => {
+			.filter((item: TRecordMgrItem, index: number): boolean => {
 				return item.isChecked && typeof item.key != 'undefined' && item.key != ''
 			})
-			.map((item: TRecordMgrItem, index: number) => {
+			.map((item: TRecordMgrItem, index: number): string => {
 				return item.key || ''
 			})
 		setSelectedRowKeysList(selectedList as Array<never>)

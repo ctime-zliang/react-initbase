@@ -1,4 +1,4 @@
-import { TRecordMgr } from './config'
+import { TRecordMgr } from './types'
 
 export function createInitialState(): TRecordMgr {
 	return {

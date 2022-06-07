@@ -1,5 +1,5 @@
-import { TEntryList } from './config'
-import { TStoreCommonAction } from '@app/store/config'
+import { TEntryList } from './types'
+import { TStoreCommonAction } from '@app/store/types'
 import { createInitialState } from './store'
 
 const actionTypeReducers: { [key: string]: Function } = {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { renderRoutes } from '../utils/hoc/render-routes'
+import { renderRoutes } from '../utils/hoc/renderRoutes'
 import { createRoutes, filterRoutes, noMatchComponent } from '@app/router'
 import { TRouteItem } from '@app/router/config'
 /* ... */
@@ -9,7 +9,7 @@ function Root(props: any, ctx: any) {
 	const { store } = props
 	console.log(`Root ☆☆☆`, props, ctx, store.getState())
 	const authPath: string = '/'
-	const routes: TRouteItem[] = filterRoutes(createRoutes(store))
+	const routes: Array<TRouteItem> = filterRoutes(createRoutes(store))
 	return (
 		<>
 			{renderRoutes(

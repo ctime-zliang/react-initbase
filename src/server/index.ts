@@ -1,7 +1,7 @@
 import { getLocalIP } from '@server/utils/utils'
 import app from '@server/app'
 import envConfig from '@server/config/env.export'
-import logger from '@server/lib/simple-logger'
+import logger from '@/server/lib/simpleLogger'
 
 const isDev: boolean = process.env.NODE_ENV === 'development'
 const handler: any = app.callback()

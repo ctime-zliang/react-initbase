@@ -2,7 +2,7 @@ import koa from 'koa'
 import init from '@server/lib/init'
 import middleware from '@server/middleware'
 import errorHandler from '@server/error'
-import { TExtendKoaContext } from '@server/types/koa-context'
+import { TExtendKoaContext } from '@/server/types/koaContext'
 
 const app: koa = new koa()
 

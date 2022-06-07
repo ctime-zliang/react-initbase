@@ -21,7 +21,8 @@ export const getInitialProps = async (store: any, ctx: any) => {
 		pageIndex: query.pageIndex,
 		pageSize: query.pageSize,
 	})
-	await handler(store.dispatch)
+	const res: any = await handler(store.dispatch)
+	console.log(res)
 }
 
 export default React.memo(RecordListRoot)

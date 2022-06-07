@@ -4,9 +4,9 @@ import { TRoute } from '@server/types/route'
 
 type TMethods = 'get' | 'post'
 
-export default function routerExec(routes: Array<TRoute>) {
-	const kRouter = new koaRouter()
-	routes.forEach((routeItem: TRoute, index: number) => {
+export default function routerExec(routes: Array<TRoute>): koaRouter {
+	const kRouter: koaRouter = new koaRouter()
+	routes.forEach((routeItem: TRoute): void => {
 		const m: TMethods = routeItem.method.toLowerCase() as TMethods
 		kRouter[m](routeItem.path, async (ctx: any, next: koa.Next): Promise<void> => {
 			try {

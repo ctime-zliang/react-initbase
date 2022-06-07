@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import Clock from '@app/utils/clock.canvas'
+import Clock from '@/app/utils/clockCanvas'
 
 const Container = styled.section`
 	display: flex;
@@ -23,7 +23,7 @@ function ClockCanvasRoot() {
 		})
 		clockReference.current.render()
 	}
-	useEffect(() => {
+	useEffect((): (() => void) => {
 		renderClock()
 		return () => {
 			clockReference.current && clockReference.current.cancel()

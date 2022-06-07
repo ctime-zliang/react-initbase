@@ -1,7 +1,7 @@
-import { ACTION_TYPE, TRecordMgr, TRecordMgrItem } from './config'
+import { ACTION_TYPE, TRecordMgr, TRecordMgrItem } from './types'
 import { findResults, TFindResults } from '@app/utils/utils'
 import { createInitialState } from './store'
-import { TStoreCommonAction } from '@app/store/config'
+import { TStoreCommonAction } from '@app/store/types'
 
 const actionTypeReducers: { [key: string]: Function } = {
 	[ACTION_TYPE.RECORD_MODIFY_LIST](state: TRecordMgr, actionData: any): TRecordMgr {

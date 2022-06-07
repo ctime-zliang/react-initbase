@@ -1,4 +1,4 @@
-import { TStoreCommonAction } from '@app/store/config'
+import { TStoreCommonAction } from '@app/store/types'
 import { ACTION_TYPE } from './config'
 
 export const updateGRunId = () => {

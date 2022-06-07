@@ -30,7 +30,7 @@ app.use(
 		allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
 	})
 )
-app.use(async (ctx: koa.Context, next: koa.Next) => {
+app.use(async (ctx: koa.Context, next: koa.Next): Promise<void> => {
 	if (['/', '/favicon.ico'].includes(ctx.request.path)) {
 		ctx.body = `This is Build Server, No Content Body`
 	}
@@ -44,7 +44,7 @@ const rimrafPaths = (): void => {
 	try {
 		rimraf.sync(paths.client.devBuild.pathForSSR())
 		rimraf.sync(paths.server.devBuild.path())
-	} catch (e) {
+	} catch (e: any) {
 		logger.error(`Init Directory Fail.`)
 	}
 }
@@ -93,7 +93,7 @@ const handler = async (app: koa): Promise<void> => {
 		ignored: /node_modules/,
 		stats: devClientWebpackCfg.stats,
 	}
-	clientCompiler.watch(clientWatchOptions, (error: any, stats: any) => {
+	clientCompiler.watch(clientWatchOptions, (error: any, stats: any): void => {
 		if (error) {
 			logger.error(error)
 		}
@@ -109,7 +109,7 @@ const handler = async (app: koa): Promise<void> => {
 		ignored: /node_modules/,
 		stats: devClientWebpackCfg.stats,
 	}
-	serverCompiler.watch(serverWatchOptions, (error: any, stats: any) => {
+	serverCompiler.watch(serverWatchOptions, (error: any, stats: any): void => {
 		if (error) {
 			logger.error(error)
 		}
@@ -124,9 +124,8 @@ const handler = async (app: koa): Promise<void> => {
 	try {
 		await clientPromise
 		await serverPromise
-	} catch (error) {
+	} catch (error: any) {
 		logger.error(`Build failed...`)
-		//@ts-ignore
 		console.log(error.stats.compilation.errors)
 		return
 	}
@@ -149,17 +148,17 @@ const handler = async (app: koa): Promise<void> => {
 		ignore,
 		watch: [`./dist/${paths.server.devBuild.pathTag}`],
 	})
-	serverHandler.on('start', () => {
+	serverHandler.on('start', (): void => {
 		logger.warn(`Render Server Started.`)
 	})
-	serverHandler.on('restart', () => {
+	serverHandler.on('restart', (): void => {
 		logger.warn(`Render Server Restart.`)
 	})
-	serverHandler.on('quit', () => {
+	serverHandler.on('quit', (): void => {
 		logger.info(`Render Server Quit.`)
 		process.exit()
 	})
-	serverHandler.on('error', () => {
+	serverHandler.on('error', (): void => {
 		logger.error(`An error occured. Exiting.`)
 		process.exit(1)
 	})

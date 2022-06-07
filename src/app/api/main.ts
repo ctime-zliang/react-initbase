@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { createDefaultSuccessResponse } from '@app/utils/utils'
-import { TCommonResponse } from './config'
+import { TCommonResponse } from './types'
 
 type TListItem = {
 	id: string
@@ -8,10 +8,10 @@ type TListItem = {
 	content: string
 }
 
-export async function fetchList(): Promise<TCommonResponse<TListItem[]>> {
+export async function fetchList(): Promise<TCommonResponse<Array<TListItem>>> {
 	const len: number = 10
-	const list: TListItem[] = []
-	for (let i = 0; i < len; i++) {
+	const list: Array<TListItem> = []
+	for (let i: number = 0; i < len; i++) {
 		list.push({
 			id: uuidv4(),
 			title: uuidv4(),

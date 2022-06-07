@@ -9,7 +9,7 @@ import { parse } from 'url'
 const pathMatch = (url: string, path: string): boolean => {
 	try {
 		return parse(url).pathname === path
-	} catch (e) {
+	} catch (e: any) {
 		return false
 	}
 }
@@ -22,8 +22,8 @@ const createEventStream = (heartbeat: number): { [key: string]: any } => {
 			fn(clients[id])
 		})
 	}
-	let intervalRes: any = setInterval(function heartbeatTick() {
-		everyClient((client: any) => {
+	let intervalRes: any = setInterval((): void => {
+		everyClient((client: any): void => {
 			if (!client.stream.destroyed) {
 				client.write('data: \uD83D\uDC93\n\n')
 			}
@@ -33,9 +33,9 @@ const createEventStream = (heartbeat: number): { [key: string]: any } => {
 
 	return {
 		/* ... */
-		close() {
+		close(): void {
 			clearInterval(interval)
-			everyClient((client: any) => {
+			everyClient((client: any): void => {
 				if (!client.finished) {
 					client.end()
 				}
@@ -43,7 +43,7 @@ const createEventStream = (heartbeat: number): { [key: string]: any } => {
 			clients = {}
 		},
 		/* ... */
-		handler(req: any, res: any) {
+		handler(req: any, res: any): void {
 			let headers: { [key: string]: any } = {
 				'Access-Control-Allow-Origin': '*',
 				'Content-Type': 'text/event-stream;charset=utf-8',
@@ -63,7 +63,7 @@ const createEventStream = (heartbeat: number): { [key: string]: any } => {
 			res.write('\n')
 			let id: number = clientId++
 			clients[id] = res
-			req.on('close', () => {
+			req.on('close', (): void => {
 				if (!res.finished) {
 					res.end()
 				}
@@ -71,8 +71,8 @@ const createEventStream = (heartbeat: number): { [key: string]: any } => {
 			})
 		},
 		/* ... */
-		publish(payload: { [key: string]: any }) {
-			everyClient((client: any) => {
+		publish(payload: { [key: string]: any }): void {
+			everyClient((client: any): void => {
 				if (!client.stream.destroyed) {
 					client.write('data: ' + JSON.stringify(payload) + '\n\n')
 				}
@@ -81,7 +81,7 @@ const createEventStream = (heartbeat: number): { [key: string]: any } => {
 	}
 }
 
-const publishStats = (action: any, statsResult: { [key: string]: any }, eventStream: any, log?: Function) => {
+const publishStats = (action: any, statsResult: { [key: string]: any }, eventStream: any, log?: (a: any) => void) => {
 	const stats: { [key: string]: any } = statsResult.toJson({
 		all: false,
 		cached: true,
@@ -91,8 +91,8 @@ const publishStats = (action: any, statsResult: { [key: string]: any }, eventStr
 		hash: true,
 	})
 	// For multi-compiler, stats will be an object with a 'children' array of stats
-	const bundles: object[] = extractBundles(stats)
-	bundles.forEach((stats: { [key: string]: any }) => {
+	const bundles: Array<object> = extractBundles(stats)
+	bundles.forEach((stats: { [key: string]: any }): void => {
 		let name: any | string = stats.name || ''
 		// Fallback to compilation name in case of 1 bundle (if it exists)
 		if (bundles.length === 1 && !name && statsResult.compilation) {
@@ -114,7 +114,7 @@ const publishStats = (action: any, statsResult: { [key: string]: any }, eventStr
 	})
 }
 
-const extractBundles = (stats: { [key: string]: any }): any[] => {
+const extractBundles = (stats: { [key: string]: any }): Array<any> => {
 	// Stats has modules, single bundle
 	if (stats.modules) {
 		return [stats]
@@ -129,13 +129,13 @@ const extractBundles = (stats: { [key: string]: any }): any[] => {
 
 const buildModuleMap = (modules: any[]): { [key: string]: any } => {
 	const map: { [key: string]: any } = {}
-	modules.forEach((module: { [key: string]: any }) => {
+	modules.forEach((module: { [key: string]: any }): void => {
 		map[module.id] = module.name
 	})
 	return map
 }
 
-const webpackHotMiddleware = (compiler: any, opts: { [key: string]: any } = {}) => {
+const webpackHotMiddleware = (compiler: any, opts: { [key: string]: any } = {}): any => {
 	opts = opts || {}
 	opts.log = typeof opts.log == 'undefined' ? console.log.bind(console) : opts.log
 	opts.path = opts.path || '/__webpack_hmr'
@@ -145,7 +145,7 @@ const webpackHotMiddleware = (compiler: any, opts: { [key: string]: any } = {}) 
 	let latestStats: any = null
 	let closed: boolean = false
 
-	const onInvalid = () => {
+	const onInvalid = (): void => {
 		if (closed) {
 			return
 		}
@@ -155,7 +155,7 @@ const webpackHotMiddleware = (compiler: any, opts: { [key: string]: any } = {}) 
 		}
 		eventStream.publish({ action: 'building' })
 	}
-	const onDone = (statsResult: string) => {
+	const onDone = (statsResult: string): void => {
 		if (closed) {
 			return
 		}
@@ -163,7 +163,7 @@ const webpackHotMiddleware = (compiler: any, opts: { [key: string]: any } = {}) 
 		latestStats = statsResult
 		publishStats('built', latestStats, eventStream, opts.log)
 	}
-	const middleware = (req: any, res: any, next: Function) => {
+	const middleware = (req: any, res: any, next: Function): any => {
 		if (closed) {
 			return next()
 		}
@@ -186,13 +186,13 @@ const webpackHotMiddleware = (compiler: any, opts: { [key: string]: any } = {}) 
 		compiler.plugin('done', onDone)
 	}
 
-	middleware.publish = (payload: any) => {
+	middleware.publish = (payload: any): void => {
 		if (closed) {
 			return
 		}
 		eventStream.publish(payload)
 	}
-	middleware.close = () => {
+	middleware.close = (): void => {
 		if (closed) {
 			return
 		}

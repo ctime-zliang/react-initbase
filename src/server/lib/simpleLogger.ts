@@ -7,7 +7,7 @@ const TYPE: { [key: string]: any } = {
 }
 
 const write = (type: string, message: any, ucolor: string = ''): void => {
-	let color = `[34m`
+	let color: string = `[34m`
 	if (type == TYPE.TRACE) {
 		color = color.indexOf('[34m') > -1 ? `[35m` : `[34m`
 		ucolor = color

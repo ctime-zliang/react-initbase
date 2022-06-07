@@ -3,7 +3,8 @@ import { Helmet } from 'react-helmet-async'
 import { connect } from 'react-redux'
 import { Layout, List } from 'antd'
 import { Link } from 'react-router-dom'
-import { TEntryListItem, KEYOF_ENTRYLINKLIST_REDUCER } from '../store/config'
+import { KEYOF_ENTRYLINKLIST_REDUCER } from '../store/config'
+import { TEntryListItem } from '../store/types'
 import styles from './index.module.less'
 
 const { Content } = Layout
@@ -44,7 +45,7 @@ function ListRoot(props: any) {
 	)
 }
 
-export default connect((state: { [key: string]: any } = {}, ownProps: any) => {
+export default connect((state: { [key: string]: any } = {}, ownProps: { [key: string]: any } = {}): void => {
 	return {
 		...ownProps,
 		...state[KEYOF_ENTRYLINKLIST_REDUCER],

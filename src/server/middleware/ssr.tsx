@@ -1,4 +1,4 @@
-import Koa from 'koa'
+import koa from 'koa'
 import React from 'react'
 import path from 'path'
 import { StaticRouter } from 'react-router-dom'
@@ -9,13 +9,13 @@ import { ServerStyleSheet } from 'styled-components'
 import paths from '../../../config/webpack/webpack.paths'
 import { getAssetsPathsList, TGetAssetsPathsList } from '@server/utils/utils'
 import layout from '@server/utils/layout'
-import { TExtendKoaContext } from '@server/types/koa-context'
+import { TExtendKoaContext } from '@/server/types/koaContext'
 import I18nProvider from '@app/i18n/I18nProvider'
 import App from '@app/App'
 
 const helmetContext: { [key: string]: any } = {}
-const serverRenderer = (params: { [key: string]: any } = {}) => {
-	return async (ctx: TExtendKoaContext, next: Koa.Next): Promise<void | undefined> => {
+const serverRenderer = (params: { [key: string]: any } = {}): ((ctx: TExtendKoaContext, next: koa.Next) => Promise<void>) => {
+	return async (ctx: TExtendKoaContext, next: koa.Next): Promise<void> => {
 		const stampCollection: { [key: string]: any } = {}
 		if (params.filter(ctx) === true) {
 			await next()
@@ -25,7 +25,7 @@ const serverRenderer = (params: { [key: string]: any } = {}) => {
 			global.window['__PRELOADED_STATE__'] = ctx.usedState
 			global.window['__PRELOADED_RESULT__'] = ctx.resultsOfGetInitialProps
 			stampCollection['startServerRender'] = new Date().getTime()
-			const sheet = new ServerStyleSheet()
+			const sheet: ServerStyleSheet = new ServerStyleSheet()
 			const store = ctx.serverStore
 			const content = renderToString(
 				sheet.collectStyles(

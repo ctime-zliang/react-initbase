@@ -56,3 +56,24 @@ export const withDialog = function (WrappedComponent: any) {
 	EnhancedComponent.getProps = new Function()
 	return EnhancedComponent
 }
+
+/*
+	const dialogComponent = withDialog(component)
+	dialogEditForm.open({
+		title: 'Dialog Title',
+		width: '50%',
+		confirmLoading: false,
+		onOk() {
+			//...
+		},
+		onCancel() {
+			//...
+		},
+		data: {
+			//...
+		},
+		methods: {
+			//...
+		},
+	})
+ */

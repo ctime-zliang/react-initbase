@@ -4,7 +4,7 @@ import wbepackDevMiddleware from 'webpack-dev-middleware'
 
 export default (compiler: any, option: { [key: string]: any } = {}) => {
 	const expressMiddleware = wbepackDevMiddleware(compiler, option)
-	async function middleware(ctx: koa.Context, next: koa.Next) {
+	async function middleware(ctx: koa.Context, next: koa.Next): Promise<string | void> {
 		await expressMiddleware(
 			ctx.req,
 			{

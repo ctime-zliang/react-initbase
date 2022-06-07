@@ -1,4 +1,4 @@
-import { TEntryList } from './config'
+import { TEntryList } from './types'
 
 export function createInitialState(): TEntryList {
 	return {

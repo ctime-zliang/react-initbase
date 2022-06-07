@@ -1,4 +1,4 @@
-import { TCommonResponse } from '@app/api/config'
+import { TCommonResponse } from '@app/api/types'
 
 export function createDefaultErrorResponse(ret: number = -1, msg: string = '', data: any = null, __remote: any = null): TCommonResponse<any> {
 	return {

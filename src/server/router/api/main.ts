@@ -6,13 +6,7 @@ export default [
 	{
 		desc: '测试 API',
 		method: 'GET',
-		path: `${prefixUrl}/rtest`,
+		path: `/api/rtest`,
 		action: MainController.invokeAction('rtest'),
-	},
-	{
-		desc: '测试 API',
-		method: 'GET',
-		path: `${prefixUrl}/imglist`,
-		action: MainController.invokeAction('imglist'),
 	},
 ]

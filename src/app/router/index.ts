@@ -1,7 +1,7 @@
 import Layout from '@app/pages/Layout'
 import { HomeRoute } from '@app/pages/$Home/route'
 import { Error404Route } from '@/app/pages/$ErrorPage/route'
-import { RecordMgrListRoute, RecordMgrDetailRoute, RecordMgrErrorRoute } from '@app/pages/RecordMgr/route'
+import { RecordMgrListRoute, RecordMgrErrorRoute } from '@app/pages/RecordMgr/route'
 import { EntryLinkListRoute } from '@/app/pages/EntryLinkList/route'
 import { CssRenderTestRoute } from '@app/pages/CssRenderTest/route'
 import { InfiniteScrollingRoute } from '@app/pages/InfiniteScrolling/route'
@@ -16,7 +16,7 @@ export const createRoutes = (store: TStoreLocal): TRouteItem[] => {
 		HomeRoute(),
 		{
 			...RecordMgrListRoute(store),
-			routes: [RecordMgrDetailRoute(store), RecordMgrErrorRoute(store)],
+			routes: [RecordMgrErrorRoute(store)],
 		},
 		CssRenderTestRoute(),
 		EntryLinkListRoute(store),

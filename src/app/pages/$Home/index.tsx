@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { withLoading } from '@app/utils/hoc/with-loading'
+import { withLoading } from '@/app/utils/hoc/withLoading'
 import PageHeader from '@app/modules/Componnet/PageHeader'
 import PageFooter from '@app/modules/Componnet/PageFooter'
 import ClockCanvas from '@app/modules/Componnet/ClockCanvas'

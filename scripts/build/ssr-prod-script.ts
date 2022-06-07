@@ -14,7 +14,7 @@ const rimrafPaths = (): void => {
 	try {
 		rimraf.sync(paths.client.prodBuild.pathForSSR())
 		rimraf.sync(paths.server.prodBuild.path())
-	} catch (e) {
+	} catch (e: any) {
 		logger.error(`Init Directory Fail.`)
 	}
 }
@@ -35,7 +35,7 @@ const handler = async (): Promise<void> => {
 		ignored: /node_modules/,
 		stats: prodClientWebpackCfg.stats,
 	}
-	serverCompiler.watch(serverWatchOptions, (error: any, stats: any) => {
+	serverCompiler.watch(serverWatchOptions, (error: any, stats: any): void => {
 		if (error) {
 			logger.error(error)
 		}
@@ -51,7 +51,7 @@ const handler = async (): Promise<void> => {
 		ignored: /node_modules/,
 		stats: prodClientWebpackCfg.stats,
 	}
-	clientCompiler.watch(clientWatchOptions, (error: any, stats: any) => {
+	clientCompiler.watch(clientWatchOptions, (error: any, stats: any): void => {
 		if (error) {
 			logger.error(error)
 		}
@@ -66,9 +66,8 @@ const handler = async (): Promise<void> => {
 	try {
 		await clientPromise
 		await serverPromise
-	} catch (error) {
+	} catch (error: any) {
 		logger.error(`Build failed...`)
-		//@ts-ignore
 		console.log(error.stats.compilation.errors)
 		return
 	}

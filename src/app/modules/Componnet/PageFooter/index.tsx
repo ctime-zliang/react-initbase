@@ -32,7 +32,7 @@ type TPageFooterRootProps = {
 	TGProfile
 
 export default connect(
-	(state: { [key: string]: any } = {}, ownProps) => {
+	(state: { [key: string]: any } = {}, ownProps: { [key: string]: any } = {}): void => {
 		return {
 			...ownProps,
 			...state[KEYOF_G_PROFILE_REDUCER],

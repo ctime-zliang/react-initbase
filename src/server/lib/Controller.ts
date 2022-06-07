@@ -1,9 +1,7 @@
 import EventEmitter from 'events'
 import Response, { TResponse } from '@server/lib/Response'
 import httpStatus from '@server/lib/httpStatus'
-import { TExtendKoaContext } from '@server/types/koa-context'
-
-type TController = Controller
+import { TExtendKoaContext } from '@/server/types/koaContext'
 
 const defaultOptions = {
 	controllerName: 'controller',
@@ -18,9 +16,9 @@ class Controller extends EventEmitter {
 		}
 	}
 
-	_decorator(fn: Function) {
-		return async (ctx: TExtendKoaContext) => {
-			const res = new Response()
+	_decorator(fn: Function): (ctx: TExtendKoaContext) => Promise<Response> {
+		return async (ctx: TExtendKoaContext): Promise<Response> => {
+			const res: Response = new Response()
 			/* 设置 Res 的初始状态 */
 			res.setStatus(httpStatus.Ok.status).setMessage('').setRetCode(0).setData(null)
 			await fn.call(this, ctx, res)
@@ -33,17 +31,16 @@ class Controller extends EventEmitter {
 	 * @param {string} actionName action 的名字
 	 * @return {function} (ctx, next) => {}
 	 */
-	invokeAction(actionName: string) {
-		const func: Function = (this as any)[actionName]
+	invokeAction(actionName: string): (ctx: TExtendKoaContext) => Promise<void> {
+		const func: () => void = (this as any)[actionName]
 		if (typeof func !== 'function') {
 			throw new ReferenceError(`${this.options.controllerName} ${actionName} action non-existent`)
 		}
-		return async (ctx: TExtendKoaContext) => {
+		return async (ctx: TExtendKoaContext): Promise<void> => {
 			ctx.controller = {
 				...this.options,
 				actionName,
 			}
-
 			try {
 				const res: TResponse = await this._decorator(func).call(this, ctx)
 				res.flush(ctx)

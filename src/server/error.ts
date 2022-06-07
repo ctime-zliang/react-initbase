@@ -1,4 +1,4 @@
-import { TExtendKoaContext } from '@server/types/koa-context'
+import { TExtendKoaContext } from '@/server/types/koaContext'
 
 const isErrorWithStatus = (error: any): boolean => {
 	if (typeof error['status'] == 'number' && error['error'] && error['error']['stack']) {

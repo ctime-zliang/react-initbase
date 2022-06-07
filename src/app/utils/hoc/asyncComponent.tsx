@@ -30,3 +30,9 @@ export const asyncComponent = function (importComponent: any) {
 		return <div style={styleObj}>Loading Async Component...</div>
 	}
 }
+
+/*
+	asyncComponent(() => {
+		return import(URL of Modules Component)
+	})
+ */

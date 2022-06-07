@@ -1,8 +1,8 @@
 import koa from 'koa'
-import { TExtendKoaContext } from '@server/types/koa-context'
+import { TExtendKoaContext } from '@/server/types/koaContext'
 
-export default () => {
-	return async (ctx: TExtendKoaContext, next: koa.Next): Promise<void | undefined> => {
+export default (): ((ctx: TExtendKoaContext, next: koa.Next) => Promise<void>) => {
+	return async (ctx: TExtendKoaContext, next: koa.Next): Promise<void> => {
 		if (['/favicon.ico'].includes(ctx.originalUrl)) {
 			ctx.body = ``
 			return

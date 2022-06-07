@@ -1,5 +1,5 @@
 import request from 'request'
-import logger from '@server/lib/simple-logger'
+import logger from '@/server/lib/simpleLogger'
 
 const toString = (source: any): string => {
 	try {
@@ -16,10 +16,10 @@ export type TRquestResponse = {
 	error?: any
 }
 export const getRequest = async (url: string, data: any = {}, extra: any = {}): Promise<TRquestResponse> => {
-	const defaultHeaders = {
+	const defaultHeaders: { [key: string]: any } = {
 		'content-type': `application/json`,
 	}
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve, reject): void => {
 		const option: { [key: string]: any } = {
 			...extra,
 			url: url,
@@ -33,7 +33,7 @@ export const getRequest = async (url: string, data: any = {}, extra: any = {}): 
 			qs: data,
 		}
 		logger.trace(`Request Option ${JSON.stringify(option)}`)
-		request(option, (error: any, response: any, body: any) => {
+		request(option, (error: any, response: any, body: any): void => {
 			logger.trace(`Request Response ${toString(body)}`)
 			if (!error && response && response.statusCode == 200) {
 				resolve({ ret: 0, response, data: body, error: null })
@@ -44,10 +44,10 @@ export const getRequest = async (url: string, data: any = {}, extra: any = {}): 
 	})
 }
 export const postRequest = async (url: string, data: any = {}, extra: any = {}): Promise<TRquestResponse> => {
-	const defaultHeaders = {
+	const defaultHeaders: { [key: string]: any } = {
 		'content-type': `application/json`,
 	}
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve, reject): void => {
 		const option: { [key: string]: any } = {
 			...extra,
 			url: url,
@@ -61,7 +61,7 @@ export const postRequest = async (url: string, data: any = {}, extra: any = {}):
 			form: data,
 		}
 		logger.trace(`Request Option ${JSON.stringify(option)}`)
-		request(option, (error: any, response: any, body: any) => {
+		request(option, (error: any, response: any, body: any): void => {
 			logger.trace(`Request Response ${toString(body)}`)
 			if (!error && response && response.statusCode == 200) {
 				resolve({ ret: 0, response, data: body, error: null })

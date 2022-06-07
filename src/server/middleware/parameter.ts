@@ -1,7 +1,7 @@
 import koa from 'koa'
-import { TExtendKoaContext } from '@server/types/koa-context'
+import { TExtendKoaContext } from '@/server/types/koaContext'
 
-export default () => {
+export default (): ((ctx: TExtendKoaContext, next: koa.Next) => Promise<void>) => {
 	return async (ctx: TExtendKoaContext, next: koa.Next): Promise<void> => {
 		ctx.requestParams = {
 			...(ctx.request.query || {}),
