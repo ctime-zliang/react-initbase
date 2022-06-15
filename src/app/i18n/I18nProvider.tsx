@@ -51,7 +51,7 @@ function I18nProvider(props: any) {
 	const { CLIENT_ONLY, children } = props
 	const languageSet: string = useSelector(getLanguageSet)
 	const [isInitial, setIsInitial] = useState<boolean>(true)
-	console.log(`I18nProvider 🌙🌙🌙`, props, languageSet)
+	// console.log(`I18nProvider 🌙🌙🌙`, props, languageSet)
 	useEffect(() => {
 		i18next.changeLanguage(languageSet)
 	}, [languageSet])

@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM, { hydrate } from 'react-dom'
+import { hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from 'react-redux'
@@ -28,7 +29,8 @@ if (process.env.CLIENT_ONLY) {
 		configureStore({
 			initialState: window.__PRELOADED_STATE__ || {},
 		})
-	hydrate(
+	hydrateRoot(
+		document.getElementById('app') as HTMLElement,
 		<Provider store={store}>
 			<BrowserRouter>
 				<I18nProvider CLIENT_ONLY={process.env.CLIENT_ONLY}>
@@ -37,8 +39,7 @@ if (process.env.CLIENT_ONLY) {
 					</HelmetProvider>
 				</I18nProvider>
 			</BrowserRouter>
-		</Provider>,
-		document.getElementById('app')
+		</Provider>
 	)
 }
 

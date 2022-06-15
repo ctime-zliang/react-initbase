@@ -128,6 +128,7 @@ function RecordList(props: TRecordListProps) {
 					</Row>
 				</section>
 			</section>
+			{/* @ts-ignore */}
 			<Modal
 				title="Modal"
 				visible={isDeleteModalVisible}
