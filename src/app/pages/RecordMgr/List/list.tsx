@@ -19,22 +19,10 @@ const { Content } = Layout
 
 function RecordList(props: TRecordListProps) {
 	// console.log(`RecordList.props ❤❤❤`, props)
-	const {
-		g_RENDER_WAY,
-		list,
-		countTotal,
-		location,
-		history,
-		deleteItemsRequestAction,
-		handleToggleRowSelectAction,
-		fetchListRequestAction,
-		addItemRequestAction,
-	} = props
+	const { g_RENDER_WAY, list, countTotal, location, history, handleToggleRowSelectAction, fetchListRequestAction } = props
 	const { t } = useTranslation()
 	const [pageConfig, setPageConfig] = useState(basePageConfig)
 	const [tableLoading, setTableLoading] = useState<boolean>(false)
-	const [isDeleteModalVisible, setIsDeleteModelVisible] = useState<boolean>(false)
-	const [deleteModalTargetTitle, setDeleteModalTargetTitle] = useState<string | undefined>('')
 
 	const onPaginationChange = (pageIndex: number, pageSize: number | undefined): void => {
 		history.push({
@@ -58,28 +46,6 @@ function RecordList(props: TRecordListProps) {
 		}
 	}
 
-	const deleteRowData = async (): Promise<void> => {
-		const selectedIdList: string[] = list
-			.filter((item: TRecordMgrItem) => {
-				return item.isChecked
-			})
-			.map((item: TRecordMgrItem) => {
-				return item.id
-			})
-		try {
-			const res = await deleteItemsRequestAction(selectedIdList)
-			messageTips.success(`Deleted Success`)
-			setIsDeleteModelVisible(false)
-		} catch (error: any) {
-			messageTips.error(error.msg)
-		}
-	}
-
-	const handleDeleteItem = (itemData: TRecordMgrItem) => {
-		handleToggleRowSelectAction([itemData.key])
-		setIsDeleteModelVisible(true)
-	}
-
 	useEffect(() => {
 		const pageIndex = +getQueryValueOfUrl('pageIndex') || pageConfig.pageIndex
 		const pageSize = +getQueryValueOfUrl('pageSize') || pageConfig.pageSize
@@ -88,27 +54,12 @@ function RecordList(props: TRecordListProps) {
 		fetchTableData({ pageIndex, pageSize, keywords })
 	}, [location])
 
-	useEffect(() => {
-		if (!isDeleteModalVisible) {
-			return
-		}
-		const selectedList: Array<TRecordMgrItem> = list.filter((item: TRecordMgrItem, index: number) => {
-			return item.isChecked
-		})
-		setDeleteModalTargetTitle(selectedList.length ? selectedList[0].title : '')
-	}, [isDeleteModalVisible])
-
 	return (
 		<>
 			<section className={styles['list-container']}>
 				<section className={styles['list-wrapper']}>
 					<Content>
-						<ListTable
-							handleDeleteItem={handleDeleteItem}
-							handleToggleRowSelect={handleToggleRowSelectAction}
-							loading={tableLoading}
-							list={list}
-						/>
+						<ListTable handleToggleRowSelect={handleToggleRowSelectAction} loading={tableLoading} list={list} />
 					</Content>
 					<Row className={styles['pagination-wrapper']}>
 						<Pagination
@@ -128,26 +79,12 @@ function RecordList(props: TRecordListProps) {
 					</Row>
 				</section>
 			</section>
-			{/* @ts-ignore */}
-			<Modal
-				title="Modal"
-				visible={isDeleteModalVisible}
-				onOk={deleteRowData}
-				onCancel={() => {
-					setIsDeleteModelVisible(false)
-				}}
-			>
-				<p>
-					Are you sure you want to delete <span style={{ color: '#ff0000' }}>{deleteModalTargetTitle}</span> ?
-				</p>
-			</Modal>
 		</>
 	)
 }
 type TRecordListProps = {
 	list: Array<TRecordMgrItem>
 	handleToggleRowSelectAction: Function
-	deleteItemsRequestAction: Function
 	fetchListRequestAction: Function
 	addItemRequestAction: Function
 	[key: string]: any

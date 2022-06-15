@@ -78,7 +78,7 @@ export const listTableConfig = {
 								loading={itemData.isLoading}
 								style={{ paddingLeft: 0, paddingRight: 0 }}
 								onClick={() => {
-									profile.handleDeleteItem(itemData)
+									console.log('delete')
 								}}
 							>
 								[delete]

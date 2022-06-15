@@ -51,7 +51,6 @@ ListTableRoot.defaultProps = {
 type TListTableRootProps = {
 	list: Array<TRecordMgrItem>
 	loading: boolean
-	handleDeleteItem: Function
 	handleToggleRowSelect: Function
 }
 

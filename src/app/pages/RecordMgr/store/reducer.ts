@@ -19,18 +19,6 @@ const actionTypeReducers: { [key: string]: Function } = {
 		})
 		return newState
 	},
-	[ACTION_TYPE.RECORD_REMOVE_RECORD_ITEM](state: TRecordMgr, actionData: any): TRecordMgr {
-		const newState: TRecordMgr = JSON.parse(JSON.stringify(state))
-		const ids = actionData.ids || []
-		ids.forEach((item: number, index: number) => {
-			const findRes: TFindResults = findResults(newState.list, 'id', item)
-			if (findRes.index <= -1) {
-				return
-			}
-			newState.list.splice(findRes.index, 1)
-		})
-		return newState
-	},
 	[ACTION_TYPE.RECORD_TOGGLE_SELECT_KEYS](state: TRecordMgr, acionData: any): TRecordMgr {
 		const newState: TRecordMgr = JSON.parse(JSON.stringify(state))
 		const selectedKeys: number[] = acionData.selectedKeys
@@ -41,7 +29,6 @@ const actionTypeReducers: { [key: string]: Function } = {
 		})
 		return newState
 	},
-	/* ... */
 	[ACTION_TYPE.RECORD_MODIFY_COUNTTOTAL](state: TRecordMgr, acionData: any): TRecordMgr {
 		const newState: TRecordMgr = JSON.parse(JSON.stringify(state))
 		newState.countTotal = acionData.countTotal
