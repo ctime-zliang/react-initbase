@@ -53,7 +53,7 @@ function B2(props: any) {
 	})
 	return (
 		<div data-tag="B2">
-			<C2M />
+			<C2 count={count} />
 		</div>
 	)
 }
@@ -68,7 +68,6 @@ function C2(props: any) {
 	})
 	return <div data-tag="C2">C2 - {count}</div>
 }
-const C2M = React.memo(C2)
 
 function B3(props: any) {
 	const { count } = props
@@ -134,7 +133,7 @@ function C4(props: any) {
  */
 
 export function Wrapper(props: any) {
-	const [count, setCount] = useState<number>(0)
+	const [count, setCount] = useState(0)
 	return (
 		<div data-tag="wrapper">
 			<button
