@@ -1,4 +1,5 @@
 import React from 'react'
+import { BaseUseMemo, BaseUseCallback } from './Common'
 import { Parent as ReactForwardRefParent } from './ReactForwardRef'
 import { Wrapper as AsyncSetStateOfClassComponentWrapper } from './AsyncSetStateOfClassComponent'
 import { Wrapper as UseEffectExecSequentialWrapper } from './UseEffectExecSequential'
@@ -6,7 +7,7 @@ import { Wrapper as UseEffectExecSequentialWrapper } from './UseEffectExecSequen
 function TestPageRoot(props: any) {
 	return (
 		<>
-			<UseEffectExecSequentialWrapper />
+			<BaseUseCallback />
 		</>
 	)
 }
