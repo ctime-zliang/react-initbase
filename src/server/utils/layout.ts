@@ -33,7 +33,7 @@ export default ({ css, cssCommons, js, jsCommons, state, initialResult, content,
                 </script>
             </head>
             <body>
-                <div id="app" class="app">${content}</div>
+                <div id="reactApp" class="app">${content}</div>
                 ${jsString}
             </body>
         </html>

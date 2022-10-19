@@ -1,7 +1,7 @@
 import koa from 'koa'
 import React from 'react'
 import path from 'path'
-import { StaticRouter } from 'react-router-dom'
+import { StaticRouter } from 'react-router-dom/server'
 import { renderToString } from 'react-dom/server'
 import { Provider as ReduxProvider } from 'react-redux'
 import { HelmetProvider } from 'react-helmet-async'
@@ -30,10 +30,10 @@ const serverRenderer = (params: { [key: string]: any } = {}): ((ctx: TExtendKoaC
 			const content = renderToString(
 				sheet.collectStyles(
 					<ReduxProvider store={store}>
-						<StaticRouter location={ctx.request.url} context={{}}>
+						<StaticRouter location={ctx.request.url}>
 							<I18nProvider>
 								<HelmetProvider context={helmetContext}>
-									<App store={store} />
+									<App reduxStore={store} />
 								</HelmetProvider>
 							</I18nProvider>
 						</StaticRouter>

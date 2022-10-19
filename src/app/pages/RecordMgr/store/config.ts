@@ -1,1 +1,0 @@
-export const KEYOF_RECORD_REDUCER: string = 'RECORD_REDUCER'

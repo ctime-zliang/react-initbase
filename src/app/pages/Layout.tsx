@@ -1,16 +1,16 @@
 import React from 'react'
-import PageContent from '@app/modules/Componnet/PageContent'
-import PageHeader from '@app/modules/Componnet/PageHeader'
-import PageFooter from '@app/modules/Componnet/PageFooter'
+import PageHeader from '../modules/layout/pageHeader'
+import PageFooter from '../modules/layout/pageFooter'
+import PageContent from '../modules/layout/pageContent'
+import { TCommonComponentBaseProps } from '../types/comm.types'
 
-function Layout(props: any) {
+function Layout(props: TCommonComponentBaseProps): React.ReactElement {
 	console.log(`Layout ☆☆☆`, props)
-	const meta: { [key: string]: any } = props.meta || {}
 	return (
 		<>
-			<PageHeader {...props} {...meta} />
-			<PageContent>{props.children}</PageContent>
-			<PageFooter {...props} {...meta} />
+			<PageHeader {...props}></PageHeader>
+			<PageContent {...props}>{props.children}</PageContent>
+			<PageFooter {...props}></PageFooter>
 		</>
 	)
 }

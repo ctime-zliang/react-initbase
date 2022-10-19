@@ -245,9 +245,10 @@ function drawCanvas(canvasElement: HTMLCanvasElement, profile: any) {
 }
 
 export default class Clock {
-	rAFHandle: any
-	canvasElement
-	profile
+	rAFHandle: any = null
+	canvasElement: HTMLCanvasElement
+	profile: { [key: string]: any }
+
 	constructor(canvasElement: HTMLCanvasElement, profile: any) {
 		this.canvasElement = canvasElement
 		this.profile = initialProfile(profile)

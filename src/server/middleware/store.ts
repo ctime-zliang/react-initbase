@@ -1,10 +1,11 @@
 import koa from 'koa'
-import { configureStore } from '@app/store/rootStore'
-import { KEYOF_G_PROFILE_REDUCER, SERVER_RENDER } from '@app/store/globalProfile/config'
-import { createInitialState as createGProfileInitialState } from '@app/store/globalProfile/store'
-import { createRoutes, filterRoutes } from '@app/router'
-import { matchRoutes } from 'react-router-config'
+import { moduleKey as moduleKeyGlobalDefault } from '@app/store/globalDefault/config'
+import { createInitialState as createGlobalDefaultInitialState } from '@app/store/globalDefault/store'
+import { matchRoutes } from 'react-router-dom'
 import { TExtendKoaContext } from '@/server/types/koaContext'
+import { configureStore } from '@/app/store/redux'
+import { createRoutes, filterRoutes, flattenRoutes } from '@/app/pages/router'
+import { TRouteItem } from '@/app/utils/hoc/renderRoutes/renderRoutes'
 
 export default (params: { [key: string]: any } = {}): ((ctx: TExtendKoaContext, next: koa.Next) => Promise<void>) => {
 	return async (ctx: TExtendKoaContext, next: koa.Next): Promise<void> => {
@@ -17,18 +18,18 @@ export default (params: { [key: string]: any } = {}): ((ctx: TExtendKoaContext, 
 		let storeKeys: Array<string> = []
 		const store: any = configureStore({
 			initialState: {
-				[KEYOF_G_PROFILE_REDUCER]: { ...createGProfileInitialState(SERVER_RENDER, 'zh_cn') },
+				[moduleKeyGlobalDefault]: { ...createGlobalDefaultInitialState() },
 			},
 		})
 		const nowStoreKeys: Array<string> = Object.keys(store.getState() || {})
-		const routes = filterRoutes(createRoutes(store))
+		const routes: Array<TRouteItem> = flattenRoutes(createRoutes(store))
 		const branch = matchRoutes(routes, ctx.request.path)
 		const matchItems = branch && branch.length >= 2 ? [branch[branch.length - 1]] : branch
-		const promises: Array<Promise<any | null>> = matchItems.map((item: any): any | null => {
+		const promises: Array<Promise<any | null>> = (matchItems || []).map((item: any): any | null => {
 			storeKeys = [...(item.route.asyncStoreKeys || []), ...storeKeys]
-			const Component = item.route.component
-			const routerGetInitialProps = typeof item.route.getInitialProps == 'function' ? item.route.getInitialProps : null
-			const comptGetInitialProps = typeof Component.getInitialProps == 'function' ? Component.getInitialProps : null
+			const Component = item.route.component || item.route.element
+			const routerGetInitialProps = item.route.getInitialProps instanceof Function ? item.route.getInitialProps : null
+			const comptGetInitialProps = Component.getInitialProps instanceof Function ? Component.getInitialProps : null
 			const getInitialProps = routerGetInitialProps || comptGetInitialProps
 			return getInitialProps ? getInitialProps(store, ctx) : Promise.resolve(null)
 		})

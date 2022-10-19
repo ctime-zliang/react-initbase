@@ -74,7 +74,6 @@ interface Window {
 }
 
 declare module 'express-manifest-helpers'
-declare module 'react-router-config'
 declare module 'request'
 declare module 'window'
 declare module 'mockjs'
