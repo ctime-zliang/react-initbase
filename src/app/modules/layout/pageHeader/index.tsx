@@ -9,13 +9,17 @@ import { TCommonComponentBaseProps } from '../../../types/comm.types'
 
 const { Header } = Layout
 
+const layoutStyle: { [key: string]: string | number } = {
+	backgroundColor: `rgba(202, 202, 202, 0.5)`,
+}
+
 function PageHeaderRoot(props: TProps): React.ReactElement {
 	// console.log(`PageHeaderRoot ☆☆☆`, props)
 	const { g_languageSetting, changeLanguageSettingAction } = props
 	return (
 		<header className="app-page-header">
-			<Layout>
-				<Header>
+			<Layout style={layoutStyle}>
+				<Header style={layoutStyle}>
 					<a className="log-link" href="/" target="_blank" title="React App">
 						<div className="protail-wrapper">
 							<img className="log-img" src={logoImage} title="Logo Image" />
