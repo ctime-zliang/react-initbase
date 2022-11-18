@@ -2,13 +2,13 @@ import Layout from '../pages/layout'
 import { TRouteItem } from '../utils/hoc/renderRoutes/renderRoutes'
 import { TReduxStore } from '../store/public/types'
 /* ... */
-import { homeRoute } from '../pages/home/route'
-import { error404Route } from '../pages/errorPage/route'
-import { linkListRoute } from '../pages/linkList/route'
-import { articleListRoute } from '../pages/article/list/route'
-import { articleDetailRoute } from '../pages/article/detail/route'
-import { articleErrorRoute } from '../pages/article/error/route'
-import { reduxContainerRoute } from '../pages/redux/route'
+import { homeRoute } from './home/route'
+import { error404Route } from './errorPage/route'
+import { linkListRoute } from './linkList/route'
+import { articleListRoute } from './article/list/route'
+import { articleDetailRoute } from './article/detail/route'
+import { articleErrorRoute } from './article/error/route'
+import { reduxContainerRoute } from './redux/route'
 
 export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 	return [
